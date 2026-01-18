@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESSENCE — Personal Fragrance Library</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Nunito+Sans:wght@300;400;500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0d0d0d;
+            --black-soft: #161616;
+            --black-card: #1a1a1a;
+            --black-elevated: #222222;
+            --white: #ffffff;
+            --white-soft: #f5f5f5;
+            --white-muted: #a0a0a0;
+            --white-dim: #666666;
+            --gold: #c9a55c;
+            --gold-muted: #8a7340;
+            --serif: 'Cormorant Garamond', Georgia, serif;
+            --sans: 'Nunito Sans', -apple-system, sans-serif;
+        }
+
+        body {
+            font-family: var(--sans);
+            font-size: 14px;
+            font-weight: 400;
+            background: var(--black);
+            color: var(--white);
+            min-height: 100vh;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Layout */
+        .page {
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* Sidebar - Minimal */
+        .sidebar {
+            width: 80px;
+            background: var(--black);
+            border-right: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 32px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+        }
+
+        .logo-mark {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--serif);
+            font-size: 20px;
+            font-weight: 300;
+            color: var(--gold);
+            margin-bottom: 48px;
+        }
+
+        .nav-vertical {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white-dim);
+            cursor: pointer;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-icon:hover {
+            color: var(--white);
+        }
+
+        .nav-icon.active {
+            color: var(--gold);
+        }
+
+        .nav-icon.active::after {
+            content: '';
+            position: absolute;
+            right: -28px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2px;
+            height: 16px;
+            background: var(--gold);
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--gold-muted));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--serif);
+            font-size: 14px;
+            color: var(--black);
+        }
+
+        /* Main */
+        .main {
+            flex: 1;
+            margin-left: 80px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 56px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .header-title {
+            font-family: var(--serif);
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--white-muted);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .search-minimal {
+            font-family: var(--sans);
+            font-size: 13px;
+            font-weight: 300;
+            color: var(--white-dim);
+            cursor: pointer;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-minimal:hover {
+            color: var(--white);
+        }
+
+        .btn-add-header {
+            padding: 10px 24px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            font-family: var(--sans);
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--white);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-add-header:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+            padding: 56px;
+            overflow-y: auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-bottom: 72px;
+        }
+
+        .hero-label {
+            font-family: var(--sans);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .hero-title {
+            font-family: var(--serif);
+            font-size: 64px;
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .hero-subtitle {
+            font-family: var(--serif);
+            font-size: 20px;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--white-muted);
+            max-width: 500px;
+        }
+
+        /* Stats Row */
+        .stats-row {
+            display: flex;
+            gap: 64px;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            margin-bottom: 72px;
+        }
+
+        .stat {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+        }
+
+        .stat-value {
+            font-family: var(--serif);
+            font-size: 48px;
+            font-weight: 300;
+            color: var(--white);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-family: var(--sans);
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--white-dim);
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 72px;
+        }
+
+        /* Section */
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-family: var(--serif);
+            font-size: 24px;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        .section-action {
+            font-family: var(--sans);
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--white-dim);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            transition: color 0.3s;
+        }
+
+        .section-action:hover {
+            color: var(--gold);
+        }
+
+        /* Fragrance List - Editorial Cards */
+        .fragrance-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .fragrance-card {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 24px;
+            padding: 24px;
+            background: var(--black-card);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fragrance-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 0;
+            background: var(--gold);
+            transition: height 0.4s ease;
+        }
+
+        .fragrance-card:hover {
+            background: var(--black-elevated);
+        }
+
+        .fragrance-card:hover::before {
+            height: 100%;
+        }
+
+        .fragrance-image {
+            width: 100px;
+            height: 120px;
+            background: linear-gradient(145deg, var(--black-elevated), var(--black-soft));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--serif);
+            font-size: 32px;
+            font-style: italic;
+            color: var(--white-dim);
+        }
+
+        .fragrance-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .fragrance-meta-top {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 8px;
+        }
+
+        .fragrance-house {
+            font-family: var(--sans);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .fragrance-status {
+            font-family: var(--sans);
+            font-size: 9px;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--white-muted);
+            padding: 4px 10px;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .fragrance-name {
+            font-family: var(--serif);
+            font-size: 26px;
+            font-weight: 400;
+            font-style: italic;
+            margin-bottom: 8px;
+            transition: color 0.3s;
+        }
+
+        .fragrance-card:hover .fragrance-name {
+            color: var(--gold);
+        }
+
+        .fragrance-notes {
+            font-family: var(--sans);
+            font-size: 13px;
+            font-weight: 300;
+            color: var(--white-muted);
+            margin-bottom: 12px;
+        }
+
+        .fragrance-meta-bottom {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .fragrance-type {
+            font-family: var(--sans);
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--white-dim);
+            letter-spacing: 0.05em;
+        }
+
+        .fragrance-rating {
+            font-family: var(--serif);
+            font-size: 14px;
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        /* Featured - Large Editorial Card */
+        .featured-card {
+            background: var(--black-card);
+            padding: 40px;
+            position: relative;
+        }
+
+        .featured-card::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            right: 40px;
+            bottom: 40px;
+            border: 1px solid rgba(255,255,255,0.08);
+            pointer-events: none;
+        }
+
+        .featured-label {
+            font-family: var(--sans);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 32px;
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(145deg, var(--black-elevated), var(--black));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--serif);
+            font-size: 64px;
+            font-style: italic;
+            color: var(--white-dim);
+            margin-bottom: 32px;
+        }
+
+        .featured-house {
+            font-family: var(--sans);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--white-muted);
+            margin-bottom: 8px;
+        }
+
+        .featured-name {
+            font-family: var(--serif);
+            font-size: 36px;
+            font-weight: 300;
+            font-style: italic;
+            margin-bottom: 4px;
+        }
+
+        .featured-type {
+            font-family: var(--serif);
+            font-size: 16px;
+            font-style: italic;
+            color: var(--white-dim);
+            margin-bottom: 40px;
+        }
+
+        /* Notes - Vertical Layout */
+        .notes-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .note-level {
+            display: flex;
+            gap: 24px;
+        }
+
+        .note-label-container {
+            width: 80px;
+            flex-shrink: 0;
+        }
+
+        .note-label {
+            font-family: var(--sans);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--white-dim);
+        }
+
+        .note-time {
+            font-family: var(--serif);
+            font-size: 12px;
+            font-style: italic;
+            color: var(--white-dim);
+            opacity: 0.5;
+            margin-top: 2px;
+        }
+
+        .note-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .note-tag {
+            font-family: var(--serif);
+            font-size: 15px;
+            font-style: italic;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.03);
+            color: var(--white-muted);
+            transition: all 0.3s;
+            cursor: default;
+        }
+
+        .note-tag:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        /* Coming Soon */
+        .coming-soon {
+            margin-top: 32px;
+            padding: 28px;
+            border: 1px solid rgba(255,255,255,0.06);
+            text-align: center;
+        }
+
+        .coming-soon-label {
+            font-family: var(--sans);
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .coming-soon-text {
+            font-family: var(--serif);
+            font-size: 15px;
+            font-style: italic;
+            color: var(--white-dim);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--black);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--black-elevated);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--white-dim);
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-mark">F</div>
+
+            <nav class="nav-vertical">
+                <div class="nav-icon active" title="Collection">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="3" y="3" width="7" height="7"/>
+                        <rect x="14" y="3" width="7" height="7"/>
+                        <rect x="14" y="14" width="7" height="7"/>
+                        <rect x="3" y="14" width="7" height="7"/>
+                    </svg>
+                </div>
+                <div class="nav-icon" title="Wish List">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                </div>
+                <div class="nav-icon" title="Watch List">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                    </svg>
+                </div>
+                <div class="nav-icon" title="Clones">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <line x1="8" y1="6" x2="21" y2="6"/>
+                        <line x1="8" y1="12" x2="21" y2="12"/>
+                        <line x1="8" y1="18" x2="21" y2="18"/>
+                        <line x1="3" y1="6" x2="3.01" y2="6"/>
+                        <line x1="3" y1="12" x2="3.01" y2="12"/>
+                        <line x1="3" y1="18" x2="3.01" y2="18"/>
+                    </svg>
+                </div>
+                <div class="nav-icon" title="Houses">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-avatar">A</div>
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <main class="main">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-title">ESSENCE Library</div>
+                <div class="header-actions">
+                    <div class="search-minimal">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="11" cy="11" r="8"/>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                        Search
+                    </div>
+                    <button class="btn-add-header">+ Add Fragrance</button>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="content">
+                <!-- Hero -->
+                <div class="hero">
+                    <div class="hero-label">My Collection</div>
+                    <h1 class="hero-title">Fragrance Sanctuary</h1>
+                    <p class="hero-subtitle">A curated collection of scents, stories, and inspirations. Track your library of essences with precision and passion.</p>
+                </div>
+
+                <!-- Stats -->
+                <div class="stats-row">
+                    <div class="stat">
+                        <span class="stat-value">47</span>
+                        <span class="stat-label">Total Fragrances</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">32</span>
+                        <span class="stat-label">Owned</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">12</span>
+                        <span class="stat-label">Wish List</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">8</span>
+                        <span class="stat-label">Clones Tracked</span>
+                    </div>
+                </div>
+
+                <!-- Main Grid -->
+                <div class="main-grid">
+                    <!-- Left -->
+                    <div>
+                        <div class="section-header">
+                            <h2 class="section-title">Recent Additions</h2>
+                            <a href="#" class="section-action">View All →</a>
+                        </div>
+
+                        <div class="fragrance-grid">
+                            <div class="fragrance-card">
+                                <div class="fragrance-image">01</div>
+                                <div class="fragrance-content">
+                                    <div class="fragrance-meta-top">
+                                        <span class="fragrance-house">Creed</span>
+                                        <span class="fragrance-status">Owned</span>
+                                    </div>
+                                    <div class="fragrance-name">Aventus</div>
+                                    <div class="fragrance-notes">Pineapple, blackcurrant, ambroxan, oakmoss. The quintessential masculine fragrance.</div>
+                                    <div class="fragrance-meta-bottom">
+                                        <span class="fragrance-type">EDP 100ml</span>
+                                        <span class="fragrance-rating">★★★★★</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="fragrance-card">
+                                <div class="fragrance-image">02</div>
+                                <div class="fragrance-content">
+                                    <div class="fragrance-meta-top">
+                                        <span class="fragrance-house">Tom Ford</span>
+                                        <span class="fragrance-status">Owned</span>
+                                    </div>
+                                    <div class="fragrance-name">Oud Wood</div>
+                                    <div class="fragrance-notes">Oud, rosewood, cardamom, sandalwood, vetiver. Rare woods in perfect harmony.</div>
+                                    <div class="fragrance-meta-bottom">
+                                        <span class="fragrance-type">EDP 100ml</span>
+                                        <span class="fragrance-rating">★★★★☆</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="fragrance-card">
+                                <div class="fragrance-image">03</div>
+                                <div class="fragrance-content">
+                                    <div class="fragrance-meta-top">
+                                        <span class="fragrance-house">Maison Francis Kurkdjian</span>
+                                        <span class="fragrance-status">Wish List</span>
+                                    </div>
+                                    <div class="fragrance-name">Baccarat Rouge 540</div>
+                                    <div class="fragrance-notes">Jasmine, ambrette, cedarwood. Opulent, mysterious, timeless elegance.</div>
+                                    <div class="fragrance-meta-bottom">
+                                        <span class="fragrance-type">EDP 200ml</span>
+                                        <span class="fragrance-rating">★★★★★</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="fragrance-card">
+                                <div class="fragrance-image">04</div>
+                                <div class="fragrance-content">
+                                    <div class="fragrance-meta-top">
+                                        <span class="fragrance-house">Chanel</span>
+                                        <span class="fragrance-status">Owned</span>
+                                    </div>
+                                    <div class="fragrance-name">Bleu de Chanel</div>
+                                    <div class="fragrance-notes">Lemon, mint, cinnamon, sandalwood, vanilla. A modern classic for every occasion.</div>
+                                    <div class="fragrance-meta-bottom">
+                                        <span class="fragrance-type">EDT 100ml</span>
+                                        <span class="fragrance-rating">★★★★★</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right -->
+                    <div>
+                        <div class="section-header">
+                            <h2 class="section-title">Featured Scent</h2>
+                        </div>
+
+                        <div class="featured-card">
+                            <div class="featured-label">Signature Favorite</div>
+                            <div class="featured-image">✦</div>
+                            <div class="featured-house">Maison Francis Kurkdjian</div>
+                            <div class="featured-name">À la Rose</div>
+                            <div class="featured-type">A Modern Rose Composition</div>
+
+                            <div class="notes-vertical">
+                                <div class="note-level">
+                                    <div class="note-label-container">
+                                        <div class="note-label">Top Notes</div>
+                                        <div class="note-time">First Impression</div>
+                                    </div>
+                                    <div class="note-items">
+                                        <span class="note-tag">Bergamot</span>
+                                        <span class="note-tag">Bitter Orange</span>
+                                        <span class="note-tag">Pomegranate</span>
+                                    </div>
+                                </div>
+
+                                <div class="note-level">
+                                    <div class="note-label-container">
+                                        <div class="note-label">Heart Notes</div>
+                                        <div class="note-time">The Soul</div>
+                                    </div>
+                                    <div class="note-items">
+                                        <span class="note-tag">Damascus Rose</span>
+                                        <span class="note-tag">Bulgarian Rose</span>
+                                        <span class="note-tag">Osmanthus</span>
+                                        <span class="note-tag">Peony</span>
+                                    </div>
+                                </div>
+
+                                <div class="note-level">
+                                    <div class="note-label-container">
+                                        <div class="note-label">Base Notes</div>
+                                        <div class="note-time">Lasting Impression</div>
+                                    </div>
+                                    <div class="note-items">
+                                        <span class="note-tag">Sandalwood</span>
+                                        <span class="note-tag">Cedarwood</span>
+                                        <span class="note-tag">Musk</span>
+                                        <span class="note-tag">Amber</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="coming-soon">
+                            <div class="coming-soon-label">Coming Soon</div>
+                            <div class="coming-soon-text">Fragrantica import and AI-powered recommendations arriving this season</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
