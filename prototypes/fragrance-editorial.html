@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Inkwell — Literary Journal</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #f8f6f1;
+            --bg-card: #ffffff;
+            --ink: #1a1a1a;
+            --ink-light: #4a4a4a;
+            --ink-muted: #8a8a8a;
+            --ink-faint: #c0c0c0;
+            --accent: #8b4513;
+            --accent-light: #d4a574;
+            --rule: #e0ddd5;
+            --serif: 'Cormorant Garamond', Georgia, serif;
+            --sans: 'Inter', -apple-system, sans-serif;
+        }
+
+        body {
+            font-family: var(--sans);
+            font-size: 13px;
+            background: var(--bg);
+            color: var(--ink);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 220px;
+            background: var(--bg-card);
+            border-right: 1px solid var(--rule);
+            padding: 32px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            padding: 0 28px 32px;
+            border-bottom: 1px solid var(--rule);
+            margin-bottom: 24px;
+        }
+
+        .logo-text {
+            font-family: var(--serif);
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: var(--ink);
+        }
+
+        .logo-subtitle {
+            font-family: var(--sans);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--ink-muted);
+            margin-top: 2px;
+        }
+
+        .nav-section {
+            padding: 0 28px 24px;
+        }
+
+        .nav-section-title {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--ink-muted);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 8px 0;
+            color: var(--ink-light);
+            text-decoration: none;
+            font-size: 13px;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            color: var(--ink);
+        }
+
+        .nav-item.active {
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        .nav-item-count {
+            font-family: var(--serif);
+            font-style: italic;
+            color: var(--ink-muted);
+            margin-left: 4px;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 24px 28px;
+            border-top: 1px solid var(--rule);
+        }
+
+        .btn-add {
+            display: block;
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--ink);
+            border: none;
+            color: var(--bg);
+            font-family: var(--sans);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-add:hover {
+            background: var(--ink-light);
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--rule);
+            background: var(--bg-card);
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--rule);
+            padding: 10px 16px;
+            width: 300px;
+            background: var(--bg);
+            transition: all 0.2s;
+        }
+
+        .search-box:focus-within {
+            border-color: var(--ink-muted);
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--ink);
+            font-family: var(--sans);
+            font-size: 12px;
+            width: 100%;
+            margin-left: 10px;
+        }
+
+        .search-box input::placeholder {
+            color: var(--ink-muted);
+            font-style: italic;
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-name {
+            font-size: 12px;
+            color: var(--ink-light);
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--ink);
+            color: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .page-title {
+            font-family: var(--serif);
+            font-size: 42px;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+            line-height: 1.1;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--ink-muted);
+            font-style: italic;
+        }
+
+        .page-date {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--ink-muted);
+            margin-bottom: 8px;
+        }
+
+        /* Stats */
+        .stats-row {
+            display: flex;
+            gap: 0;
+            margin-bottom: 48px;
+            border-top: 2px solid var(--ink);
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .stat-item {
+            flex: 1;
+            padding: 20px 24px;
+            border-right: 1px solid var(--rule);
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-value {
+            font-family: var(--serif);
+            font-size: 36px;
+            font-weight: 400;
+            color: var(--ink);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--ink-muted);
+        }
+
+        /* Two Column Layout */
+        .columns {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 48px;
+        }
+
+        /* Panel */
+        .panel {
+            margin-bottom: 40px;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            border-bottom: 2px solid var(--ink);
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+        }
+
+        .panel-title {
+            font-family: var(--serif);
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .panel-action {
+            font-size: 11px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            font-style: italic;
+        }
+
+        .panel-action:hover {
+            color: var(--ink);
+        }
+
+        /* Article List */
+        .article-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-item {
+            display: grid;
+            grid-template-columns: 1fr auto auto auto;
+            gap: 16px;
+            align-items: baseline;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--rule);
+            cursor: pointer;
+        }
+
+        .article-item:hover .article-title {
+            color: var(--accent);
+        }
+
+        .article-info {
+            min-width: 0;
+        }
+
+        .article-title {
+            font-family: var(--serif);
+            font-size: 17px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .article-author {
+            font-size: 12px;
+            color: var(--ink-muted);
+            font-style: italic;
+        }
+
+        .article-excerpt {
+            font-size: 11px;
+            color: var(--ink-muted);
+            margin-top: 4px;
+        }
+
+        .tag {
+            font-size: 9px;
+            padding: 4px 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .tag-published {
+            background: var(--ink);
+            color: var(--bg);
+        }
+
+        .tag-draft {
+            background: none;
+            border: 1px solid var(--ink-muted);
+            color: var(--ink-muted);
+        }
+
+        .tag-category {
+            background: none;
+            color: var(--ink-muted);
+            padding: 4px 0;
+        }
+
+        .read-time {
+            font-family: var(--serif);
+            font-size: 14px;
+            color: var(--accent);
+            letter-spacing: 0;
+            font-style: italic;
+        }
+
+        /* Featured Section */
+        .featured-card {
+            background: var(--bg-card);
+            border: 1px solid var(--rule);
+            padding: 28px;
+        }
+
+        .featured-header {
+            text-align: center;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--rule);
+            margin-bottom: 24px;
+        }
+
+        .featured-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--ink-muted);
+            margin-bottom: 12px;
+        }
+
+        .featured-name {
+            font-family: var(--serif);
+            font-size: 28px;
+            font-weight: 400;
+            margin-bottom: 4px;
+        }
+
+        .featured-brand {
+            font-size: 13px;
+            color: var(--ink-muted);
+            font-style: italic;
+        }
+
+        .notes-section {
+            margin-bottom: 20px;
+        }
+
+        .notes-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .notes-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .notes-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--ink-muted);
+            font-weight: 500;
+        }
+
+        .notes-time {
+            font-size: 10px;
+            color: var(--ink-faint);
+            font-style: italic;
+        }
+
+        .notes-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .note-item {
+            font-family: var(--serif);
+            font-size: 15px;
+            color: var(--ink-light);
+            padding: 4px 12px;
+            background: var(--bg);
+            border: 1px solid var(--rule);
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 24px 0;
+            color: var(--ink-faint);
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--rule);
+        }
+
+        .divider-icon {
+            font-size: 14px;
+        }
+
+        /* Coming Soon */
+        .coming-soon {
+            padding: 20px 28px;
+            background: var(--bg);
+            margin: 0 28px;
+        }
+
+        .coming-soon-title {
+            font-family: var(--serif);
+            font-size: 14px;
+            font-style: italic;
+            color: var(--ink-light);
+            margin-bottom: 4px;
+        }
+
+        .coming-soon-text {
+            font-size: 11px;
+            color: var(--ink-muted);
+        }
+
+        /* Settings link */
+        .settings-link {
+            display: block;
+            padding: 12px 28px;
+            font-size: 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .settings-link:hover {
+            color: var(--ink);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--rule);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ink-faint);
+        }
+
+        /* Small decorative elements */
+        .ornament {
+            font-family: var(--serif);
+            color: var(--ink-faint);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-text">The Inkwell</div>
+                <div class="logo-subtitle">Literary Journal</div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Navigation</div>
+                <a class="nav-item active">Dashboard</a>
+                <a class="nav-item">All Articles <span class="nav-item-count">(89)</span></a>
+                <a class="nav-item">Collections <span class="nav-item-count">(5)</span></a>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Categories</div>
+                <a class="nav-item">Essays <span class="nav-item-count">(32)</span></a>
+                <a class="nav-item">Reviews <span class="nav-item-count">(24)</span></a>
+                <a class="nav-item">Fiction <span class="nav-item-count">(18)</span></a>
+                <a class="nav-item">Poetry <span class="nav-item-count">(15)</span></a>
+            </div>
+
+            <div class="coming-soon">
+                <div class="coming-soon-title">Coming Soon</div>
+                <div class="coming-soon-text">Submit your work for our Spring issue consideration</div>
+            </div>
+
+            <div class="sidebar-footer">
+                <button class="btn-add">+ New Article</button>
+            </div>
+        </div>
+
+        <!-- Main -->
+        <div class="main">
+            <!-- Header -->
+            <div class="header">
+                <div class="search-box">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <input type="text" placeholder="Search articles, authors, topics...">
+                </div>
+                <div class="user-area">
+                    <span class="user-name">E. Blackwood</span>
+                    <div class="user-avatar">EB</div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="content">
+                <div class="page-header">
+                    <div class="page-date">January 18, 2026</div>
+                    <h1 class="page-title">Editor's Desk</h1>
+                    <p class="page-subtitle">Welcome back. Here's your publication at a glance.</p>
+                </div>
+
+                <!-- Stats -->
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <div class="stat-value">47</div>
+                        <div class="stat-label">Published</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Drafts</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">Contributors</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">3.2k</div>
+                        <div class="stat-label">Subscribers</div>
+                    </div>
+                </div>
+
+                <!-- Two Columns -->
+                <div class="columns">
+                    <!-- Left: Recent Articles -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h2 class="panel-title">Recent Articles</h2>
+                            <a href="#" class="panel-action">View all →</a>
+                        </div>
+                        <div class="article-list">
+                            <div class="article-item">
+                                <div class="article-info">
+                                    <div class="article-title">On the Nature of Solitude</div>
+                                    <div class="article-author">by Margaret Holloway</div>
+                                    <div class="article-excerpt">A meditation on finding peace in isolation and the quiet revelations of being alone.</div>
+                                </div>
+                                <span class="tag tag-published">Published</span>
+                                <span class="tag tag-category">Essay</span>
+                                <span class="read-time">8 min</span>
+                            </div>
+
+                            <div class="article-item">
+                                <div class="article-info">
+                                    <div class="article-title">The Lost Art of Letter Writing</div>
+                                    <div class="article-author">by Thomas Ashford</div>
+                                    <div class="article-excerpt">How the decline of personal correspondence has changed our emotional landscape.</div>
+                                </div>
+                                <span class="tag tag-published">Published</span>
+                                <span class="tag tag-category">Essay</span>
+                                <span class="read-time">12 min</span>
+                            </div>
+
+                            <div class="article-item">
+                                <div class="article-info">
+                                    <div class="article-title">Review: The Midnight Library</div>
+                                    <div class="article-author">by Claire Whitman</div>
+                                    <div class="article-excerpt">Matt Haig's exploration of regret and possibility strikes a profound chord.</div>
+                                </div>
+                                <span class="tag tag-draft">Draft</span>
+                                <span class="tag tag-category">Review</span>
+                                <span class="read-time">6 min</span>
+                            </div>
+
+                            <div class="article-item">
+                                <div class="article-info">
+                                    <div class="article-title">Autumn in Vermont</div>
+                                    <div class="article-author">by Samuel Pierce</div>
+                                    <div class="article-excerpt">A short story about second chances and the colors of change.</div>
+                                </div>
+                                <span class="tag tag-published">Published</span>
+                                <span class="tag tag-category">Fiction</span>
+                                <span class="read-time">15 min</span>
+                            </div>
+
+                            <div class="article-item">
+                                <div class="article-info">
+                                    <div class="article-title">Three Poems for Winter</div>
+                                    <div class="article-author">by Elena Vance</div>
+                                    <div class="article-excerpt">Cold mornings, warm tea, and the weight of snow on bare branches.</div>
+                                </div>
+                                <span class="tag tag-draft">Draft</span>
+                                <span class="tag tag-category">Poetry</span>
+                                <span class="read-time">4 min</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Featured -->
+                    <div>
+                        <div class="panel">
+                            <div class="panel-header">
+                                <h2 class="panel-title">Editor's Pick</h2>
+                            </div>
+                            <div class="featured-card">
+                                <div class="featured-header">
+                                    <div class="featured-label">Featured Essay</div>
+                                    <div class="featured-name">On the Nature of Solitude</div>
+                                    <div class="featured-brand">Margaret Holloway — Essay</div>
+                                </div>
+
+                                <div class="notes-section">
+                                    <div class="notes-header">
+                                        <span class="notes-label">Opening</span>
+                                        <span class="notes-time">excerpt</span>
+                                    </div>
+                                    <div class="notes-list">
+                                        <span class="note-item">Silence</span>
+                                        <span class="note-item">Reflection</span>
+                                        <span class="note-item">Memory</span>
+                                    </div>
+                                </div>
+
+                                <div class="divider"><span class="divider-icon ornament">❧</span></div>
+
+                                <div class="notes-section">
+                                    <div class="notes-header">
+                                        <span class="notes-label">Themes</span>
+                                        <span class="notes-time">explored</span>
+                                    </div>
+                                    <div class="notes-list">
+                                        <span class="note-item">Isolation</span>
+                                        <span class="note-item">Self-Discovery</span>
+                                        <span class="note-item">Nature</span>
+                                    </div>
+                                </div>
+
+                                <div class="divider"><span class="divider-icon ornament">❧</span></div>
+
+                                <div class="notes-section">
+                                    <div class="notes-header">
+                                        <span class="notes-label">Related</span>
+                                        <span class="notes-time">reading</span>
+                                    </div>
+                                    <div class="notes-list">
+                                        <span class="note-item">Walden</span>
+                                        <span class="note-item">Pilgrim at Tinker Creek</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
