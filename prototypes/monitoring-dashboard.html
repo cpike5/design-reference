@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Monitoring Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap">
+    <style>
+        * {
+            font-family: 'Open Sans', sans-serif;
+        }
+        
+        /* Gradient background matching original */
+        .bg-gradient-main {
+            background: linear-gradient(145deg, #1a3a4a 0%, #2a5a6a 40%, #4a8a9a 100%);
+        }
+        
+        /* Sidebar solid dark color */
+        .sidebar-bg {
+            background-color: #2c3e50;
+        }
+        
+        /* Circular progress rings */
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        
+        /* Active nav item - cyan left border */
+        .nav-active {
+            border-left: 3px solid #3498db;
+            background: rgba(255,255,255,0.05);
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+        
+        /* Chart tooltip */
+        .chart-tooltip {
+            background: #2d3748;
+            color: white;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            position: absolute;
+            pointer-events: none;
+            z-index: 100;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .chart-tooltip::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #2d3748;
+        }
+        
+        /* Bar styling */
+        .chart-bar {
+            background: linear-gradient(to top, #5dade2 0%, #85c1e9 100%);
+            border-radius: 3px 3px 0 0;
+            transition: all 0.2s ease;
+        }
+        .chart-bar:hover {
+            background: linear-gradient(to top, #3498db 0%, #5dade2 100%);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sidebar': '#2c3e50',
+                        'sidebar-text': '#95a5b6',
+                        'accent-blue': '#3498db',
+                        'accent-purple': '#9b59b6',
+                        'accent-cyan': '#1abc9c',
+                        'accent-teal': '#17a2b8',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-main min-h-screen">
+    <div class="flex min-h-screen p-4 md:p-6">
+        <!-- Sidebar -->
+        <aside class="sidebar-bg w-52 rounded-l-xl flex flex-col text-white shadow-lg">
+            <!-- User Profile -->
+            <div class="p-5 text-center">
+                <div class="w-16 h-16 mx-auto mb-2 rounded-full overflow-hidden border-2 border-white/20 bg-slate-600">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=admin&backgroundColor=c0aede" alt="Admin" class="w-full h-full object-cover">
+                </div>
+                <div class="flex items-center justify-center gap-1 text-sm">
+                    <span class="font-medium">Admin User</span>
+                    <i data-lucide="chevron-down" class="w-3.5 h-3.5 opacity-70"></i>
+                </div>
+            </div>
+            
+            <!-- Main Navigation -->
+            <nav class="flex-1 py-2">
+                <div class="px-5 mb-1">
+                    <span class="text-[10px] uppercase tracking-wider text-sidebar-text font-semibold">Main</span>
+                </div>
+                <ul class="space-y-0.5 mb-4">
+                    <li>
+                        <a href="#" class="flex items-center gap-3 px-5 py-2 text-sidebar-text hover:bg-white/5 hover:text-white transition text-sm">
+                            <i data-lucide="home" class="w-4 h-4"></i>
+                            <span>HOME</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center gap-3 px-5 py-2 text-white hover:bg-white/5 transition text-sm nav-active">
+                            <i data-lucide="activity" class="w-4 h-4"></i>
+                            <span>APPLICATIONS</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center gap-3 px-5 py-2 text-sidebar-text hover:bg-white/5 hover:text-white transition text-sm">
+                            <i data-lucide="server" class="w-4 h-4"></i>
+                            <span>SERVERS</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center gap-3 px-5 py-2 text-sidebar-text hover:bg-white/5 hover:text-white transition text-sm">
+                            <i data-lucide="bell" class="w-4 h-4"></i>
+                            <span>ALERTS</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center gap-3 px-5 py-2 text-sidebar-text hover:bg-white/5 hover:text-white transition text-sm">
+                            <i data-lucide="calendar" class="w-4 h-4"></i>
+                            <span>SCHEDULE</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="px-5 mb-1">
+                    <span class="text-[10px] uppercase tracking-wider text-sidebar-text font-semibold">Admin</span>
+                </div>
+                <ul class="space-y-0.5 mb-4">
+                    <li>
+                        <a href="#" class="flex items-center gap-3 px-5 py-2 text-sidebar-text hover:bg-white/5 hover:text-white transition text-sm">
+                            <i data-lucide="users" class="w-4 h-4"></i>
+                            <span>USERS</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center gap-3 px-5 py-2 text-sidebar-text hover:bg-white/5 hover:text-white transition text-sm">
+                            <i data-lucide="database" class="w-4 h-4"></i>
+                            <span>DATABASES</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center gap-3 px-5 py-2 text-sidebar-text hover:bg-white/5 hover:text-white transition text-sm">
+                            <i data-lucide="git-branch" class="w-4 h-4"></i>
+                            <span>DEPLOYMENTS</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center gap-3 px-5 py-2 text-sidebar-text hover:bg-white/5 hover:text-white transition text-sm">
+                            <i data-lucide="shield" class="w-4 h-4"></i>
+                            <span>SECURITY</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center gap-3 px-5 py-2 text-sidebar-text hover:bg-white/5 hover:text-white transition text-sm">
+                            <i data-lucide="settings" class="w-4 h-4"></i>
+                            <span>SETTINGS</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <!-- Environment Categories -->
+                <div class="px-5 mb-2">
+                    <span class="text-[10px] uppercase tracking-wider text-sidebar-text font-semibold">Environments</span>
+                </div>
+                <ul class="space-y-2 px-5">
+                    <li class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-sm bg-amber-400"></span>
+                        <span class="text-sidebar-text text-sm">Development</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-sm bg-blue-400"></span>
+                        <span class="text-sidebar-text text-sm">Staging</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-sm bg-rose-400"></span>
+                        <span class="text-sidebar-text text-sm">Production</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-sm bg-emerald-400"></span>
+                        <span class="text-sidebar-text text-sm">Testing</span>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="flex-1 bg-white rounded-r-xl shadow-xl overflow-hidden flex flex-col">
+            <!-- Top Header Bar -->
+            <header class="flex items-center justify-between px-5 py-2.5 border-b border-gray-100 bg-white">
+                <div class="flex items-center gap-3">
+                    <button class="text-gray-400 hover:text-gray-600 p-1">
+                        <i data-lucide="menu" class="w-5 h-5"></i>
+                    </button>
+                    <div class="relative">
+                        <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-300"></i>
+                        <input type="text" placeholder="Search for an app, server or log" class="pl-9 pr-4 py-1.5 w-72 bg-white border border-gray-200 rounded text-sm text-gray-600 placeholder-gray-400 focus:outline-none focus:border-blue-400">
+                    </div>
+                </div>
+                <div class="flex items-center gap-1">
+                    <button class="w-9 h-9 flex items-center justify-center bg-accent-blue text-white rounded">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                    </button>
+                    <button class="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded">
+                        <i data-lucide="bell" class="w-4 h-4"></i>
+                    </button>
+                    <button class="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded">
+                        <i data-lucide="grid-3x3" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Page Content -->
+            <div class="flex-1 overflow-auto p-5">
+                <!-- Page Title -->
+                <div class="flex items-start justify-between mb-4">
+                    <div>
+                        <h1 class="text-xl font-semibold text-gray-700 mb-0.5">E-Commerce API Service</h1>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="monitor" class="w-3.5 h-3.5 text-gray-400"></i>
+                            <span class="text-gray-400 text-sm">prod-api-east-1</span>
+                            <a href="#" class="text-accent-blue text-sm hover:underline">View logs</a>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white text-green-500 rounded-full text-xs font-semibold border border-green-400">
+                            <span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                            HEALTHY
+                        </span>
+                        <button class="w-8 h-8 flex items-center justify-center text-gray-300 hover:text-gray-500 hover:bg-gray-50 rounded border border-gray-200">
+                            <i data-lucide="bookmark" class="w-4 h-4"></i>
+                        </button>
+                        <button class="w-8 h-8 flex items-center justify-center text-gray-300 hover:text-gray-500 hover:bg-gray-50 rounded border border-gray-200">
+                            <i data-lucide="pencil" class="w-4 h-4"></i>
+                        </button>
+                        <button class="w-8 h-8 flex items-center justify-center text-gray-300 hover:text-gray-500 hover:bg-gray-50 rounded border border-gray-200">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Tabs -->
+                <div class="flex items-center gap-6 border-b border-gray-200 mb-5">
+                    <button class="pb-2.5 text-gray-700 text-sm font-semibold border-b-2 border-gray-700 -mb-px">SUMMARY</button>
+                    <button class="pb-2.5 text-gray-400 text-sm hover:text-gray-600">METRICS</button>
+                    <button class="pb-2.5 text-gray-400 text-sm hover:text-gray-600">LOGS</button>
+                    <button class="pb-2.5 text-gray-400 text-sm hover:text-gray-600">TRACES</button>
+                    <button class="pb-2.5 text-gray-400 text-sm hover:text-gray-600">ERRORS</button>
+                    <button class="pb-2.5 text-gray-400 text-sm hover:text-gray-600">ALERTS</button>
+                    <button class="pb-2.5 text-gray-400 text-sm hover:text-gray-600">SETTINGS</button>
+                </div>
+                
+                <!-- Stats Section -->
+                <div class="flex gap-6 mb-4">
+                    <!-- Circular Stats -->
+                    <div class="flex gap-4 items-center">
+                        <!-- Requests - Purple/Magenta ring -->
+                        <div class="text-center">
+                            <div class="relative w-24 h-24">
+                                <svg class="progress-ring w-full h-full" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="40" fill="none" stroke="#f0f0f0" stroke-width="6"/>
+                                    <circle cx="50" cy="50" r="40" fill="none" stroke="#e74c8c" stroke-width="6" 
+                                            stroke-dasharray="251.2" stroke-dashoffset="50" stroke-linecap="round"/>
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <span class="text-xl font-bold text-gray-600">24.5K</span>
+                                    <span class="text-[10px] text-gray-400 uppercase tracking-wide">Requests</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Response Time - Teal/Cyan ring -->
+                        <div class="text-center">
+                            <div class="relative w-24 h-24">
+                                <svg class="progress-ring w-full h-full" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="40" fill="none" stroke="#f0f0f0" stroke-width="6"/>
+                                    <circle cx="50" cy="50" r="40" fill="none" stroke="#1abc9c" stroke-width="6" 
+                                            stroke-dasharray="251.2" stroke-dashoffset="63" stroke-linecap="round"/>
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <span class="text-xl font-bold text-gray-600">142</span>
+                                    <span class="text-[10px] text-gray-400 uppercase tracking-wide">Avg ms</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Error Rate - Blue ring (small fill) -->
+                        <div class="text-center">
+                            <div class="relative w-24 h-24">
+                                <svg class="progress-ring w-full h-full" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="40" fill="none" stroke="#f0f0f0" stroke-width="6"/>
+                                    <circle cx="50" cy="50" r="40" fill="none" stroke="#3498db" stroke-width="6" 
+                                            stroke-dasharray="251.2" stroke-dashoffset="239" stroke-linecap="round"/>
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <span class="text-xl font-bold text-gray-600">0.3%</span>
+                                    <span class="text-[10px] text-gray-400 uppercase tracking-wide">Errors</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chart Section -->
+                    <div class="flex-1 pl-4">
+                        <div class="relative h-32">
+                            <!-- Tooltip -->
+                            <div id="chartTooltip" class="chart-tooltip hidden">
+                                <div class="font-semibold">Wednesday, Jan 15</div>
+                                <div><span class="text-cyan-300">2,847</span> Requests / <span class="text-pink-300">12</span> Errors</div>
+                            </div>
+                            
+                            <!-- Y-axis labels -->
+                            <div class="absolute left-0 top-0 bottom-6 w-8 flex flex-col justify-between text-[10px] text-gray-400 text-right pr-2">
+                                <span>500</span>
+                                <span>400</span>
+                                <span>300</span>
+                                <span>200</span>
+                                <span>100</span>
+                                <span>0</span>
+                            </div>
+                            
+                            <!-- Chart container -->
+                            <div class="ml-8 h-full flex flex-col">
+                                <div class="flex-1 flex items-end gap-1" id="barChart">
+                                    <!-- Bars generated by JS -->
+                                </div>
+                                
+                                <!-- X-axis labels -->
+                                <div class="flex justify-between text-[10px] text-gray-400 pt-1.5 px-0.5" id="xAxisLabels">
+                                    <!-- Labels generated by JS -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-end mt-1">
+                            <span class="px-2.5 py-0.5 text-[10px] text-gray-400 border border-gray-200 rounded">REQUESTS/DAY</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Totals Label -->
+                <div class="flex justify-center mb-4">
+                    <span class="px-4 py-1.5 text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-full">
+                        TOTALS · Last 14 days · <strong class="text-gray-700">342,156</strong> requests
+                    </span>
+                </div>
+                
+                <!-- Collapse Indicator -->
+                <div class="flex justify-center mb-5">
+                    <button class="w-7 h-7 flex items-center justify-center text-gray-300 hover:text-gray-500 border border-gray-200 rounded-full">
+                        <i data-lucide="chevron-up" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                
+                <!-- Two Column Layout -->
+                <div class="flex gap-5">
+                    <!-- Service Details Card -->
+                    <div class="flex-1 bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+                        <div class="flex items-center gap-3 px-4 py-2.5 bg-gray-600">
+                            <span class="text-white font-semibold text-sm">SERVICE DETAILS</span>
+                            <button class="flex items-center gap-1.5 px-2.5 py-1 bg-gray-500 text-white text-xs rounded hover:bg-gray-400">
+                                <i data-lucide="pencil" class="w-3 h-3"></i>
+                                EDIT
+                            </button>
+                        </div>
+                        
+                        <div class="divide-y divide-gray-100">
+                            <div class="flex px-4 py-3">
+                                <div class="w-40">
+                                    <span class="text-[11px] text-gray-400 uppercase font-medium tracking-wide">Service Name</span>
+                                </div>
+                                <div class="flex-1">
+                                    <span class="text-sm text-gray-700">E-Commerce API Service</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex px-4 py-3">
+                                <div class="w-40">
+                                    <span class="text-[11px] text-gray-400 uppercase font-medium tracking-wide">Environment</span>
+                                </div>
+                                <div class="flex-1">
+                                    <span class="text-sm text-gray-700">Production</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex px-4 py-3">
+                                <div class="w-40">
+                                    <span class="text-[11px] text-gray-400 uppercase font-medium tracking-wide">Technology</span>
+                                </div>
+                                <div class="flex-1">
+                                    <span class="text-sm text-gray-700">.NET 8 / ASP.NET Core</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex px-4 py-3">
+                                <div class="w-40">
+                                    <span class="text-[11px] text-gray-400 uppercase font-medium tracking-wide">Instances</span>
+                                </div>
+                                <div class="flex-1">
+                                    <span class="text-sm text-gray-700">3 Active / 5 Max</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex px-4 py-3">
+                                <div class="w-40">
+                                    <span class="text-[11px] text-gray-400 uppercase font-medium tracking-wide">Status</span>
+                                </div>
+                                <div class="flex-1">
+                                    <span class="text-sm text-green-500 font-medium">Healthy</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex px-4 py-3">
+                                <div class="w-40">
+                                    <span class="text-[11px] text-gray-400 uppercase font-medium tracking-wide">Description</span>
+                                </div>
+                                <div class="flex-1">
+                                    <span class="text-sm text-gray-700 leading-relaxed">Primary API service handling product catalog, shopping cart, checkout, and order management. Connects to SQL Server and Redis cache.</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex px-4 py-3">
+                                <div class="w-40">
+                                    <span class="text-[11px] text-gray-400 uppercase font-medium tracking-wide">Team Lead</span>
+                                </div>
+                                <div class="flex-1 flex items-center gap-2">
+                                    <div class="w-7 h-7 rounded-full overflow-hidden bg-gray-200">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=sarah" alt="Sarah Chen" class="w-full h-full">
+                                    </div>
+                                    <span class="text-sm text-gray-700">Sarah Chen</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex px-4 py-3">
+                                <div class="w-40">
+                                    <span class="text-[11px] text-gray-400 uppercase font-medium tracking-wide">SLA Target</span>
+                                </div>
+                                <div class="flex-1">
+                                    <span class="text-sm text-gray-800 font-semibold">99.9% Uptime</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Sidebar Actions -->
+                    <div class="w-56 space-y-3">
+                        <!-- Quick Actions - Outline style buttons -->
+                        <button class="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-500 text-white text-sm font-medium rounded hover:bg-blue-600 transition">
+                            <i data-lucide="terminal" class="w-4 h-4"></i>
+                            Open Console
+                        </button>
+                        <button class="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-orange-400 text-white text-sm font-medium rounded hover:bg-orange-500 transition">
+                            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                            Restart Service
+                        </button>
+                        <button class="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-teal-500 text-white text-sm font-medium rounded hover:bg-teal-600 transition">
+                            <i data-lucide="file-text" class="w-4 h-4"></i>
+                            View Full Logs
+                        </button>
+                        
+                        <!-- Service Endpoint -->
+                        <div class="pt-3">
+                            <div class="flex items-center gap-1.5 mb-1">
+                                <i data-lucide="link" class="w-3.5 h-3.5 text-gray-400"></i>
+                                <span class="text-sm font-medium text-gray-600">Service Endpoint</span>
+                            </div>
+                            <p class="text-[11px] text-gray-400 mb-1.5">The base URL for this API service.</p>
+                            <div class="flex">
+                                <input type="text" value="https://api.example.com..." readonly class="flex-1 px-2.5 py-1.5 text-xs bg-gray-50 border border-gray-200 border-r-0 rounded-l text-gray-500 truncate min-w-0">
+                                <button class="px-3 py-1.5 bg-rose-500 text-white text-xs font-medium rounded-r hover:bg-rose-600">Copy</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Status Badge -->
+                        <div class="pt-2">
+                            <div class="flex items-center gap-1.5 mb-1">
+                                <i data-lucide="code" class="w-3.5 h-3.5 text-gray-400"></i>
+                                <span class="text-sm font-medium text-gray-600">Status Badge</span>
+                            </div>
+                            <p class="text-[11px] text-gray-400 mb-1.5">Embed this status badge on your website.</p>
+                            <div class="flex">
+                                <input type="text" value='<img src="https://status...' readonly class="flex-1 px-2.5 py-1.5 text-xs bg-gray-50 border border-gray-200 border-r-0 rounded-l text-gray-500 truncate min-w-0">
+                                <button class="px-3 py-1.5 bg-rose-500 text-white text-xs font-medium rounded-r hover:bg-rose-600">Copy</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Webhook -->
+                        <div class="pt-2">
+                            <div class="flex items-center gap-1.5 mb-1">
+                                <i data-lucide="send" class="w-3.5 h-3.5 text-gray-400"></i>
+                                <span class="text-sm font-medium text-gray-600">Alert Webhook</span>
+                            </div>
+                            <p class="text-[11px] text-gray-400 mb-1.5">Send alerts to this webhook endpoint.</p>
+                            <div class="px-2.5 py-1.5 bg-gray-50 border border-gray-200 rounded">
+                                <span class="text-xs text-gray-500 truncate block">alerts@team.example.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Chart data - varying heights like original
+        const chartData = [
+            180, 220, 320, 280, 180, 120, 140,  // Week 1
+            260, 340, 380, 420, 380, 340, 280   // Week 2
+        ];
+        
+        const maxValue = Math.max(...chartData);
+        const chartContainer = document.getElementById('barChart');
+        const xAxisContainer = document.getElementById('xAxisLabels');
+        const tooltip = document.getElementById('chartTooltip');
+        
+        const dayLabels = ['S', 'M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S'];
+        
+        chartData.forEach((value, index) => {
+            // Create bar
+            const barHeight = (value / maxValue) * 100;
+            const bar = document.createElement('div');
+            bar.className = 'chart-bar flex-1 cursor-pointer min-w-0';
+            bar.style.height = `${barHeight}%`;
+            
+            bar.addEventListener('mouseenter', (e) => {
+                const date = new Date();
+                date.setDate(date.getDate() - (chartData.length - 1 - index));
+                const dateStr = date.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+                const requests = Math.round(value * 10);
+                const errors = Math.round(Math.random() * 15);
+                
+                tooltip.classList.remove('hidden');
+                tooltip.innerHTML = `
+                    <div class="font-semibold">${dateStr}</div>
+                    <div><span class="text-cyan-300">${requests.toLocaleString()}</span> Requests / <span class="text-pink-300">${errors}</span> Errors</div>
+                `;
+                
+                const rect = bar.getBoundingClientRect();
+                const containerRect = chartContainer.getBoundingClientRect();
+                tooltip.style.left = `${rect.left - containerRect.left + rect.width / 2 - tooltip.offsetWidth / 2}px`;
+                tooltip.style.top = '-65px';
+            });
+            
+            bar.addEventListener('mouseleave', () => {
+                tooltip.classList.add('hidden');
+            });
+            
+            chartContainer.appendChild(bar);
+        });
+        
+        // Add x-axis labels
+        dayLabels.forEach(label => {
+            const span = document.createElement('span');
+            span.className = 'flex-1 text-center';
+            span.textContent = label;
+            xAxisContainer.appendChild(span);
+        });
+    </script>
+</body>
+</html>
