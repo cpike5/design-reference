@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Collection</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400&family=IM+Fell+English:ital@0;1&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #f7f3eb;
+            --cream-dark: #ece6d9;
+            --parchment: #faf8f3;
+            --sepia: #5c4a37;
+            --sepia-light: #7d6b58;
+            --sepia-dark: #3d3128;
+            --brown: #8b7355;
+            --gold: #a67c52;
+            --gold-light: #c9a66b;
+            --ink: #2c241d;
+            --ink-faded: #6b5d4d;
+            --rule: #d4c9b8;
+            --rule-dark: #b8a88f;
+            --display: 'Playfair Display', Georgia, serif;
+            --body: 'Cormorant', Georgia, serif;
+            --accent: 'IM Fell English', Georgia, serif;
+        }
+
+        body {
+            font-family: var(--body);
+            font-size: 16px;
+            font-weight: 400;
+            background: var(--cream);
+            color: var(--ink);
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+
+        /* Subtle paper texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* Layout */
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Decorative Border Pattern */
+        .ornament {
+            text-align: center;
+            color: var(--rule-dark);
+            font-size: 18px;
+            letter-spacing: 8px;
+        }
+
+        .ornament-line {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: var(--rule-dark);
+        }
+
+        .ornament-line::before,
+        .ornament-line::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--rule-dark), transparent);
+        }
+
+        /* Header */
+        .header {
+            padding: 24px 48px;
+            border-bottom: 1px solid var(--rule);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--parchment);
+        }
+
+        .logo {
+            text-align: center;
+        }
+
+        .logo-main {
+            font-family: var(--display);
+            font-size: 28px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--sepia-dark);
+        }
+
+        .logo-sub {
+            font-family: var(--accent);
+            font-size: 12px;
+            font-style: italic;
+            color: var(--sepia-light);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-item {
+            font-family: var(--body);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--sepia-light);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            color: var(--sepia-dark);
+        }
+
+        .nav-item.active::after {
+            content: '❧';
+            position: absolute;
+            bottom: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: var(--gold);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .search-link {
+            font-family: var(--accent);
+            font-size: 14px;
+            font-style: italic;
+            color: var(--sepia-light);
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .search-link:hover {
+            color: var(--sepia-dark);
+        }
+
+        .search-link:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 2px;
+        }
+
+        .user-monogram {
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--rule-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--display);
+            font-size: 14px;
+            color: var(--sepia);
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            padding: 48px 64px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Page Title Block */
+        .title-block {
+            text-align: center;
+            margin-bottom: 56px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .title-ornament {
+            font-size: 24px;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .page-title {
+            font-family: var(--display);
+            font-size: 42px;
+            font-weight: 400;
+            font-style: italic;
+            color: var(--sepia-dark);
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            font-family: var(--accent);
+            font-size: 16px;
+            font-style: italic;
+            color: var(--sepia-light);
+        }
+
+        /* Stats in decorative frame */
+        .stats-frame {
+            border: 1px solid var(--rule-dark);
+            padding: 32px;
+            margin-bottom: 56px;
+            position: relative;
+            background: var(--parchment);
+        }
+
+        .stats-frame::before {
+            content: '✦';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--parchment);
+            padding: 0 12px;
+            color: var(--gold);
+            font-size: 14px;
+        }
+
+        .stats-inner {
+            border: 1px solid var(--rule);
+            padding: 24px;
+            display: flex;
+            justify-content: center;
+            gap: 64px;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 0 32px;
+            border-right: 1px solid var(--rule);
+        }
+
+        .stat:last-child {
+            border-right: none;
+        }
+
+        .stat-value {
+            font-family: var(--display);
+            font-size: 36px;
+            font-weight: 400;
+            color: var(--sepia-dark);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-family: var(--accent);
+            font-size: 12px;
+            font-style: italic;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--sepia-light);
+        }
+
+        /* Two Column Layout */
+        .columns {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 56px;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--sepia-dark);
+        }
+
+        .section-title {
+            font-family: var(--display);
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--sepia-dark);
+        }
+
+        .section-action {
+            font-family: var(--accent);
+            font-size: 13px;
+            font-style: italic;
+            color: var(--sepia-light);
+            text-decoration: none;
+        }
+
+        .section-action:hover {
+            color: var(--sepia-dark);
+        }
+
+        /* Recipe List */
+        .recipe-list {
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+        }
+
+        .recipe-entry {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--rule);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .recipe-entry:hover {
+            background: var(--parchment);
+            padding-left: 16px;
+            margin-left: -16px;
+            margin-right: -16px;
+            padding-right: 16px;
+        }
+
+        .recipe-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .recipe-name {
+            font-family: var(--display);
+            font-size: 20px;
+            font-weight: 500;
+            font-style: normal;
+            color: var(--sepia-dark);
+        }
+
+        .recipe-status {
+            font-family: var(--accent);
+            font-size: 11px;
+            font-style: italic;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .recipe-status.owned {
+            color: var(--gold);
+        }
+
+        .recipe-status.wishlist {
+            color: var(--sepia-light);
+        }
+
+        .recipe-details {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+        }
+
+        .recipe-category {
+            font-family: var(--body);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--sepia);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .recipe-type {
+            font-family: var(--accent);
+            font-size: 13px;
+            font-style: italic;
+            color: var(--sepia-light);
+        }
+
+        .recipe-rating {
+            margin-left: auto;
+            font-family: var(--body);
+            font-size: 14px;
+            color: var(--gold);
+            letter-spacing: 2px;
+        }
+
+        .recipe-ingredients {
+            margin-top: 8px;
+            font-family: var(--accent);
+            font-size: 13px;
+            font-style: italic;
+            color: var(--ink-faded);
+        }
+
+        /* Featured Card - Apothecary Label Style */
+        .featured-card {
+            border: 2px solid var(--sepia-dark);
+            background: var(--parchment);
+            padding: 8px;
+        }
+
+        .featured-inner {
+            border: 1px solid var(--rule-dark);
+            padding: 32px 28px;
+            text-align: center;
+        }
+
+        .featured-ornament-top {
+            font-size: 20px;
+            color: var(--gold);
+            margin-bottom: 16px;
+            letter-spacing: 8px;
+        }
+
+        .featured-label {
+            font-family: var(--accent);
+            font-size: 11px;
+            font-style: italic;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--sepia-light);
+            margin-bottom: 8px;
+        }
+
+        .featured-name {
+            font-family: var(--display);
+            font-size: 28px;
+            font-weight: 500;
+            font-style: italic;
+            color: var(--sepia-dark);
+            margin-bottom: 4px;
+        }
+
+        .featured-house {
+            font-family: var(--body);
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--sepia);
+            margin-bottom: 8px;
+        }
+
+        .featured-type {
+            font-family: var(--accent);
+            font-size: 13px;
+            font-style: italic;
+            color: var(--sepia-light);
+            margin-bottom: 24px;
+        }
+
+        .featured-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 24px 0;
+            color: var(--rule-dark);
+        }
+
+        .featured-divider::before,
+        .featured-divider::after {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--rule-dark);
+        }
+
+        /* Notes Section - Recipe Style */
+        .notes-section {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .notes-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .notes-label {
+            font-family: var(--display);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--sepia-dark);
+        }
+
+        .notes-duration {
+            font-family: var(--accent);
+            font-size: 11px;
+            font-style: italic;
+            color: var(--sepia-light);
+        }
+
+        .notes-list {
+            font-family: var(--accent);
+            font-size: 15px;
+            font-style: italic;
+            color: var(--ink-faded);
+            line-height: 1.8;
+        }
+
+        .notes-list .note {
+            display: inline;
+        }
+
+        .notes-list .note::after {
+            content: ' ❦ ';
+            color: var(--rule-dark);
+            font-style: normal;
+        }
+
+        .notes-list .note:last-child::after {
+            display: none;
+        }
+
+        .featured-ornament-bottom {
+            margin-top: 24px;
+            font-size: 16px;
+            color: var(--gold);
+            letter-spacing: 6px;
+        }
+
+        /* Add Button */
+        .add-section {
+            margin-top: 32px;
+            text-align: center;
+        }
+
+        .btn-add {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: var(--sepia-dark);
+            border: none;
+            font-family: var(--body);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--cream);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-add:hover {
+            background: var(--sepia);
+        }
+
+        .btn-add:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 2px;
+        }
+
+        /* Coming Soon */
+        .coming-soon {
+            margin-top: 32px;
+            padding: 20px;
+            border: 1px dashed var(--rule-dark);
+            text-align: center;
+        }
+
+        .coming-soon-title {
+            font-family: var(--display);
+            font-size: 14px;
+            font-style: italic;
+            color: var(--sepia);
+            margin-bottom: 4px;
+        }
+
+        .coming-soon-text {
+            font-family: var(--accent);
+            font-size: 13px;
+            font-style: italic;
+            color: var(--sepia-light);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 32px;
+            border-top: 1px solid var(--rule);
+            margin-top: 48px;
+        }
+
+        .footer-ornament {
+            font-size: 14px;
+            color: var(--rule-dark);
+            letter-spacing: 12px;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--cream-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--rule-dark);
+            border: 2px solid var(--cream-dark);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--sepia-light);
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- Header -->
+        <header class="header">
+            <nav class="nav">
+                <a href="#" class="nav-item active">Archives</a>
+                <a href="#" class="nav-item">Recipes</a>
+                <a href="#" class="nav-item">To Make</a>
+            </nav>
+
+            <div class="logo">
+                <div class="logo-main">The Recipe</div>
+                <div class="logo-sub">Ledger & Compendium</div>
+            </div>
+
+            <div class="header-right">
+                <button class="search-link" aria-label="Search the recipe archives">Search the Archives</button>
+                <div class="user-monogram" aria-label="User menu: JD">JD</div>
+            </div>
+        </header>
+
+        <!-- Main -->
+        <main class="main">
+            <!-- Title Block -->
+            <div class="title-block">
+                <div class="title-ornament">❧</div>
+                <h1 class="page-title">Kitchen Archives</h1>
+                <p class="page-subtitle">A summary of your recipe collection</p>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-frame">
+                <div class="stats-inner">
+                    <div class="stat">
+                        <div class="stat-value">24</div>
+                        <div class="stat-label">Recipes Catalogued</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">To Make</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">5</div>
+                        <div class="stat-label">Cookbooks</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">89</div>
+                        <div class="stat-label">Ingredients Indexed</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Columns -->
+            <div class="columns">
+                <!-- Left -->
+                <div>
+                    <div class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">Recent Creations</h2>
+                            <a href="#" class="section-action">View Complete Registry →</a>
+                        </div>
+
+                        <ul class="recipe-list" role="list">
+                            <li class="recipe-entry">
+                                <div class="recipe-header">
+                                    <span class="recipe-name">Grandmother's Beef Bourguignon</span>
+                                    <span class="recipe-status owned">⬥ Made</span>
+                                </div>
+                                <div class="recipe-details">
+                                    <span class="recipe-category">French Classic</span>
+                                    <span class="recipe-type">Main Course</span>
+                                    <span class="recipe-rating">★★★★★</span>
+                                </div>
+                                <div class="recipe-ingredients">
+                                    Ingredients: Red Wine, Beef Chuck, Pearl Onions, Mushrooms, Bacon & Herbs
+                                </div>
+                            </li>
+
+                            <li class="recipe-entry">
+                                <div class="recipe-header">
+                                    <span class="recipe-name">Spiced Apple Tarte Tatin</span>
+                                    <span class="recipe-status owned">⬥ Made</span>
+                                </div>
+                                <div class="recipe-details">
+                                    <span class="recipe-category">Autumn Harvest</span>
+                                    <span class="recipe-type">Dessert</span>
+                                    <span class="recipe-rating">★★★★☆</span>
+                                </div>
+                                <div class="recipe-ingredients">
+                                    Ingredients: Apples, Butter, Cinnamon, Caramel, Puff Pastry & Vanilla
+                                </div>
+                            </li>
+
+                            <li class="recipe-entry">
+                                <div class="recipe-header">
+                                    <span class="recipe-name">Thai Green Curry</span>
+                                    <span class="recipe-status wishlist">◇ To Make</span>
+                                </div>
+                                <div class="recipe-details">
+                                    <span class="recipe-category">Southeast Asian</span>
+                                    <span class="recipe-type">Main Course</span>
+                                    <span class="recipe-rating">★★★☆☆</span>
+                                </div>
+                                <div class="recipe-ingredients">
+                                    Ingredients: Coconut Milk, Green Curry Paste, Chicken, Thai Basil & Fish Sauce
+                                </div>
+                            </li>
+
+                            <li class="recipe-entry">
+                                <div class="recipe-header">
+                                    <span class="recipe-name">Dark Chocolate Soufflé</span>
+                                    <span class="recipe-status owned">⬥ Made</span>
+                                </div>
+                                <div class="recipe-details">
+                                    <span class="recipe-category">French Patisserie</span>
+                                    <span class="recipe-type">Dessert</span>
+                                    <span class="recipe-rating">★★★★★</span>
+                                </div>
+                                <div class="recipe-ingredients">
+                                    Ingredients: Dark Chocolate, Eggs, Sugar, Butter & Vanilla Bean
+                                </div>
+                            </li>
+
+                            <li class="recipe-entry">
+                                <div class="recipe-header">
+                                    <span class="recipe-name">Moroccan Lamb Tagine</span>
+                                    <span class="recipe-status wishlist">◇ To Make</span>
+                                </div>
+                                <div class="recipe-details">
+                                    <span class="recipe-category">North African</span>
+                                    <span class="recipe-type">Main Course</span>
+                                    <span class="recipe-rating">★★★★☆</span>
+                                </div>
+                                <div class="recipe-ingredients">
+                                    Ingredients: Lamb, Preserved Lemons, Olives, Saffron & Dried Apricots
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Right -->
+                <div>
+                    <div class="section">
+                        <div class="section-header">
+                            <h2 class="section-title">Featured Recipe</h2>
+                        </div>
+
+                        <div class="featured-card">
+                            <div class="featured-inner">
+                                <div class="featured-ornament-top">✦ ✦ ✦</div>
+                                <div class="featured-label">From the Archives</div>
+                                <div class="featured-name">Grandmother's Beef Bourguignon</div>
+                                <div class="featured-house">French Classic</div>
+                                <div class="featured-type">Main Course — Family Recipe</div>
+
+                                <div class="featured-divider">❧</div>
+
+                                <div class="notes-section">
+                                    <div class="notes-header">
+                                        <span class="notes-label">Preparation</span>
+                                        <span class="notes-duration">The Mise en Place</span>
+                                    </div>
+                                    <div class="notes-list">
+                                        <span class="note">Beef Chuck</span>
+                                        <span class="note">Pearl Onions</span>
+                                        <span class="note">Mushrooms</span>
+                                    </div>
+                                </div>
+
+                                <div class="notes-section">
+                                    <div class="notes-header">
+                                        <span class="notes-label">The Braise</span>
+                                        <span class="notes-duration">Low & Slow</span>
+                                    </div>
+                                    <div class="notes-list">
+                                        <span class="note">Red Burgundy</span>
+                                        <span class="note">Fresh Thyme</span>
+                                        <span class="note">Bay Leaves</span>
+                                    </div>
+                                </div>
+
+                                <div class="notes-section">
+                                    <div class="notes-header">
+                                        <span class="notes-label">The Finish</span>
+                                        <span class="notes-duration">Final Assembly</span>
+                                    </div>
+                                    <div class="notes-list">
+                                        <span class="note">Fresh Parsley</span>
+                                        <span class="note">Crusty Bread</span>
+                                        <span class="note">Gruyère</span>
+                                    </div>
+                                </div>
+
+                                <div class="featured-ornament-bottom">— ❦ —</div>
+                            </div>
+                        </div>
+
+                        <div class="add-section">
+                            <button class="btn-add" aria-label="Add recipe to your recipe box">+ Add to Recipe Box</button>
+                        </div>
+
+                        <div class="coming-soon">
+                            <div class="coming-soon-title">Coming Soon</div>
+                            <div class="coming-soon-text">Seasonal suggestions based on your pantry inventory</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-ornament">❧ ❧ ❧</div>
+        </footer>
+    </div>
+</body>
+</html>
