@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS Gaming Hub</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(255, 255, 255, 0.02);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-primary: rgba(255, 255, 255, 0.9);
+            --text-secondary: rgba(255, 255, 255, 0.5);
+            --text-muted: rgba(255, 255, 255, 0.3);
+            --cyan: #00f0ff;
+            --magenta: #ff00aa;
+            --violet: #8844ff;
+            --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.3);
+            --glow-magenta: 0 0 20px rgba(255, 0, 170, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            font-size: 13px;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Subtle grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        a {
+            color: var(--cyan);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        a:hover {
+            text-shadow: var(--glow-cyan);
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 200px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+            border-right: 1px solid var(--border);
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            padding: 0 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--cyan), var(--magenta));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            box-shadow: var(--glow-cyan);
+        }
+
+        .logo-text {
+            font-weight: 600;
+            font-size: 15px;
+            background: linear-gradient(90deg, var(--cyan), var(--magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-section {
+            padding: 16px 0;
+        }
+
+        .nav-section-title {
+            padding: 0 20px 8px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: transparent;
+            transition: all 0.2s;
+        }
+
+        .nav-item:hover {
+            color: var(--text-primary);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .nav-item.active {
+            color: var(--cyan);
+        }
+
+        .nav-item.active::before {
+            background: var(--cyan);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .nav-icon {
+            width: 18px;
+            height: 18px;
+            opacity: 0.6;
+        }
+
+        .nav-item.active .nav-icon,
+        .nav-item:hover .nav-icon {
+            opacity: 1;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 20px;
+        }
+
+        .btn-add {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid var(--cyan);
+            border-radius: 6px;
+            color: var(--cyan);
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-add:hover {
+            background: var(--cyan);
+            color: var(--bg-dark);
+            box-shadow: var(--glow-cyan);
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 32px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 8px 14px;
+            width: 320px;
+            transition: all 0.3s;
+        }
+
+        .search-box:focus-within {
+            border-color: var(--cyan);
+            box-shadow: 0 0 0 1px rgba(0, 240, 255, 0.1);
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-primary);
+            font-size: 13px;
+            width: 100%;
+            margin-left: 10px;
+        }
+
+        .search-box input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-icon {
+            color: var(--text-muted);
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 8px;
+            transition: all 0.2s;
+        }
+
+        .icon-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--violet), var(--magenta));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto;
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .page-subtitle {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0.5;
+        }
+
+        .stat-card:nth-child(2)::before {
+            background: linear-gradient(90deg, transparent, var(--magenta), transparent);
+        }
+
+        .stat-card:nth-child(3)::before {
+            background: linear-gradient(90deg, transparent, var(--violet), transparent);
+        }
+
+        .stat-card:nth-child(4)::before {
+            background: linear-gradient(90deg, transparent, #00ff88, transparent);
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 300;
+            color: var(--cyan);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-card:nth-child(2) .stat-value { color: var(--magenta); }
+        .stat-card:nth-child(3) .stat-value { color: var(--violet); }
+        .stat-card:nth-child(4) .stat-value { color: #00ff88; }
+
+        .stat-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+
+        /* Panels */
+        .panels {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 24px;
+        }
+
+        .panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+        }
+
+        .panel-action {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .panel-content {
+            padding: 12px;
+        }
+
+        /* Game/Match List */
+        .fragrance-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .fragrance-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .fragrance-item:hover {
+            background: rgba(255,255,255,0.02);
+            border-color: var(--border);
+        }
+
+        .fragrance-thumb {
+            width: 44px;
+            height: 44px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, rgba(0,240,255,0.1), rgba(255,0,170,0.1));
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .fragrance-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .fragrance-name {
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .fragrance-brand {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .fragrance-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tag {
+            font-size: 10px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .tag-owned {
+            background: rgba(0, 255, 136, 0.1);
+            color: #00ff88;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .tag-wishlist {
+            background: rgba(255, 0, 170, 0.1);
+            color: var(--magenta);
+            border: 1px solid rgba(255, 0, 170, 0.2);
+        }
+
+        .tag-type {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .rating {
+            display: flex;
+            gap: 2px;
+        }
+
+        .star {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .star.filled {
+            color: var(--cyan);
+            text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+        }
+
+        /* Featured Panel */
+        .featured-content {
+            padding: 20px;
+        }
+
+        .featured-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .featured-thumb {
+            width: 56px;
+            height: 56px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--cyan), var(--magenta));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+        }
+
+        .featured-name {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .featured-brand {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .notes-section {
+            margin-bottom: 20px;
+        }
+
+        .notes-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .notes-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        .notes-indicator.top { 
+            background: var(--cyan); 
+            color: var(--cyan);
+        }
+        .notes-indicator.heart { 
+            background: var(--magenta); 
+            color: var(--magenta);
+        }
+        .notes-indicator.base { 
+            background: var(--violet); 
+            color: var(--violet);
+        }
+
+        .notes-label {
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+        }
+
+        .notes-time {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-left: auto;
+        }
+
+        .notes-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding-left: 18px;
+        }
+
+        .note-pill {
+            font-size: 11px;
+            padding: 5px 12px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+
+        .note-pill:hover {
+            border-color: var(--cyan);
+            color: var(--cyan);
+        }
+
+        /* Quick Access */
+        .quick-indicator {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .quick-indicator.collection {
+            background: var(--cyan);
+            box-shadow: 0 0 8px var(--cyan);
+        }
+
+        .quick-indicator.wishlist {
+            background: var(--magenta);
+            box-shadow: 0 0 8px var(--magenta);
+        }
+
+        /* Coming Soon */
+        .coming-soon {
+            margin: 0 20px;
+            padding: 16px;
+            background: linear-gradient(135deg, rgba(0,240,255,0.05), rgba(255,0,170,0.05));
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .coming-soon-title {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, var(--cyan), var(--magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 4px;
+        }
+
+        .coming-soon-text {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* Glow animation */
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .stat-card::before {
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">⬡</div>
+                <span class="logo-text">NEXUS</span>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Navigation</div>
+                <div class="nav-item active">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                    </svg>
+                    Dashboard
+                </div>
+                <div class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    Tournaments
+                </div>
+                <div class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
+                    </svg>
+                    My Teams
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Quick Access</div>
+                <div class="nav-item">
+                    <span class="quick-indicator collection"></span>
+                    Live Matches
+                </div>
+                <div class="nav-item">
+                    <span class="quick-indicator wishlist"></span>
+                    Watchlist
+                </div>
+            </div>
+
+            <div class="coming-soon">
+                <div class="coming-soon-title">✦ Season 8</div>
+                <div class="coming-soon-text">New ranked season starts in 3 days with exclusive rewards</div>
+            </div>
+
+            <div class="sidebar-footer">
+                <button class="btn-add">+ Join Match</button>
+            </div>
+        </div>
+
+        <!-- Main -->
+        <div class="main">
+            <!-- Header -->
+            <div class="header">
+                <div class="search-box">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <input type="text" placeholder="Search players, teams, tournaments...">
+                </div>
+                <div class="user-area">
+                    <button class="icon-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/>
+                        </svg>
+                    </button>
+                    <div class="user-avatar">JD</div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="content">
+                <div class="page-header">
+                    <h1 class="page-title">Dashboard</h1>
+                    <p class="page-subtitle">Welcome back, xVortex. Here's your competitive stats at a glance.</p>
+                </div>
+
+                <!-- Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">2,847</div>
+                        <div class="stat-label">MMR Rating</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">67%</div>
+                        <div class="stat-label">Win Rate</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">142</div>
+                        <div class="stat-label">Matches Played</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">#38</div>
+                        <div class="stat-label">Global Rank</div>
+                    </div>
+                </div>
+
+                <!-- Panels -->
+                <div class="panels">
+                    <!-- Recent Matches -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <span class="panel-title">Recent Matches</span>
+                            <a href="#" class="panel-action">View all →</a>
+                        </div>
+                        <div class="panel-content">
+                            <div class="fragrance-list">
+                                <div class="fragrance-item">
+                                    <div class="fragrance-thumb">⚔</div>
+                                    <div class="fragrance-info">
+                                        <div class="fragrance-name">vs. Team Phantom</div>
+                                        <div class="fragrance-brand">Valorant • Ranked</div>
+                                    </div>
+                                    <div class="fragrance-meta">
+                                        <span class="tag tag-owned">Victory</span>
+                                        <span class="tag tag-type">13-7</span>
+                                        <div class="rating">
+                                            <span class="star filled">★</span>
+                                            <span class="star filled">★</span>
+                                            <span class="star filled">★</span>
+                                            <span class="star filled">★</span>
+                                            <span class="star filled">★</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="fragrance-item">
+                                    <div class="fragrance-thumb">⚔</div>
+                                    <div class="fragrance-info">
+                                        <div class="fragrance-name">vs. Neon Dragons</div>
+                                        <div class="fragrance-brand">CS2 • Premier</div>
+                                    </div>
+                                    <div class="fragrance-meta">
+                                        <span class="tag tag-owned">Victory</span>
+                                        <span class="tag tag-type">16-12</span>
+                                        <div class="rating">
+                                            <span class="star filled">★</span>
+                                            <span class="star filled">★</span>
+                                            <span class="star filled">★</span>
+                                            <span class="star filled">★</span>
+                                            <span class="star">★</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="fragrance-item">
+                                    <div class="fragrance-thumb">⚔</div>
+                                    <div class="fragrance-info">
+                                        <div class="fragrance-name">vs. Shadow Corps</div>
+                                        <div class="fragrance-brand">Valorant • Ranked</div>
+                                    </div>
+                                    <div class="fragrance-meta">
+                                        <span class="tag tag-wishlist">Defeat</span>
+                                        <span class="tag tag-type">9-13</span>
+                                        <div class="rating">
+                                            <span class="star filled">★</span>
+                                            <span class="star filled">★</span>
+                                            <span class="star filled">★</span>
+                                            <span class="star">★</span>
+                                            <span class="star">★</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="fragrance-item">
+                                    <div class="fragrance-thumb">⚔</div>
+                                    <div class="fragrance-info">
+                                        <div class="fragrance-name">vs. Arctic Storm</div>
+                                        <div class="fragrance-brand">League • Solo Queue</div>
+                                    </div>
+                                    <div class="fragrance-meta">
+                                        <span class="tag tag-owned">Victory</span>
+                                        <span class="tag tag-type">MVP</span>
+                                        <div class="rating">
+                                            <span class="star filled">★</span>
+                                            <span class="star filled">★</span>
+                                            <span class="star filled">★</span>
+                                            <span class="star filled">★</span>
+                                            <span class="star filled">★</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Tournament -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <span class="panel-title">Live Tournament</span>
+                        </div>
+                        <div class="featured-content">
+                            <div class="featured-header">
+                                <div class="featured-thumb">🏆</div>
+                                <div>
+                                    <div class="featured-name">NEXUS Championship</div>
+                                    <div class="featured-brand">Finals • $50K Prize Pool</div>
+                                </div>
+                            </div>
+
+                            <div class="notes-section">
+                                <div class="notes-header">
+                                    <span class="notes-indicator top"></span>
+                                    <span class="notes-label">Current Match</span>
+                                    <span class="notes-time">LIVE</span>
+                                </div>
+                                <div class="notes-tags">
+                                    <span class="note-pill">Team Vortex</span>
+                                    <span class="note-pill">vs</span>
+                                    <span class="note-pill">Cyber Kings</span>
+                                </div>
+                            </div>
+
+                            <div class="notes-section">
+                                <div class="notes-header">
+                                    <span class="notes-indicator heart"></span>
+                                    <span class="notes-label">Score</span>
+                                    <span class="notes-time">Map 3 of 5</span>
+                                </div>
+                                <div class="notes-tags">
+                                    <span class="note-pill">11 - 9</span>
+                                    <span class="note-pill">Ascent</span>
+                                    <span class="note-pill">OT Soon</span>
+                                </div>
+                            </div>
+
+                            <div class="notes-section">
+                                <div class="notes-header">
+                                    <span class="notes-indicator base"></span>
+                                    <span class="notes-label">Top Performers</span>
+                                    <span class="notes-time">This series</span>
+                                </div>
+                                <div class="notes-tags">
+                                    <span class="note-pill">xNova 28-14</span>
+                                    <span class="note-pill">CryptoKing 24-18</span>
+                                    <span class="note-pill">Blaze 22-16</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
