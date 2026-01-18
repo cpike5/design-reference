@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Console</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+            font-size: 12px;
+            background: #1a1a1a;
+            color: #c0c0c0;
+            min-height: 100vh;
+        }
+
+        a {
+            color: #e87c1e;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #ff9d4a;
+            text-decoration: underline;
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 180px;
+            background: linear-gradient(to bottom, #252525 0%, #1f1f1f 100%);
+            border-right: 1px solid #333;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            padding: 12px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #e87c1e 0%, #c45a00 100%);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .logo-text {
+            font-weight: bold;
+            color: #e0e0e0;
+            font-size: 13px;
+        }
+
+        .nav-section {
+            padding: 8px 0;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .nav-section-title {
+            padding: 4px 12px;
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #666;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            color: #999;
+            cursor: pointer;
+            border-left: 2px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: #2a2a2a;
+            color: #c0c0c0;
+        }
+
+        .nav-item.active {
+            background: #2a2a2a;
+            color: #e87c1e;
+            border-left-color: #e87c1e;
+        }
+
+        .nav-icon {
+            width: 16px;
+            height: 16px;
+            opacity: 0.7;
+        }
+
+        .nav-item.active .nav-icon,
+        .nav-item:hover .nav-icon {
+            opacity: 1;
+        }
+
+        .sidebar-footer {
+            padding: 12px;
+            margin-top: auto;
+        }
+
+        .btn-add {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            padding: 8px;
+            background: linear-gradient(to bottom, #e87c1e 0%, #c45a00 100%);
+            border: 1px solid #ff9d4a;
+            border-radius: 3px;
+            color: #fff;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+        }
+
+        .btn-add:hover {
+            background: linear-gradient(to bottom, #ff9d4a 0%, #e87c1e 100%);
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 16px;
+            background: linear-gradient(to bottom, #2a2a2a 0%, #222 100%);
+            border-bottom: 1px solid #333;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 3px;
+            padding: 4px 8px;
+            width: 280px;
+        }
+
+        .search-box:focus-within {
+            border-color: #555;
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #c0c0c0;
+            font-size: 11px;
+            width: 100%;
+            margin-left: 6px;
+        }
+
+        .search-box input::placeholder {
+            color: #555;
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .notification-btn {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .notification-btn:hover {
+            color: #999;
+        }
+
+        .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 8px;
+            background: #333;
+            border: 1px solid #444;
+            border-radius: 3px;
+        }
+
+        .user-avatar {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #444 0%, #333 100%);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #888;
+        }
+
+        .user-name {
+            font-size: 11px;
+            color: #999;
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+        }
+
+        .page-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #e0e0e0;
+            margin-bottom: 4px;
+        }
+
+        .page-subtitle {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+
+        /* Stats Panel */
+        .stats-panel {
+            display: flex;
+            gap: 2px;
+            margin-bottom: 16px;
+            background: #252525;
+            border: 1px solid #333;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .stat-item {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            background: linear-gradient(to bottom, #2a2a2a 0%, #252525 100%);
+            border-right: 1px solid #333;
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #e87c1e;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: #666;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+
+        /* Panels */
+        .panels {
+            display: flex;
+            gap: 16px;
+        }
+
+        .panel {
+            flex: 1;
+            background: #222;
+            border: 1px solid #333;
+            border-radius: 3px;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: linear-gradient(to bottom, #2a2a2a 0%, #252525 100%);
+            border-bottom: 1px solid #333;
+        }
+
+        .panel-title {
+            font-size: 11px;
+            font-weight: bold;
+            color: #c0c0c0;
+            text-transform: uppercase;
+        }
+
+        .panel-action {
+            font-size: 10px;
+        }
+
+        .panel-content {
+            padding: 8px;
+        }
+
+        /* File List */
+        .file-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            background: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        .file-item:hover {
+            border-color: #444;
+            background: #1f1f1f;
+        }
+
+        .file-thumb {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+            border: 1px solid #333;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .file-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-name {
+            font-size: 12px;
+            font-weight: bold;
+            color: #e0e0e0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+
+        .file-path {
+            font-size: 10px;
+            color: #666;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+
+        .file-details {
+            display: flex;
+            gap: 4px;
+            margin-top: 4px;
+        }
+
+        .detail-tag {
+            font-size: 9px;
+            padding: 1px 4px;
+            background: #2a2a2a;
+            border: 1px solid #333;
+            border-radius: 2px;
+            color: #888;
+        }
+
+        .file-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .tag {
+            font-size: 9px;
+            padding: 2px 6px;
+            border-radius: 2px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .tag-success {
+            background: #1a3d1a;
+            color: #4a4;
+            border: 1px solid #2a5a2a;
+        }
+
+        .tag-warning {
+            background: #3d3d1a;
+            color: #aa4;
+            border: 1px solid #5a5a2a;
+        }
+
+        .tag-error {
+            background: #3d1a1a;
+            color: #a44;
+            border: 1px solid #5a2a2a;
+        }
+
+        .tag-info {
+            background: #1a2a3d;
+            color: #4a8;
+            border: 1px solid #2a3a5a;
+        }
+
+        .tag-type {
+            background: #333;
+            color: #888;
+            border: 1px solid #444;
+        }
+
+        .file-size {
+            font-size: 10px;
+            color: #666;
+            min-width: 50px;
+            text-align: right;
+        }
+
+        /* Featured Panel - Server Info */
+        .server-info {
+            padding: 12px;
+        }
+
+        .server-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #333;
+        }
+
+        .server-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+            border: 1px solid #444;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .server-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #e0e0e0;
+        }
+
+        .server-subtitle {
+            font-size: 11px;
+            color: #666;
+        }
+
+        .metric-section {
+            margin-bottom: 10px;
+        }
+
+        .metric-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .metric-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .metric-indicator.cpu { background: #e87c1e; }
+        .metric-indicator.memory { background: #c45a00; }
+        .metric-indicator.disk { background: #8b4513; }
+
+        .metric-label {
+            font-size: 10px;
+            font-weight: bold;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        .metric-value {
+            font-size: 9px;
+            color: #555;
+            margin-left: auto;
+        }
+
+        .metric-bar-container {
+            padding-left: 16px;
+        }
+
+        .metric-bar {
+            height: 6px;
+            background: #2a2a2a;
+            border: 1px solid #333;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .metric-bar-fill {
+            height: 100%;
+            border-radius: 2px;
+        }
+
+        .metric-bar-fill.low { background: linear-gradient(to right, #4a4, #3a3); }
+        .metric-bar-fill.medium { background: linear-gradient(to right, #e87c1e, #c45a00); }
+        .metric-bar-fill.high { background: linear-gradient(to right, #a44, #833); }
+
+        .metric-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            padding-left: 16px;
+            margin-top: 4px;
+        }
+
+        .metric-pill {
+            font-size: 10px;
+            padding: 3px 8px;
+            background: #2a2a2a;
+            border: 1px solid #3a3a3a;
+            border-radius: 10px;
+            color: #aaa;
+        }
+
+        /* Sidebar Quick Access Dots */
+        .quick-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .quick-dot.production { background: #e87c1e; }
+        .quick-dot.staging { background: #cc4; }
+        .quick-dot.dev { background: #4a4; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444;
+        }
+
+        /* Coming Soon Badge */
+        .feature-badge {
+            margin: 12px;
+            padding: 10px;
+            background: linear-gradient(to bottom, #2a2520 0%, #252015 100%);
+            border: 1px solid #3a3020;
+            border-radius: 3px;
+        }
+
+        .feature-badge-title {
+            font-size: 10px;
+            font-weight: bold;
+            color: #e87c1e;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .feature-badge-text {
+            font-size: 10px;
+            color: #888;
+        }
+
+        /* Icon SVGs inline */
+        .icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">></div>
+                <span class="logo-text">DevConsole</span>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Navigation</div>
+                <div class="nav-item active">
+                    <svg class="nav-icon" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 1l7 4v10H1V5l7-4zm0 1.5L2.5 6v8h11V6L8 2.5z"/>
+                    </svg>
+                    Dashboard
+                </div>
+                <div class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M4 1h8a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V3a2 2 0 012-2zm0 1a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1V3a1 1 0 00-1-1H4z"/>
+                    </svg>
+                    Projects
+                </div>
+                <div class="nav-item">
+                    <svg class="nav-icon" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M2 3h12v1H2V3zm0 4h12v1H2V7zm0 4h8v1H2v-1z"/>
+                    </svg>
+                    Pipelines
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Environments</div>
+                <div class="nav-item">
+                    <span class="quick-dot production"></span>
+                    Production
+                </div>
+                <div class="nav-item">
+                    <span class="quick-dot staging"></span>
+                    Staging
+                </div>
+                <div class="nav-item">
+                    <span class="quick-dot dev"></span>
+                    Development
+                </div>
+            </div>
+
+            <div class="feature-badge">
+                <div class="feature-badge-title">New Feature</div>
+                <div class="feature-badge-text">AI-assisted log analysis now available in beta</div>
+            </div>
+
+            <div class="sidebar-footer">
+                <button class="btn-add">+ New Deployment</button>
+            </div>
+        </div>
+
+        <!-- Main -->
+        <div class="main">
+            <!-- Header -->
+            <div class="header">
+                <div class="search-box">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="#555">
+                        <path d="M11.7 10.3c.9-1.2 1.4-2.6 1.4-4.2C13.1 2.7 10.4 0 6.6 0S0 2.7 0 6.1s2.7 6.1 6.6 6.1c1.6 0 3-.5 4.2-1.4l4 4 1.4-1.4-4-4zm-5.1.9c-2.8 0-5.1-2.3-5.1-5.1S3.8 1 6.6 1s5.1 2.3 5.1 5.1-2.3 5.1-5.1 5.1z"/>
+                    </svg>
+                    <input type="text" placeholder="Search files, logs, deployments...">
+                </div>
+                <div class="user-area">
+                    <button class="notification-btn">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 1a5 5 0 015 5v3l1 2H2l1-2V6a5 5 0 015-5zm0 14a2 2 0 002-2H6a2 2 0 002 2z"/>
+                        </svg>
+                    </button>
+                    <div class="user-badge">
+                        <div class="user-avatar">CP</div>
+                        <span class="user-name">cpike</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="content">
+                <h1 class="page-title">Dashboard</h1>
+                <p class="page-subtitle">System overview and recent activity</p>
+
+                <!-- Stats -->
+                <div class="stats-panel">
+                    <div class="stat-item">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Services</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">Alerts</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">47</div>
+                        <div class="stat-label">Deploys</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">99.8%</div>
+                        <div class="stat-label">Uptime</div>
+                    </div>
+                </div>
+
+                <!-- Panels -->
+                <div class="panels">
+                    <!-- Recent Deployments -->
+                    <div class="panel">
+                        <div class="panel-header">
+                            <span class="panel-title">Recent Deployments</span>
+                            <a href="#" class="panel-action">View all</a>
+                        </div>
+                        <div class="panel-content">
+                            <div class="file-list">
+                                <div class="file-item">
+                                    <div class="file-thumb">&#x1F4E6;</div>
+                                    <div class="file-info">
+                                        <div class="file-name">api-gateway v2.4.1</div>
+                                        <div class="file-path">production / us-east-1</div>
+                                        <div class="file-details">
+                                            <span class="detail-tag">3 min ago</span>
+                                            <span class="detail-tag">@cpike</span>
+                                        </div>
+                                    </div>
+                                    <div class="file-meta">
+                                        <span class="tag tag-success">Success</span>
+                                    </div>
+                                </div>
+
+                                <div class="file-item">
+                                    <div class="file-thumb">&#x1F4E6;</div>
+                                    <div class="file-info">
+                                        <div class="file-name">auth-service v1.8.0</div>
+                                        <div class="file-path">staging / us-west-2</div>
+                                        <div class="file-details">
+                                            <span class="detail-tag">15 min ago</span>
+                                            <span class="detail-tag">@jsmith</span>
+                                        </div>
+                                    </div>
+                                    <div class="file-meta">
+                                        <span class="tag tag-success">Success</span>
+                                    </div>
+                                </div>
+
+                                <div class="file-item">
+                                    <div class="file-thumb">&#x1F4E6;</div>
+                                    <div class="file-info">
+                                        <div class="file-name">worker-queue v3.1.2</div>
+                                        <div class="file-path">production / eu-west-1</div>
+                                        <div class="file-details">
+                                            <span class="detail-tag">1 hr ago</span>
+                                            <span class="detail-tag">@mlee</span>
+                                        </div>
+                                    </div>
+                                    <div class="file-meta">
+                                        <span class="tag tag-warning">Rollback</span>
+                                    </div>
+                                </div>
+
+                                <div class="file-item">
+                                    <div class="file-thumb">&#x1F4E6;</div>
+                                    <div class="file-info">
+                                        <div class="file-name">notification-svc v2.0.0</div>
+                                        <div class="file-path">development / local</div>
+                                        <div class="file-details">
+                                            <span class="detail-tag">2 hrs ago</span>
+                                            <span class="detail-tag">@cpike</span>
+                                        </div>
+                                    </div>
+                                    <div class="file-meta">
+                                        <span class="tag tag-error">Failed</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Server Status -->
+                    <div class="panel" style="flex: 0 0 280px;">
+                        <div class="panel-header">
+                            <span class="panel-title">Server Status</span>
+                        </div>
+                        <div class="server-info">
+                            <div class="server-header">
+                                <div class="server-icon">&#x1F5A5;</div>
+                                <div>
+                                    <div class="server-title">prod-api-01</div>
+                                    <div class="server-subtitle">Ubuntu 22.04 LTS</div>
+                                </div>
+                            </div>
+
+                            <div class="metric-section">
+                                <div class="metric-header">
+                                    <span class="metric-indicator cpu"></span>
+                                    <span class="metric-label">CPU Usage</span>
+                                    <span class="metric-value">42%</span>
+                                </div>
+                                <div class="metric-bar-container">
+                                    <div class="metric-bar">
+                                        <div class="metric-bar-fill medium" style="width: 42%;"></div>
+                                    </div>
+                                </div>
+                                <div class="metric-details">
+                                    <span class="metric-pill">8 cores</span>
+                                    <span class="metric-pill">3.2 GHz</span>
+                                </div>
+                            </div>
+
+                            <div class="metric-section">
+                                <div class="metric-header">
+                                    <span class="metric-indicator memory"></span>
+                                    <span class="metric-label">Memory</span>
+                                    <span class="metric-value">12.4 / 32 GB</span>
+                                </div>
+                                <div class="metric-bar-container">
+                                    <div class="metric-bar">
+                                        <div class="metric-bar-fill low" style="width: 38%;"></div>
+                                    </div>
+                                </div>
+                                <div class="metric-details">
+                                    <span class="metric-pill">DDR4</span>
+                                    <span class="metric-pill">2666 MHz</span>
+                                </div>
+                            </div>
+
+                            <div class="metric-section">
+                                <div class="metric-header">
+                                    <span class="metric-indicator disk"></span>
+                                    <span class="metric-label">Disk Space</span>
+                                    <span class="metric-value">412 / 500 GB</span>
+                                </div>
+                                <div class="metric-bar-container">
+                                    <div class="metric-bar">
+                                        <div class="metric-bar-fill high" style="width: 82%;"></div>
+                                    </div>
+                                </div>
+                                <div class="metric-details">
+                                    <span class="metric-pill">NVMe SSD</span>
+                                    <span class="metric-pill">RAID-1</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
