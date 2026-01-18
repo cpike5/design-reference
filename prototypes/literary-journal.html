@@ -33,7 +33,7 @@
             background: var(--bg);
             color: var(--ink);
             min-height: 100vh;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         /* Layout */
@@ -80,7 +80,7 @@
         }
 
         .nav-section-title {
-            font-size: 9px;
+            font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             color: var(--ink-muted);
@@ -97,15 +97,35 @@
             border-bottom: 1px solid transparent;
             transition: all 0.2s;
             cursor: pointer;
+            border-radius: 2px;
         }
 
         .nav-item:hover {
             color: var(--ink);
         }
 
+        .nav-item:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
         .nav-item.active {
             color: var(--ink);
             font-weight: 500;
+            position: relative;
+            padding-left: 12px;
+        }
+
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 16px;
+            background: var(--accent);
+            border-radius: 2px;
         }
 
         .nav-item-count {
@@ -133,11 +153,23 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .btn-add:hover {
-            background: var(--ink-light);
+            background: var(--accent);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.15);
+        }
+
+        .btn-add:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 6px rgba(139, 69, 19, 0.1);
+        }
+
+        .btn-add:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
         }
 
         /* Main Content */
@@ -165,11 +197,18 @@
             padding: 10px 16px;
             width: 300px;
             background: var(--bg);
-            transition: all 0.2s;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 0 0 rgba(139, 69, 19, 0);
         }
 
         .search-box:focus-within {
-            border-color: var(--ink-muted);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.08);
+        }
+
+        .search-box svg {
+            color: var(--ink-muted);
+            flex-shrink: 0;
         }
 
         .search-box input {
@@ -181,6 +220,10 @@
             font-size: 12px;
             width: 100%;
             margin-left: 10px;
+        }
+
+        .search-box input:focus-visible {
+            outline: none;
         }
 
         .search-box input::placeholder {
@@ -229,8 +272,8 @@
             font-size: 42px;
             font-weight: 400;
             letter-spacing: -0.02em;
-            margin-bottom: 8px;
-            line-height: 1.1;
+            margin-bottom: 12px;
+            line-height: 1.15;
         }
 
         .page-subtitle {
@@ -240,7 +283,7 @@
         }
 
         .page-date {
-            font-size: 11px;
+            font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
             color: var(--ink-muted);
@@ -260,10 +303,32 @@
             flex: 1;
             padding: 20px 24px;
             border-right: 1px solid var(--rule);
+            position: relative;
+            transition: background-color 0.2s;
         }
 
         .stat-item:last-child {
             border-right: none;
+        }
+
+        .stat-item:hover {
+            background-color: rgba(139, 69, 19, 0.02);
+        }
+
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-light);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .stat-item:hover::after {
+            transform: scaleX(1);
         }
 
         .stat-value {
@@ -280,6 +345,8 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             color: var(--ink-muted);
+            margin-bottom: 20px;
+            font-weight: 500;
         }
 
         /* Two Column Layout */
@@ -320,24 +387,68 @@
             color: var(--ink);
         }
 
+        .panel-action:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
         /* Article List */
         .article-list {
             display: flex;
             flex-direction: column;
+            position: relative;
+        }
+
+        .article-list::after {
+            display: none;
         }
 
         .article-item {
             display: grid;
-            grid-template-columns: 1fr auto auto auto;
+            grid-template-columns: 1fr auto auto auto auto;
             gap: 16px;
             align-items: baseline;
-            padding: 14px 0;
+            padding: 14px 12px;
             border-bottom: 1px solid var(--rule);
             cursor: pointer;
+            transition: background-color 0.2s, border-left 0.2s, transform 0.2s;
+            border-radius: 4px;
+            margin: 0 -12px;
+            padding-left: 12px;
+            padding-right: 12px;
+            border-left: 3px solid transparent;
+        }
+
+        .article-item:last-child {
+            border-bottom: none;
+        }
+
+        .article-item:hover {
+            background-color: rgba(139, 69, 19, 0.05);
+            border-left-color: var(--accent);
         }
 
         .article-item:hover .article-title {
             color: var(--accent);
+            text-shadow: 0 0 12px rgba(139, 69, 19, 0.1);
+        }
+
+        .article-item::after {
+            content: '';
+            opacity: 0;
+            transition: opacity 0.2s ease-out;
+        }
+
+        .article-item:hover::after {
+            content: '\2192';
+            opacity: 1;
+            color: var(--accent);
+            font-size: 14px;
+        }
+
+        .article-item:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 0px;
         }
 
         .article-info {
@@ -348,7 +459,14 @@
             font-family: var(--serif);
             font-size: 17px;
             font-weight: 500;
-            transition: color 0.2s;
+            transition: color 0.2s ease-out, text-shadow 0.2s ease-out;
+        }
+
+        .article-date {
+            font-size: 11px;
+            color: var(--ink-muted);
+            text-align: right;
+            white-space: nowrap;
         }
 
         .article-author {
@@ -361,6 +479,7 @@
             font-size: 11px;
             color: var(--ink-muted);
             margin-top: 4px;
+            line-height: 1.5;
         }
 
         .tag {
@@ -369,6 +488,13 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             font-weight: 500;
+            transition: all 0.2s;
+            border-radius: 2px;
+        }
+
+        .article-item:hover .tag {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
         }
 
         .tag-published {
@@ -389,11 +515,17 @@
         }
 
         .read-time {
-            font-family: var(--serif);
-            font-size: 14px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
             color: var(--accent);
-            letter-spacing: 0;
-            font-style: italic;
+        }
+
+        .read-time::before {
+            content: '\25CA';
+            font-size: 8px;
+            opacity: 0.5;
         }
 
         /* Featured Section */
@@ -401,17 +533,26 @@
             background: var(--bg-card);
             border: 1px solid var(--rule);
             padding: 28px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04),
+                        0 2px 6px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s;
+        }
+
+        .featured-card:hover {
+            border-color: var(--accent-light);
+            box-shadow: 0 2px 8px rgba(139, 69, 19, 0.08);
         }
 
         .featured-header {
             text-align: center;
             padding-bottom: 24px;
-            border-bottom: 1px solid var(--rule);
+            border-bottom: 2px dotted var(--accent-light);
             margin-bottom: 24px;
         }
 
         .featured-label {
-            font-size: 9px;
+            font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--ink-muted);
@@ -452,6 +593,7 @@
             letter-spacing: 1px;
             color: var(--ink-muted);
             font-weight: 500;
+            margin-bottom: 0;
         }
 
         .notes-time {
@@ -468,11 +610,20 @@
 
         .note-item {
             font-family: var(--serif);
-            font-size: 15px;
+            font-size: 14px;
             color: var(--ink-light);
-            padding: 4px 12px;
+            padding: 6px 12px;
             background: var(--bg);
             border: 1px solid var(--rule);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+            transition: all 0.2s;
+        }
+
+        .note-item:hover {
+            background: var(--accent-light);
+            border-color: var(--accent);
+            box-shadow: 0 2px 4px rgba(139, 69, 19, 0.08);
+            cursor: default;
         }
 
         /* Divider */
@@ -480,8 +631,8 @@
             display: flex;
             align-items: center;
             gap: 16px;
-            margin: 24px 0;
-            color: var(--ink-faint);
+            margin: 28px 0;
+            color: var(--accent-light);
         }
 
         .divider::before,
@@ -489,11 +640,24 @@
             content: '';
             flex: 1;
             height: 1px;
-            background: var(--rule);
+            background: linear-gradient(
+                to right,
+                transparent,
+                var(--rule) 20%,
+                var(--rule) 80%,
+                transparent
+            );
         }
 
         .divider-icon {
             font-size: 14px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .featured-card:hover .divider-icon {
+            opacity: 1;
+            transform: scale(1.1);
         }
 
         /* Coming Soon */
@@ -547,6 +711,35 @@
             background: var(--ink-faint);
         }
 
+        /* Pagination Indicator */
+        .pagination-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--rule);
+            font-size: 11px;
+            color: var(--ink-muted);
+            font-style: italic;
+        }
+
+        .pagination-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-style: normal;
+            transition: all 0.2s;
+        }
+
+        .pagination-link:hover {
+            text-decoration: underline;
+        }
+
+        .pagination-link:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
         /* Small decorative elements */
         .ornament {
             font-family: var(--serif);
@@ -563,20 +756,22 @@
                 <div class="logo-subtitle">Literary Journal</div>
             </div>
 
-            <div class="nav-section">
-                <div class="nav-section-title">Navigation</div>
-                <a class="nav-item active">Dashboard</a>
-                <a class="nav-item">All Articles <span class="nav-item-count">(89)</span></a>
-                <a class="nav-item">Collections <span class="nav-item-count">(5)</span></a>
-            </div>
+            <nav>
+                <div class="nav-section" aria-label="Main Navigation">
+                    <div class="nav-section-title">Navigation</div>
+                    <a class="nav-item active" tabindex="0">Dashboard</a>
+                    <a class="nav-item" tabindex="0">All Articles <span class="nav-item-count">(89)</span></a>
+                    <a class="nav-item" tabindex="0">Collections <span class="nav-item-count">(5)</span></a>
+                </div>
 
-            <div class="nav-section">
-                <div class="nav-section-title">Categories</div>
-                <a class="nav-item">Essays <span class="nav-item-count">(32)</span></a>
-                <a class="nav-item">Reviews <span class="nav-item-count">(24)</span></a>
-                <a class="nav-item">Fiction <span class="nav-item-count">(18)</span></a>
-                <a class="nav-item">Poetry <span class="nav-item-count">(15)</span></a>
-            </div>
+                <div class="nav-section" aria-label="Categories">
+                    <div class="nav-section-title">Categories</div>
+                    <a class="nav-item" tabindex="0">Essays <span class="nav-item-count">(32)</span></a>
+                    <a class="nav-item" tabindex="0">Reviews <span class="nav-item-count">(24)</span></a>
+                    <a class="nav-item" tabindex="0">Fiction <span class="nav-item-count">(18)</span></a>
+                    <a class="nav-item" tabindex="0">Poetry <span class="nav-item-count">(15)</span></a>
+                </div>
+            </nav>
 
             <div class="coming-soon">
                 <div class="coming-soon-title">Coming Soon</div>
@@ -593,11 +788,11 @@
             <!-- Header -->
             <div class="header">
                 <div class="search-box">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Search articles">
                         <circle cx="11" cy="11" r="8"/>
                         <path d="M21 21l-4.35-4.35"/>
                     </svg>
-                    <input type="text" placeholder="Search articles, authors, topics...">
+                    <input type="text" placeholder="Search articles, authors, topics..." aria-label="Search articles">
                 </div>
                 <div class="user-area">
                     <span class="user-name">E. Blackwood</span>
@@ -642,7 +837,7 @@
                             <a href="#" class="panel-action">View all →</a>
                         </div>
                         <div class="article-list">
-                            <div class="article-item">
+                            <div class="article-item" tabindex="0" role="button">
                                 <div class="article-info">
                                     <div class="article-title">On the Nature of Solitude</div>
                                     <div class="article-author">by Margaret Holloway</div>
@@ -650,10 +845,11 @@
                                 </div>
                                 <span class="tag tag-published">Published</span>
                                 <span class="tag tag-category">Essay</span>
+                                <span class="article-date">Jan 15</span>
                                 <span class="read-time">8 min</span>
                             </div>
 
-                            <div class="article-item">
+                            <div class="article-item" tabindex="0" role="button">
                                 <div class="article-info">
                                     <div class="article-title">The Lost Art of Letter Writing</div>
                                     <div class="article-author">by Thomas Ashford</div>
@@ -661,10 +857,11 @@
                                 </div>
                                 <span class="tag tag-published">Published</span>
                                 <span class="tag tag-category">Essay</span>
+                                <span class="article-date">Jan 12</span>
                                 <span class="read-time">12 min</span>
                             </div>
 
-                            <div class="article-item">
+                            <div class="article-item" tabindex="0" role="button">
                                 <div class="article-info">
                                     <div class="article-title">Review: The Midnight Library</div>
                                     <div class="article-author">by Claire Whitman</div>
@@ -672,10 +869,11 @@
                                 </div>
                                 <span class="tag tag-draft">Draft</span>
                                 <span class="tag tag-category">Review</span>
+                                <span class="article-date">Jan 10</span>
                                 <span class="read-time">6 min</span>
                             </div>
 
-                            <div class="article-item">
+                            <div class="article-item" tabindex="0" role="button">
                                 <div class="article-info">
                                     <div class="article-title">Autumn in Vermont</div>
                                     <div class="article-author">by Samuel Pierce</div>
@@ -683,10 +881,11 @@
                                 </div>
                                 <span class="tag tag-published">Published</span>
                                 <span class="tag tag-category">Fiction</span>
+                                <span class="article-date">Jan 8</span>
                                 <span class="read-time">15 min</span>
                             </div>
 
-                            <div class="article-item">
+                            <div class="article-item" tabindex="0" role="button">
                                 <div class="article-info">
                                     <div class="article-title">Three Poems for Winter</div>
                                     <div class="article-author">by Elena Vance</div>
@@ -694,8 +893,13 @@
                                 </div>
                                 <span class="tag tag-draft">Draft</span>
                                 <span class="tag tag-category">Poetry</span>
+                                <span class="article-date">Jan 5</span>
                                 <span class="read-time">4 min</span>
                             </div>
+                        </div>
+                        <div class="pagination-indicator">
+                            Showing <strong>5</strong> of <strong>89</strong> articles
+                            <a href="#" class="pagination-link">View all articles</a>
                         </div>
                     </div>
 

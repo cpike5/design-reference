@@ -81,10 +81,16 @@
             cursor: pointer;
             transition: color 0.15s;
             position: relative;
+            outline: none;
         }
 
         .nav-item:hover {
             color: var(--white);
+        }
+
+        .nav-item:focus-visible {
+            outline: 2px solid var(--red);
+            outline-offset: 2px;
         }
 
         .nav-item.active {
@@ -122,10 +128,16 @@
             text-transform: uppercase;
             cursor: pointer;
             transition: background 0.15s;
+            outline: none;
         }
 
         .btn-add:hover {
             background: #b91c1c;
+        }
+
+        .btn-add:focus-visible {
+            outline: 2px solid var(--white);
+            outline-offset: 2px;
         }
 
         /* Main */
@@ -150,6 +162,13 @@
             padding: 12px 16px;
             background: var(--gray-100);
             width: 320px;
+            border: 1px solid var(--gray-200);
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        .search-box:focus-within {
+            border-color: var(--black);
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
         }
 
         .search-box input {
@@ -162,7 +181,7 @@
         }
 
         .search-box input::placeholder {
-            color: var(--gray-400);
+            color: var(--gray-600);
         }
 
         .user-badge {
@@ -272,6 +291,10 @@
             margin-bottom: 0;
         }
 
+        .section-header-spacing {
+            margin-bottom: 24px;
+        }
+
         .section-title {
             font-size: 14px;
             font-weight: 700;
@@ -286,10 +309,17 @@
             text-decoration: none;
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            outline: none;
+            transition: color 0.15s;
         }
 
         .section-action:hover {
             color: var(--black);
+        }
+
+        .section-action:focus-visible {
+            outline: 2px solid var(--black);
+            outline-offset: 2px;
         }
 
         /* Table */
@@ -319,12 +349,27 @@
             align-items: center;
             cursor: pointer;
             transition: background 0.1s;
+            outline: none;
+            position: relative;
         }
 
         .table-row:hover {
             background: var(--gray-100);
-            margin: 0 -16px;
-            padding: 20px 16px;
+        }
+
+        .table-row:hover::after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--gray-400);
+            transition: right 0.1s;
+        }
+
+        .table-row:focus-visible {
+            outline: 2px solid var(--black);
+            outline-offset: -2px;
         }
 
         .cell-name {
@@ -349,14 +394,27 @@
             letter-spacing: 0.05em;
             text-transform: uppercase;
             padding: 6px 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .cell-status.owned {
             color: var(--black);
         }
 
+        .cell-status.owned::before {
+            content: '●';
+            font-size: 8px;
+        }
+
         .cell-status.wishlist {
             color: var(--gray-400);
+        }
+
+        .cell-status.wishlist::before {
+            content: '○';
+            font-size: 8px;
         }
 
         .cell-rating {
@@ -452,6 +510,8 @@
             background: var(--white);
             border: 1px solid var(--gray-200);
             transition: all 0.15s;
+            outline: none;
+            cursor: pointer;
         }
 
         .note-chip:hover {
@@ -460,14 +520,19 @@
             color: var(--white);
         }
 
-        /* Coming Soon */
-        .coming-soon {
+        .note-chip:focus-visible {
+            outline: 2px solid var(--black);
+            outline-offset: 2px;
+        }
+
+        /* Alert Card */
+        .alert-card {
             margin-top: 32px;
             padding: 24px;
             border: 2px solid var(--black);
         }
 
-        .coming-soon-label {
+        .alert-card-label {
             font-size: 10px;
             font-weight: 700;
             letter-spacing: 0.1em;
@@ -475,7 +540,7 @@
             margin-bottom: 8px;
         }
 
-        .coming-soon-text {
+        .alert-card-text {
             font-size: 13px;
             color: var(--gray-600);
         }
@@ -501,6 +566,241 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--gray-600);
         }
+
+        /* ===== PHASE 1: HIGH-IMPACT ENHANCEMENTS ===== */
+
+        /* 1.1 Content Fade-In Animation */
+        .content {
+            animation: contentFadeIn 0.3s ease-out;
+        }
+
+        @keyframes contentFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 1.2 Stat Value Animation */
+        .stat-value {
+            animation: statPulse 0.5s ease-out;
+            animation-fill-mode: both;
+        }
+
+        @keyframes statPulse {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .stat:nth-child(1) .stat-value { animation-delay: 0.1s; }
+        .stat:nth-child(2) .stat-value { animation-delay: 0.15s; }
+        .stat:nth-child(3) .stat-value { animation-delay: 0.2s; }
+        .stat:nth-child(4) .stat-value { animation-delay: 0.25s; }
+
+        /* 1.3 Deal Progress Bar */
+        .deal-progress {
+            margin-top: 24px;
+            margin-bottom: 16px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 2px;
+            background: var(--gray-200);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--black);
+            transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .progress-label {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--gray-600);
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* 1.4 Table Sorting Indicators */
+        .table-header .sortable {
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.15s;
+        }
+
+        .table-header .sortable:hover {
+            color: var(--black);
+        }
+
+        .table-header .sortable::after {
+            content: '';
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid currentColor;
+            opacity: 0;
+            transition: opacity 0.15s;
+        }
+
+        .table-header .sortable:hover::after {
+            opacity: 0.4;
+        }
+
+        .table-header .sortable.active::after {
+            opacity: 1;
+        }
+
+        .table-header .sortable.active.asc::after {
+            border-top: none;
+            border-bottom: 4px solid currentColor;
+        }
+
+        /* ===== PHASE 2: POLISH ENHANCEMENTS ===== */
+
+        /* 2.1 Button Press States */
+        .btn-add:active {
+            transform: translateY(1px);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .note-chip:active {
+            transform: scale(0.98);
+        }
+
+        /* 2.2 Table Row Shadow Depth */
+        .table-row {
+            transition: background 0.1s, box-shadow 0.15s;
+        }
+
+        .table-row:hover {
+            background: var(--gray-100);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        /* 2.3 Navigation Notification Badge */
+        .nav-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 5px;
+            background: var(--red);
+            color: var(--white);
+            font-size: 9px;
+            font-weight: 700;
+            border-radius: 9px;
+            margin-left: 8px;
+        }
+
+        /* 2.4 Search Icon Animation */
+        .search-box svg {
+            transition: transform 0.2s ease, color 0.15s;
+            color: var(--gray-600);
+        }
+
+        .search-box:focus-within svg {
+            transform: scale(1.1);
+            color: var(--black);
+        }
+
+        /* 2.5 Featured Card Accent */
+        .featured-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: var(--black);
+        }
+
+        /* ===== PHASE 3: REFINEMENT ENHANCEMENTS ===== */
+
+        /* 3.1 Section Header Accent Animation */
+        .section-header {
+            position: relative;
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--red);
+            animation: expandLine 0.4s ease-out 0.2s forwards;
+        }
+
+        @keyframes expandLine {
+            from { width: 0; }
+            to { width: 48px; }
+        }
+
+        /* 3.2 Text Truncation */
+        .cell-name,
+        .cell-house {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* 3.3 Stats Row Accent */
+        .stats-row {
+            position: relative;
+        }
+
+        .stats-row::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0;
+            background: var(--red);
+            animation: statsAccent 0.6s ease-out 0.3s forwards;
+        }
+
+        @keyframes statsAccent {
+            from { width: 0; }
+            to { width: 48px; }
+        }
+
+        /* ===== ACCESSIBILITY: REDUCED MOTION ===== */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -512,7 +812,7 @@
             <div class="nav-group">
                 <div class="nav-label">Navigation</div>
                 <a class="nav-item active">Dashboard</a>
-                <a class="nav-item">Contacts</a>
+                <a class="nav-item">Contacts <span class="nav-badge">3</span></a>
                 <a class="nav-item">Deals</a>
             </div>
 
@@ -588,11 +888,11 @@
 
                         <div class="table">
                             <div class="table-header">
-                                <span>Name</span>
-                                <span>Company</span>
-                                <span>Type</span>
-                                <span>Status</span>
-                                <span>Value</span>
+                                <span class="sortable active" data-sort="name">Name</span>
+                                <span class="sortable" data-sort="company">Company</span>
+                                <span class="sortable" data-sort="type">Type</span>
+                                <span class="sortable" data-sort="status">Status</span>
+                                <span class="sortable" data-sort="value">Value</span>
                             </div>
 
                             <div class="table-row">
@@ -639,7 +939,7 @@
 
                     <!-- Right -->
                     <div>
-                        <div class="section-header" style="margin-bottom: 24px;">
+                        <div class="section-header section-header-spacing">
                             <h2 class="section-title">Top Deal</h2>
                         </div>
 
@@ -651,6 +951,13 @@
 
                             <div class="featured-name">Acme Corp</div>
                             <div class="featured-house">Enterprise License — $125,000</div>
+
+                            <div class="deal-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 65%;"></div>
+                                </div>
+                                <div class="progress-label">65% to Close</div>
+                            </div>
 
                             <div class="notes-grid">
                                 <div class="notes-row">
@@ -690,9 +997,9 @@
                             </div>
                         </div>
 
-                        <div class="coming-soon">
-                            <div class="coming-soon-label">Low Stock Alert</div>
-                            <div class="coming-soon-text">3 products below reorder threshold in Warehouse A</div>
+                        <div class="alert-card">
+                            <div class="alert-card-label">Low Stock Alert</div>
+                            <div class="alert-card-text">3 products below reorder threshold in Warehouse A</div>
                         </div>
                     </div>
                 </div>
