@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projectflow</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #fafaf8;
+            --bg-subtle: #f4f4f2;
+            --ink: #1a1a1a;
+            --ink-secondary: #5a5a5a;
+            --ink-muted: #9a9a9a;
+            --ink-faint: #d0d0d0;
+            --accent: #2d5a4a;
+            --accent-light: #e8f0ed;
+            --sans: 'IBM Plex Sans', -apple-system, sans-serif;
+        }
+
+        body {
+            font-family: var(--sans);
+            font-size: 13px;
+            font-weight: 400;
+            background: var(--bg);
+            color: var(--ink);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Layout - 12 column mental grid */
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 200px;
+            padding: 48px 32px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--ink-faint);
+        }
+
+        .logo {
+            margin-bottom: 64px;
+        }
+
+        .logo-text {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .nav-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .nav-label {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ink-muted);
+        }
+
+        .nav-items {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-item {
+            font-size: 13px;
+            color: var(--ink-secondary);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.2s;
+            padding: 4px 0;
+        }
+
+        .nav-item:hover {
+            color: var(--ink);
+        }
+
+        .nav-item.active {
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+        }
+
+        .btn-add {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: var(--ink);
+            border: none;
+            color: var(--bg);
+            font-family: var(--sans);
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-add:hover {
+            background: var(--ink-secondary);
+        }
+
+        /* Main */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 48px;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            width: 280px;
+            padding: 12px 16px 12px 40px;
+            border: 1px solid var(--ink-faint);
+            background: var(--bg);
+            font-family: var(--sans);
+            font-size: 13px;
+            color: var(--ink);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--ink-muted);
+        }
+
+        .search-input::placeholder {
+            color: var(--ink-muted);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--ink-muted);
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-name {
+            font-size: 13px;
+            color: var(--ink-secondary);
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--ink);
+            color: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+            padding: 0 48px 48px;
+            overflow-y: auto;
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 32px 0 48px;
+            max-width: 480px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--ink-secondary);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--ink-faint);
+            margin-bottom: 64px;
+        }
+
+        .stat-cell {
+            background: var(--bg);
+            padding: 32px;
+        }
+
+        .stat-value {
+            font-size: 40px;
+            font-weight: 300;
+            line-height: 1;
+            margin-bottom: 8px;
+            color: var(--ink);
+        }
+
+        .stat-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-muted);
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 64px;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--ink-faint);
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .section-action {
+            font-size: 12px;
+            color: var(--ink-muted);
+            text-decoration: none;
+        }
+
+        .section-action:hover {
+            color: var(--ink);
+        }
+
+        /* Task List */
+        .task-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .task-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 24px;
+            align-items: start;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--bg-subtle);
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .task-row:hover {
+            background: var(--bg-subtle);
+            margin: 0 -16px;
+            padding: 20px 16px;
+        }
+
+        .task-row:last-child {
+            border-bottom: none;
+        }
+
+        .task-main {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .task-name {
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .task-details {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 12px;
+            color: var(--ink-muted);
+        }
+
+        .task-project {
+            color: var(--ink-secondary);
+        }
+
+        .task-tags {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tag {
+            color: var(--ink-muted);
+        }
+
+        .tag::after {
+            content: '·';
+            margin-left: 8px;
+            color: var(--ink-faint);
+        }
+
+        .tag:last-child::after {
+            display: none;
+        }
+
+        .task-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .status {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 6px 12px;
+        }
+
+        .status-progress {
+            background: var(--accent-light);
+            color: var(--accent);
+        }
+
+        .status-review {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .status-todo {
+            background: var(--bg-subtle);
+            color: var(--ink-muted);
+        }
+
+        .priority {
+            font-size: 11px;
+            color: var(--ink-muted);
+        }
+
+        .due-date {
+            font-size: 12px;
+            color: var(--ink-muted);
+        }
+
+        /* Featured Card */
+        .featured-card {
+            background: var(--bg-subtle);
+            padding: 32px;
+        }
+
+        .featured-label {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ink-muted);
+            margin-bottom: 24px;
+        }
+
+        .featured-name {
+            font-size: 24px;
+            font-weight: 300;
+            margin-bottom: 4px;
+        }
+
+        .featured-project {
+            font-size: 13px;
+            color: var(--ink-secondary);
+            margin-bottom: 32px;
+        }
+
+        .breakdown {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .breakdown-level {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .breakdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .breakdown-label {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-muted);
+        }
+
+        .breakdown-count {
+            font-size: 10px;
+            color: var(--ink-faint);
+        }
+
+        .breakdown-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .breakdown-item {
+            font-size: 13px;
+            padding: 8px 14px;
+            background: var(--bg);
+            color: var(--ink-secondary);
+            border: 1px solid var(--ink-faint);
+            transition: all 0.15s;
+        }
+
+        .breakdown-item:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Divider line */
+        .divider {
+            height: 1px;
+            background: var(--ink-faint);
+            margin: 24px 0;
+        }
+
+        /* Coming soon */
+        .coming-soon {
+            margin-top: 32px;
+            padding: 24px;
+            border: 1px solid var(--ink-faint);
+        }
+
+        .coming-soon-label {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .coming-soon-text {
+            font-size: 13px;
+            color: var(--ink-secondary);
+            font-weight: 300;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--ink-faint);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ink-muted);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-text">Projectflow</div>
+            </div>
+
+            <nav class="nav">
+                <div class="nav-group">
+                    <div class="nav-label">Menu</div>
+                    <div class="nav-items">
+                        <a class="nav-item active">Dashboard</a>
+                        <a class="nav-item">Projects</a>
+                        <a class="nav-item">Calendar</a>
+                    </div>
+                </div>
+
+                <div class="nav-group">
+                    <div class="nav-label">Workspace</div>
+                    <div class="nav-items">
+                        <a class="nav-item">My Tasks</a>
+                        <a class="nav-item">Team</a>
+                    </div>
+                </div>
+
+                <div class="nav-group">
+                    <div class="nav-label">Account</div>
+                    <div class="nav-items">
+                        <a class="nav-item">Settings</a>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn-add">+ New Task</button>
+            </div>
+        </div>
+
+        <!-- Main -->
+        <div class="main">
+            <!-- Header -->
+            <div class="header">
+                <div class="search-container">
+                    <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <input type="text" class="search-input" placeholder="Search tasks...">
+                </div>
+                <div class="user-area">
+                    <span class="user-name">S. Chen</span>
+                    <div class="user-avatar">SC</div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="content">
+                <div class="page-header">
+                    <h1 class="page-title">Dashboard</h1>
+                    <p class="page-subtitle">Your project overview at a glance</p>
+                </div>
+
+                <!-- Stats -->
+                <div class="stats-grid">
+                    <div class="stat-cell">
+                        <div class="stat-value">18</div>
+                        <div class="stat-label">In Progress</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-value">7</div>
+                        <div class="stat-label">In Review</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-value">4</div>
+                        <div class="stat-label">Projects</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-value">42</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                </div>
+
+                <!-- Main Grid -->
+                <div class="main-grid">
+                    <!-- Left Column -->
+                    <div>
+                        <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title">Recent Tasks</h2>
+                                <a href="#" class="section-action">View all</a>
+                            </div>
+
+                            <div class="task-list">
+                                <div class="task-row">
+                                    <div class="task-main">
+                                        <div class="task-name">Implement user authentication</div>
+                                        <div class="task-details">
+                                            <span class="task-project">Platform v2</span>
+                                            <div class="task-tags">
+                                                <span class="tag">Backend</span>
+                                                <span class="tag">Security</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="task-meta">
+                                        <span class="status status-progress">In Progress</span>
+                                        <span class="priority">High</span>
+                                        <span class="due-date">Jan 22</span>
+                                    </div>
+                                </div>
+
+                                <div class="task-row">
+                                    <div class="task-main">
+                                        <div class="task-name">Design system documentation</div>
+                                        <div class="task-details">
+                                            <span class="task-project">Design System</span>
+                                            <div class="task-tags">
+                                                <span class="tag">Docs</span>
+                                                <span class="tag">UI</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="task-meta">
+                                        <span class="status status-review">Review</span>
+                                        <span class="priority">Medium</span>
+                                        <span class="due-date">Jan 20</span>
+                                    </div>
+                                </div>
+
+                                <div class="task-row">
+                                    <div class="task-main">
+                                        <div class="task-name">API rate limiting setup</div>
+                                        <div class="task-details">
+                                            <span class="task-project">Platform v2</span>
+                                            <div class="task-tags">
+                                                <span class="tag">Backend</span>
+                                                <span class="tag">Infrastructure</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="task-meta">
+                                        <span class="status status-todo">To Do</span>
+                                        <span class="priority">High</span>
+                                        <span class="due-date">Jan 25</span>
+                                    </div>
+                                </div>
+
+                                <div class="task-row">
+                                    <div class="task-main">
+                                        <div class="task-name">Dashboard analytics widgets</div>
+                                        <div class="task-details">
+                                            <span class="task-project">Analytics</span>
+                                            <div class="task-tags">
+                                                <span class="tag">Frontend</span>
+                                                <span class="tag">Charts</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="task-meta">
+                                        <span class="status status-progress">In Progress</span>
+                                        <span class="priority">Medium</span>
+                                        <span class="due-date">Jan 28</span>
+                                    </div>
+                                </div>
+
+                                <div class="task-row">
+                                    <div class="task-main">
+                                        <div class="task-name">Mobile responsive layouts</div>
+                                        <div class="task-details">
+                                            <span class="task-project">Design System</span>
+                                            <div class="task-tags">
+                                                <span class="tag">CSS</span>
+                                                <span class="tag">Mobile</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="task-meta">
+                                        <span class="status status-todo">To Do</span>
+                                        <span class="priority">Low</span>
+                                        <span class="due-date">Feb 1</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div>
+                        <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title">Sprint Focus</h2>
+                            </div>
+
+                            <div class="featured-card">
+                                <div class="featured-label">Current Sprint</div>
+                                <div class="featured-name">Platform v2 Launch</div>
+                                <div class="featured-project">Sprint 14 · Jan 15 – Jan 29</div>
+
+                                <div class="breakdown">
+                                    <div class="breakdown-level">
+                                        <div class="breakdown-header">
+                                            <span class="breakdown-label">Blocked</span>
+                                            <span class="breakdown-count">2 items</span>
+                                        </div>
+                                        <div class="breakdown-items">
+                                            <span class="breakdown-item">SSO Integration</span>
+                                            <span class="breakdown-item">DB Migration</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="breakdown-level">
+                                        <div class="breakdown-header">
+                                            <span class="breakdown-label">In Progress</span>
+                                            <span class="breakdown-count">4 items</span>
+                                        </div>
+                                        <div class="breakdown-items">
+                                            <span class="breakdown-item">Auth Flow</span>
+                                            <span class="breakdown-item">API Tests</span>
+                                            <span class="breakdown-item">UI Polish</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="breakdown-level">
+                                        <div class="breakdown-header">
+                                            <span class="breakdown-label">Completed</span>
+                                            <span class="breakdown-count">8 items</span>
+                                        </div>
+                                        <div class="breakdown-items">
+                                            <span class="breakdown-item">Schema Design</span>
+                                            <span class="breakdown-item">CI Pipeline</span>
+                                            <span class="breakdown-item">Logging</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="coming-soon">
+                                <div class="coming-soon-label">Coming Soon</div>
+                                <div class="coming-soon-text">AI-powered task prioritization and workload balancing</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
