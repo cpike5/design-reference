@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Post - Personal Dashboard</title>
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/blog-editor.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-text">cpike.dev</div>
+            </div>
+
+            <nav class="nav">
+                <div class="nav-group">
+                    <div class="nav-label">Public</div>
+                    <div class="nav-items">
+                        <a class="nav-item">Blog</a>
+                        <a class="nav-item">Projects</a>
+                        <a class="nav-item">About</a>
+                    </div>
+                </div>
+
+                <div class="nav-group">
+                    <div class="nav-label">Tools</div>
+                    <div class="nav-items">
+                        <a class="nav-item">Dashboard</a>
+                        <a class="nav-item active">Content</a>
+                        <a class="nav-item">Finances</a>
+                        <a class="nav-item">Recipes</a>
+                    </div>
+                </div>
+
+                <div class="nav-group">
+                    <div class="nav-label">System</div>
+                    <div class="nav-items">
+                        <a class="nav-item">Settings</a>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                home.cpike.ca v0.0.1-beta
+            </div>
+        </div>
+
+        <!-- Main -->
+        <div class="main">
+            <!-- Header -->
+            <div class="header">
+                <div class="search-container">
+                    <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <input type="text" class="search-input" placeholder="Search...">
+                </div>
+                <div class="user-area">
+                    <span class="user-name">Chris Pike</span>
+                    <div class="user-avatar">CP</div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="content">
+                <div class="page-header">
+                    <h1 class="page-title">Edit Post</h1>
+                    <p class="page-subtitle">Draft • Last saved 2 hours ago</p>
+                </div>
+
+                <div class="editor-layout">
+                    <!-- Main Content Area -->
+                    <div class="editor-main">
+                        <!-- Title Section -->
+                        <div class="editor-section">
+                            <input
+                                type="text"
+                                class="title-input"
+                                placeholder="Post title"
+                                value="Building a CLI with Go and Cobra"
+                            >
+                        </div>
+
+                        <!-- Metadata Panel -->
+                        <div class="metadata-panel">
+                            <div class="metadata-grid">
+                                <!-- Publish Date -->
+                                <div class="metadata-field">
+                                    <label class="metadata-label">Publish Date</label>
+                                    <input type="date" class="metadata-input" value="2024-01-22">
+                                </div>
+
+                                <!-- Category -->
+                                <div class="metadata-field">
+                                    <label class="metadata-label">Category</label>
+                                    <select class="metadata-input">
+                                        <option>Select category</option>
+                                        <option selected>Tutorial</option>
+                                        <option>Personal</option>
+                                        <option>News</option>
+                                        <option>Snippet</option>
+                                    </select>
+                                </div>
+
+                                <!-- Status -->
+                                <div class="metadata-field">
+                                    <label class="metadata-label">Status</label>
+                                    <div class="status-toggle">
+                                        <button class="status-btn draft-btn active">Draft</button>
+                                        <button class="status-btn publish-btn">Published</button>
+                                    </div>
+                                </div>
+
+                                <!-- Featured Toggle -->
+                                <div class="metadata-field">
+                                    <label class="metadata-label">Featured</label>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" id="featured-toggle" class="toggle-input">
+                                        <label for="featured-toggle" class="toggle-label"></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tags -->
+                            <div class="metadata-field full-width">
+                                <label class="metadata-label">Tags</label>
+                                <div class="tags-input-container">
+                                    <div class="tags-input">
+                                        <span class="tag-badge">
+                                            Go
+                                            <button class="tag-remove" data-tag="Go">×</button>
+                                        </span>
+                                        <span class="tag-badge">
+                                            Tutorial
+                                            <button class="tag-remove" data-tag="Tutorial">×</button>
+                                        </span>
+                                        <span class="tag-badge">
+                                            CLI
+                                            <button class="tag-remove" data-tag="CLI">×</button>
+                                        </span>
+                                        <input
+                                            type="text"
+                                            class="tags-input-field"
+                                            placeholder="Add tag and press Enter"
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Featured Image -->
+                            <div class="metadata-field full-width">
+                                <label class="metadata-label">Featured Image</label>
+                                <div class="image-upload-area">
+                                    <svg class="upload-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                        <polyline points="17 8 12 3 7 8"/>
+                                        <line x1="12" y1="3" x2="12" y2="15"/>
+                                    </svg>
+                                    <p class="upload-text">Drag image here or click to upload</p>
+                                    <p class="upload-hint">PNG, JPG, or WebP (max 5MB)</p>
+                                    <input type="file" class="image-input" accept="image/*" hidden>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rich Text Editor -->
+                        <div class="editor-section">
+                            <div class="editor-toolbar">
+                                <div class="toolbar-group">
+                                    <button class="toolbar-btn" title="Bold" data-action="bold">
+                                        <strong>B</strong>
+                                    </button>
+                                    <button class="toolbar-btn" title="Italic" data-action="italic">
+                                        <em>I</em>
+                                    </button>
+                                    <div class="toolbar-separator"></div>
+                                    <button class="toolbar-btn" title="Heading 1" data-action="heading1">H1</button>
+                                    <button class="toolbar-btn" title="Heading 2" data-action="heading2">H2</button>
+                                    <button class="toolbar-btn" title="Heading 3" data-action="heading3">H3</button>
+                                </div>
+                                <div class="toolbar-group">
+                                    <button class="toolbar-btn" title="Link" data-action="link">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                                        </svg>
+                                    </button>
+                                    <button class="toolbar-btn" title="Code" data-action="code">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="16 18 22 12 16 6"/>
+                                            <polyline points="8 6 2 12 8 18"/>
+                                        </svg>
+                                    </button>
+                                    <button class="toolbar-btn" title="Quote" data-action="quote">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M3 21c3 0 7-1 7-8V5c0-1.25-4-4-7-4"/>
+                                            <path d="M16 21c3 0 7-1 7-8V5c0-1.25-4-4-7-4"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="toolbar-group">
+                                    <button class="toolbar-btn" title="Bullet List" data-action="list">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <line x1="9" y1="6" x2="20" y2="6"/>
+                                            <line x1="9" y1="12" x2="20" y2="12"/>
+                                            <line x1="9" y1="18" x2="20" y2="18"/>
+                                            <line x1="5" y1="6" x2="5" y2="6.01"/>
+                                            <line x1="5" y1="12" x2="5" y2="12.01"/>
+                                            <line x1="5" y1="18" x2="5" y2="18.01"/>
+                                        </svg>
+                                    </button>
+                                    <button class="toolbar-btn" title="Numbered List" data-action="list-num">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <line x1="10" y1="6" x2="21" y2="6"/>
+                                            <line x1="10" y1="12" x2="21" y2="12"/>
+                                            <line x1="10" y1="18" x2="21" y2="18"/>
+                                            <path d="M4 6h1v4"/>
+                                            <path d="M4 10h2"/>
+                                            <path d="M6 18H4c0-1 3-2 3-3s-1-1.5-2-1"/>
+                                        </svg>
+                                    </button>
+                                    <button class="toolbar-btn" title="Image" data-action="image">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                                            <polyline points="21 15 16 10 5 21"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <textarea
+                                class="editor-textarea"
+                                placeholder="Write your post content here..."
+                            >Building a CLI with Go and Cobra
+
+In this post, we'll explore how to build a modern command-line interface using Go and the Cobra framework. This is a comprehensive guide for developers looking to create robust CLI applications.
+
+## Getting Started
+
+First, you'll need to set up your Go environment and install Cobra. Let's walk through the setup process step by step.
+
+## Key Concepts
+
+- Command structure
+- Flag handling
+- Subcommand organization
+- Error handling
+
+## Conclusion
+
+Cobra makes it easy to build professional CLI applications with Go. The framework handles much of the boilerplate code, allowing you to focus on your application logic.</textarea>
+                        </div>
+
+                        <!-- Status Bar -->
+                        <div class="editor-status">
+                            <div class="status-info">
+                                <span class="status-item">
+                                    <span class="status-label">Words:</span>
+                                    <span class="status-value" id="word-count">187</span>
+                                </span>
+                                <span class="status-item">
+                                    <span class="status-label">Reading time:</span>
+                                    <span class="status-value" id="reading-time">1 min</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Action Bar -->
+                        <div class="action-bar">
+                            <div class="action-group">
+                                <button class="btn-secondary">← Back</button>
+                                <button class="btn-secondary">Save Draft</button>
+                                <button class="btn-secondary">Preview</button>
+                            </div>
+                            <button class="btn-primary">Publish</button>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Panel -->
+                    <div class="editor-sidebar">
+                        <!-- SEO Preview -->
+                        <div class="sidebar-section">
+                            <h3 class="sidebar-title">SEO Preview</h3>
+                            <div class="seo-preview">
+                                <div class="seo-title">Building a CLI with Go and Cobra</div>
+                                <div class="seo-url">home.cpike.ca/blog/cli-go-cobra</div>
+                                <div class="seo-description">
+                                    In this post, we'll explore how to build a modern command-line interface using Go and the Cobra framework. This is a comprehensive guide for developers...
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Related Posts -->
+                        <div class="sidebar-section">
+                            <h3 class="sidebar-title">Related Posts</h3>
+                            <div class="related-posts">
+                                <div class="related-post-item">
+                                    <div class="related-post-title">Getting Started with Go</div>
+                                    <div class="related-post-meta">Published Jan 15</div>
+                                </div>
+                                <div class="related-post-item">
+                                    <div class="related-post-title">Go Best Practices 2024</div>
+                                    <div class="related-post-meta">Published Dec 28</div>
+                                </div>
+                                <div class="related-post-item">
+                                    <div class="related-post-title">Testing Go Applications</div>
+                                    <div class="related-post-meta">Published Dec 10</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Post Info -->
+                        <div class="sidebar-section">
+                            <h3 class="sidebar-title">Post Info</h3>
+                            <div class="post-info">
+                                <div class="info-row">
+                                    <span class="info-label">Created</span>
+                                    <span class="info-value">Jan 18, 2024</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Modified</span>
+                                    <span class="info-value">Jan 20, 2024</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Slug</span>
+                                    <span class="info-value slug-value">cli-go-cobra</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/site.js" type="text/javascript"></script>
+    <script src="js/blog-editor.js" type="text/javascript"></script>
+</body>
+</html>

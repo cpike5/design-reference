@@ -1,0 +1,988 @@
+/**
+ * Settings Page Styles - home.cpike.ca
+ * Forms, controls, tabs, and settings-specific components
+ */
+
+:root {
+    /* Additional colors for settings */
+    --danger: #ef4444;
+    --danger-bg: rgba(239, 68, 68, 0.12);
+    --danger-dim: #dc2626;
+    --success: #22c55e;
+    --success-bg: rgba(34, 197, 94, 0.12);
+}
+
+/* ============================================================================
+   SETTINGS LAYOUT
+   ============================================================================ */
+
+.settings-tabs {
+    display: flex;
+    gap: var(--space-4);
+    border-bottom: 1px solid var(--ink-faint);
+    margin-bottom: var(--space-12);
+    overflow-x: auto;
+    padding-bottom: var(--space-4);
+    -webkit-overflow-scrolling: touch;
+}
+
+.settings-tab-btn {
+    padding: var(--space-4) var(--space-6);
+    font-family: var(--sans);
+    font-size: var(--text-base);
+    color: var(--ink-secondary);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+}
+
+.settings-tab-btn:hover {
+    color: var(--ink);
+}
+
+.settings-tab-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+
+/* ============================================================================
+   TAB CONTENT
+   ============================================================================ */
+
+.settings-content {
+    position: relative;
+}
+
+.settings-tab-content {
+    display: none;
+    animation: fadeIn 0.2s ease;
+}
+
+.settings-tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ============================================================================
+   SETTINGS SECTIONS
+   ============================================================================ */
+
+.settings-section {
+    background: var(--bg-subtle);
+    border: 1px solid var(--ink-faint);
+    padding: var(--space-8);
+    margin-bottom: var(--space-8);
+}
+
+.settings-section-title {
+    font-size: var(--text-lg);
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: var(--space-2);
+}
+
+.settings-section-desc {
+    font-size: var(--text-base);
+    color: var(--ink-secondary);
+    margin-bottom: var(--space-8);
+}
+
+/* ============================================================================
+   FORMS
+   ============================================================================ */
+
+.settings-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: var(--space-8);
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.form-group.nested-group {
+    margin-left: var(--space-8);
+    padding-left: var(--space-8);
+    border-left: 2px solid var(--ink-faint);
+}
+
+/* ============================================================================
+   FORM LABELS
+   ============================================================================ */
+
+.form-label {
+    display: block;
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: var(--space-3);
+}
+
+.form-help-text {
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+    margin-top: var(--space-2);
+}
+
+/* ============================================================================
+   TEXT INPUTS & TEXTAREAS
+   ============================================================================ */
+
+.form-input,
+.form-textarea,
+.form-select {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    font-family: var(--sans);
+    font-size: var(--text-base);
+    background: var(--bg-elevated);
+    border: 1px solid var(--ink-faint);
+    color: var(--ink);
+    transition: all var(--transition-fast);
+    outline: none;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-bg);
+}
+
+.form-input:disabled,
+.form-input:read-only {
+    background: var(--bg-subtle);
+    color: var(--ink-muted);
+    cursor: not-allowed;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: var(--ink-muted);
+}
+
+.form-textarea {
+    resize: vertical;
+    font-family: var(--sans);
+}
+
+.form-input-wrapper {
+    position: relative;
+}
+
+.form-select {
+    cursor: pointer;
+    appearance: none;
+    padding-right: var(--space-8);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a0a0aa' d='M1 3l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--space-4) center;
+}
+
+.form-select::-ms-expand {
+    display: none;
+}
+
+/* ============================================================================
+   FORM ROW (for horizontal layouts)
+   ============================================================================ */
+
+.form-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+}
+
+.form-col {
+    flex: 1;
+}
+
+.form-col.form-col-auto {
+    flex: 0 auto;
+}
+
+/* ============================================================================
+   CHECKBOXES
+   ============================================================================ */
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    cursor: pointer;
+    font-size: var(--text-base);
+    color: var(--ink);
+}
+
+.checkbox-label input {
+    display: none;
+}
+
+.checkbox-custom {
+    width: 18px;
+    height: 18px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--ink-faint);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all var(--transition-fast);
+}
+
+.checkbox-label input:checked + .checkbox-custom {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.checkbox-label input:checked + .checkbox-custom::after {
+    content: '✓';
+    color: var(--bg);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.checkbox-label input:focus + .checkbox-custom {
+    box-shadow: 0 0 0 3px var(--accent-bg);
+}
+
+/* ============================================================================
+   RADIO BUTTONS
+   ============================================================================ */
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    cursor: pointer;
+    font-size: var(--text-base);
+    color: var(--ink);
+}
+
+.radio-label input {
+    display: none;
+}
+
+.radio-custom {
+    width: 18px;
+    height: 18px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--ink-faint);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all var(--transition-fast);
+}
+
+.radio-label input:checked + .radio-custom {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: inset 0 0 0 3px var(--bg-elevated);
+}
+
+.radio-label input:focus + .radio-custom {
+    box-shadow: 0 0 0 3px var(--accent-bg);
+}
+
+/* ============================================================================
+   TOGGLE SWITCH
+   ============================================================================ */
+
+.toggle-switch {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.toggle-switch input {
+    display: none;
+}
+
+.toggle-slider {
+    width: 44px;
+    height: 24px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--ink-faint);
+    border-radius: 12px;
+    position: relative;
+    transition: all var(--transition-fast);
+}
+
+.toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: var(--ink-secondary);
+    border-radius: 50%;
+    left: 2px;
+    top: 2px;
+    transition: all var(--transition-fast);
+}
+
+.toggle-switch input:checked + .toggle-slider {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+    left: 22px;
+    background: var(--bg);
+}
+
+.toggle-switch input:focus + .toggle-slider {
+    box-shadow: 0 0 0 3px var(--accent-bg);
+}
+
+/* ============================================================================
+   NUMBER INPUT
+   ============================================================================ */
+
+.number-input-group {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.number-input {
+    flex: 1;
+    text-align: center;
+}
+
+.number-btn {
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-elevated);
+    border: 1px solid var(--ink-faint);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: var(--text-base);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.number-btn:first-child {
+    border-right: none;
+}
+
+.number-btn:last-child {
+    border-left: none;
+}
+
+.number-btn:hover {
+    background: var(--bg-subtle);
+    color: var(--accent);
+}
+
+/* ============================================================================
+   COLOR PICKER
+   ============================================================================ */
+
+.color-picker-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.color-picker {
+    width: 48px;
+    height: 40px;
+    border: 1px solid var(--ink-faint);
+    cursor: pointer;
+    outline: none;
+    transition: all var(--transition-fast);
+}
+
+.color-picker:focus {
+    box-shadow: 0 0 0 3px var(--accent-bg);
+}
+
+.color-preview {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--ink-faint);
+    border-radius: var(--radius-sm);
+}
+
+.color-value {
+    font-size: var(--text-base);
+    color: var(--ink-secondary);
+    font-family: monospace;
+    padding: var(--space-2) var(--space-3);
+    background: var(--bg-elevated);
+    border-radius: var(--radius-sm);
+}
+
+/* ============================================================================
+   FILE UPLOAD
+   ============================================================================ */
+
+.file-upload {
+    position: relative;
+}
+
+.file-upload-area {
+    border: 2px dashed var(--ink-faint);
+    border-radius: var(--radius-sm);
+    padding: var(--space-8);
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.file-upload-area:hover {
+    border-color: var(--accent);
+    background: var(--accent-bg);
+}
+
+.file-upload-area svg {
+    color: var(--ink-secondary);
+}
+
+.file-upload-area p {
+    font-size: var(--text-base);
+    color: var(--ink);
+    margin: 0;
+}
+
+.file-upload-size {
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+}
+
+/* ============================================================================
+   AVATAR UPLOAD
+   ============================================================================ */
+
+.avatar-upload {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+}
+
+.avatar-preview {
+    flex-shrink: 0;
+}
+
+.avatar-circle {
+    width: 96px;
+    height: 96px;
+    background: var(--accent);
+    color: var(--bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-2xl);
+    font-weight: 500;
+}
+
+.avatar-controls {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.upload-btn {
+    padding: var(--space-3) var(--space-4);
+    background: var(--accent);
+    border: none;
+    color: var(--bg);
+    font-family: var(--sans);
+    font-size: var(--text-base);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.upload-btn:hover {
+    background: var(--accent-dim);
+}
+
+/* ============================================================================
+   SOCIAL INPUTS
+   ============================================================================ */
+
+.social-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.social-input {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--ink-faint);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-base);
+    color: var(--ink-secondary);
+    flex-shrink: 0;
+}
+
+.social-input .form-input {
+    flex: 1;
+}
+
+/* ============================================================================
+   TWO-FACTOR AUTHENTICATION CARD
+   ============================================================================ */
+
+.twofa-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--ink-faint);
+    padding: var(--space-6);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+}
+
+.twofa-info {
+    flex: 1;
+}
+
+.twofa-title {
+    font-size: var(--text-lg);
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: var(--space-2);
+}
+
+.twofa-desc {
+    font-size: var(--text-base);
+    color: var(--ink-secondary);
+    margin-bottom: var(--space-3);
+}
+
+.twofa-status {
+    display: inline-block;
+    padding: var(--space-2) var(--space-3);
+    background: var(--warning-bg);
+    color: var(--warning);
+    font-size: var(--text-sm);
+    border-radius: var(--radius-lg);
+}
+
+/* ============================================================================
+   SESSIONS TABLE
+   ============================================================================ */
+
+.sessions-table {
+    background: var(--bg-elevated);
+    border: 1px solid var(--ink-faint);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.session-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 120px;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    align-items: center;
+    border-bottom: 1px solid var(--ink-faint);
+}
+
+.session-row:last-child {
+    border-bottom: none;
+}
+
+.session-row.header {
+    background: var(--bg-subtle);
+    padding: var(--space-3) var(--space-4);
+}
+
+.session-row.header .session-col {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.session-col {
+    font-size: var(--text-base);
+    color: var(--ink);
+}
+
+.session-col.location,
+.session-col.active {
+    color: var(--ink-secondary);
+}
+
+.session-col.actions {
+    text-align: right;
+}
+
+.device-icon {
+    margin-right: var(--space-2);
+}
+
+/* ============================================================================
+   ACTION CARDS
+   ============================================================================ */
+
+.action-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--ink-faint);
+    padding: var(--space-6);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+}
+
+.action-card.danger {
+    border-color: var(--danger-bg);
+    background: rgba(239, 68, 68, 0.05);
+}
+
+.action-info {
+    flex: 1;
+}
+
+.action-title {
+    font-size: var(--text-lg);
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: var(--space-2);
+}
+
+.action-desc {
+    font-size: var(--text-base);
+    color: var(--ink-secondary);
+}
+
+/* ============================================================================
+   INTEGRATIONS GRID
+   ============================================================================ */
+
+.integrations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-6);
+    margin-bottom: var(--space-8);
+}
+
+.integration-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--ink-faint);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    transition: all var(--transition-fast);
+}
+
+.integration-card:hover {
+    border-color: var(--accent);
+}
+
+.integration-card.connected {
+    border-color: var(--success);
+}
+
+.integration-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+}
+
+.integration-name {
+    font-size: var(--text-lg);
+    font-weight: 400;
+    color: var(--ink);
+    margin: 0;
+}
+
+.integration-badge {
+    font-size: var(--text-xs);
+    font-weight: 500;
+    padding: var(--space-2) var(--space-3);
+    background: var(--success-bg);
+    color: var(--success);
+    border-radius: var(--radius-lg);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.integration-desc {
+    font-size: var(--text-base);
+    color: var(--ink-secondary);
+    margin: 0;
+}
+
+.integration-account {
+    font-size: var(--text-base);
+    color: var(--ink-secondary);
+}
+
+.integration-placeholder {
+    font-size: var(--text-base);
+    color: var(--ink-muted);
+    padding: var(--space-4);
+    background: var(--bg-subtle);
+    text-align: center;
+    border-radius: var(--radius-sm);
+}
+
+/* ============================================================================
+   API KEY SECTION
+   ============================================================================ */
+
+.api-key-container {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.api-key-input {
+    flex: 1;
+    font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
+    letter-spacing: 0.05em;
+}
+
+/* ============================================================================
+   BUTTONS
+   ============================================================================ */
+
+.btn-primary {
+    padding: var(--space-3) var(--space-6);
+    background: var(--accent);
+    border: none;
+    color: var(--bg);
+    font-family: var(--sans);
+    font-size: var(--text-base);
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary:hover {
+    background: var(--accent-dim);
+}
+
+.btn-primary:active {
+    transform: translateY(1px);
+}
+
+.btn-secondary {
+    padding: var(--space-3) var(--space-6);
+    background: var(--bg-elevated);
+    border: 1px solid var(--ink-faint);
+    color: var(--ink-secondary);
+    font-family: var(--sans);
+    font-size: var(--text-base);
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-secondary:hover {
+    background: var(--bg-subtle);
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.btn-danger {
+    padding: var(--space-3) var(--space-6);
+    background: var(--danger);
+    border: none;
+    color: white;
+    font-family: var(--sans);
+    font-size: var(--text-base);
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-danger:hover {
+    background: var(--danger-dim);
+}
+
+.btn-text {
+    padding: var(--space-2) var(--space-3);
+    background: none;
+    border: none;
+    color: var(--ink-secondary);
+    font-family: var(--sans);
+    font-size: var(--text-base);
+    cursor: pointer;
+    transition: color var(--transition-fast);
+    display: inline;
+}
+
+.btn-text:hover {
+    color: var(--accent);
+}
+
+.btn-text.danger:hover {
+    color: var(--danger);
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* ============================================================================
+   FORM ACTIONS
+   ============================================================================ */
+
+.form-actions {
+    display: flex;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--ink-faint);
+}
+
+/* ============================================================================
+   UTILITIES
+   ============================================================================ */
+
+.mt-spacing {
+    margin-top: var(--space-4);
+}
+
+/* ============================================================================
+   RESPONSIVE - MOBILE
+   ============================================================================ */
+
+@media (max-width: 768px) {
+    .settings-tabs {
+        margin-bottom: var(--space-8);
+    }
+
+    .settings-tab-btn {
+        padding: var(--space-3) var(--space-4);
+        font-size: var(--text-sm);
+    }
+
+    .settings-section {
+        padding: var(--space-6);
+    }
+
+    .form-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .avatar-upload {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .twofa-card,
+    .action-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .session-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+    }
+
+    .session-row.header {
+        display: none;
+    }
+
+    .session-col {
+        display: grid;
+        grid-template-columns: 100px 1fr;
+    }
+
+    .session-col::before {
+        font-weight: 500;
+        color: var(--ink-muted);
+        font-size: var(--text-sm);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .session-col.device::before { content: 'Device'; }
+    .session-col.location::before { content: 'Location'; }
+    .session-col.active::before { content: 'Active'; }
+    .session-col.actions::before { content: ''; }
+
+    .integrations-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-danger {
+        width: 100%;
+    }
+}
+
+/* ============================================================================
+   RESPONSIVE - TABLET
+   ============================================================================ */
+
+@media (max-width: 1024px) {
+    .integrations-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}

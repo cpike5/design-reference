@@ -1,0 +1,683 @@
+/**
+ * Recipe Editor Styles
+ * Specific styles for recipe-editor.html page
+ */
+
+/* ============================================================================
+   RECIPE EDITOR LAYOUT
+   ============================================================================ */
+
+.recipe-editor-layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: var(--space-16);
+    margin-bottom: var(--space-16);
+}
+
+.recipe-editor-main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+}
+
+.recipe-editor-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    height: fit-content;
+    position: sticky;
+    top: 80px;
+}
+
+/* ============================================================================
+   FORM SECTIONS
+   ============================================================================ */
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+/* ============================================================================
+   RECIPE TITLE INPUT
+   ============================================================================ */
+
+.recipe-title-input {
+    font-size: var(--text-xl);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--ink-faint);
+    color: var(--ink);
+    padding: var(--space-2) 0;
+    outline: none;
+    transition: border-color var(--transition-fast);
+    font-family: var(--sans);
+}
+
+.recipe-title-input:focus {
+    border-bottom-color: var(--accent);
+}
+
+.recipe-title-input::placeholder {
+    color: var(--ink-muted);
+}
+
+/* ============================================================================
+   RECIPE DESCRIPTION INPUT
+   ============================================================================ */
+
+.recipe-description-input {
+    background: var(--bg-subtle);
+    border: 1px solid var(--ink-faint);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: var(--text-base);
+    padding: var(--space-4);
+    outline: none;
+    resize: vertical;
+    transition: border-color var(--transition-fast);
+}
+
+.recipe-description-input:focus {
+    border-color: var(--accent);
+}
+
+.recipe-description-input::placeholder {
+    color: var(--ink-muted);
+}
+
+/* ============================================================================
+   IMAGE UPLOAD ZONE
+   ============================================================================ */
+
+.image-upload-zone {
+    border: 2px dashed var(--ink-faint);
+    border-radius: var(--radius-lg);
+    padding: var(--space-12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    background: var(--bg-subtle);
+}
+
+.image-upload-zone:hover {
+    border-color: var(--accent);
+    background: var(--bg-elevated);
+}
+
+.image-upload-zone.dragover {
+    border-color: var(--accent);
+    background: var(--bg-elevated);
+}
+
+.upload-icon {
+    color: var(--ink-muted);
+    transition: color var(--transition-fast);
+}
+
+.image-upload-zone:hover .upload-icon {
+    color: var(--accent);
+}
+
+.upload-text {
+    text-align: center;
+}
+
+.upload-title {
+    font-size: var(--text-base);
+    color: var(--ink);
+    margin-bottom: var(--space-1);
+}
+
+.upload-subtitle {
+    font-size: var(--text-sm);
+    color: var(--ink-muted);
+}
+
+/* ============================================================================
+   IMAGE PREVIEW
+   ============================================================================ */
+
+.image-preview {
+    position: relative;
+    border: 1px solid var(--ink-faint);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.image-preview img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.image-remove-btn {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    background: var(--bg);
+    border: 1px solid var(--ink-faint);
+    color: var(--ink-secondary);
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    font-family: var(--sans);
+}
+
+.image-remove-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+}
+
+/* ============================================================================
+   SECTION HEADERS (INLINE)
+   ============================================================================ */
+
+.section-header-inline {
+    margin-bottom: var(--space-4);
+}
+
+.section-header-inline .section-title {
+    font-size: var(--text-base-sm);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+}
+
+/* ============================================================================
+   INGREDIENTS LIST
+   ============================================================================ */
+
+.ingredients-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+}
+
+.ingredient-row {
+    display: grid;
+    grid-template-columns: 80px 100px 1fr 32px;
+    gap: var(--space-3);
+    align-items: center;
+    padding: var(--space-3);
+    background: var(--bg-subtle);
+    border: 1px solid var(--ink-faint);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.ingredient-row:hover {
+    background: var(--bg-elevated);
+    border-color: var(--ink-muted);
+}
+
+.ingredient-row:hover .ingredient-delete-btn {
+    opacity: 1;
+}
+
+.ingredient-qty {
+    background: var(--bg);
+    border: 1px solid var(--ink-faint);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: var(--text-base);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: border-color var(--transition-fast);
+}
+
+.ingredient-qty:focus {
+    border-color: var(--accent);
+}
+
+.ingredient-qty::placeholder {
+    color: var(--ink-muted);
+}
+
+.ingredient-unit {
+    background: var(--bg);
+    border: 1px solid var(--ink-faint);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: var(--text-base);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: border-color var(--transition-fast);
+    cursor: pointer;
+}
+
+.ingredient-unit:focus {
+    border-color: var(--accent);
+}
+
+.ingredient-unit option {
+    background: var(--bg-subtle);
+    color: var(--ink);
+}
+
+.ingredient-name {
+    background: var(--bg);
+    border: 1px solid var(--ink-faint);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: var(--text-base);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: border-color var(--transition-fast);
+}
+
+.ingredient-name:focus {
+    border-color: var(--accent);
+}
+
+.ingredient-name::placeholder {
+    color: var(--ink-muted);
+}
+
+.ingredient-delete-btn {
+    background: transparent;
+    border: none;
+    color: var(--ink-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    opacity: 0;
+    transition: color var(--transition-fast);
+}
+
+.ingredient-delete-btn:hover {
+    color: var(--warning);
+}
+
+/* ============================================================================
+   INSTRUCTIONS LIST
+   ============================================================================ */
+
+.instructions-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    margin-bottom: var(--space-6);
+}
+
+.instruction-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: var(--space-4);
+    align-items: start;
+    padding: var(--space-6);
+    background: var(--bg-subtle);
+    border: 1px solid var(--ink-faint);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.instruction-row:hover {
+    background: var(--bg-elevated);
+    border-color: var(--ink-muted);
+}
+
+.instruction-row:hover .instruction-delete-btn {
+    opacity: 1;
+}
+
+.instruction-number {
+    font-size: var(--text-lg);
+    font-weight: 300;
+    color: var(--accent);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-bg);
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+}
+
+.instruction-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.instruction-textarea {
+    background: var(--bg);
+    border: 1px solid var(--ink-faint);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: var(--text-base);
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    outline: none;
+    resize: vertical;
+    transition: border-color var(--transition-fast);
+}
+
+.instruction-textarea:focus {
+    border-color: var(--accent);
+}
+
+.instruction-textarea::placeholder {
+    color: var(--ink-muted);
+}
+
+.instruction-options {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+}
+
+.instruction-timer {
+    background: var(--bg);
+    border: 1px solid var(--ink-faint);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: var(--text-base-sm);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    outline: none;
+    width: 120px;
+    transition: border-color var(--transition-fast);
+}
+
+.instruction-timer:focus {
+    border-color: var(--accent);
+}
+
+.instruction-timer::placeholder {
+    color: var(--ink-muted);
+}
+
+.instruction-image-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: var(--bg);
+    border: 1px solid var(--ink-faint);
+    color: var(--ink-secondary);
+    font-family: var(--sans);
+    font-size: var(--text-base-sm);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.instruction-image-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.instruction-delete-btn {
+    background: transparent;
+    border: none;
+    color: var(--ink-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    opacity: 0;
+    transition: color var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.instruction-delete-btn:hover {
+    color: var(--warning);
+}
+
+/* ============================================================================
+   ADD ITEM BUTTONS
+   ============================================================================ */
+
+.btn-add-item {
+    background: transparent;
+    border: 1px dashed var(--ink-faint);
+    color: var(--ink-secondary);
+    font-family: var(--sans);
+    font-size: var(--text-base-sm);
+    padding: var(--space-3) var(--space-4);
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    text-align: left;
+}
+
+.btn-add-item:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-bg);
+}
+
+/* ============================================================================
+   METADATA PANEL
+   ============================================================================ */
+
+.metadata-panel {
+    background: var(--bg-subtle);
+    border: 1px solid var(--ink-faint);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+.metadata-title {
+    font-size: var(--text-base-sm);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: var(--space-2);
+}
+
+/* ============================================================================
+   METADATA SECTIONS & INPUTS
+   ============================================================================ */
+
+.metadata-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.metadata-label {
+    font-size: var(--text-base-sm);
+    color: var(--ink-secondary);
+}
+
+.metadata-input {
+    background: var(--bg);
+    border: 1px solid var(--ink-faint);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: var(--text-base);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: border-color var(--transition-fast);
+}
+
+.metadata-input:focus {
+    border-color: var(--accent);
+}
+
+.metadata-input::placeholder {
+    color: var(--ink-muted);
+}
+
+.metadata-input option {
+    background: var(--bg-subtle);
+    color: var(--ink);
+}
+
+/* ============================================================================
+   NUTRITION FACTS COLLAPSIBLE
+   ============================================================================ */
+
+.nutrition-toggle {
+    background: transparent;
+    border: none;
+    color: var(--ink);
+    font-size: var(--text-base-sm);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0;
+    transition: color var(--transition-fast);
+    font-family: var(--sans);
+}
+
+.nutrition-toggle:hover {
+    color: var(--accent);
+}
+
+.nutrition-chevron {
+    color: var(--ink-muted);
+    transition: transform var(--transition-fast);
+}
+
+.nutrition-toggle[aria-expanded="true"] .nutrition-chevron {
+    transform: rotate(180deg);
+}
+
+.nutrition-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--ink-faint);
+}
+
+/* ============================================================================
+   ACTION BUTTONS
+   ============================================================================ */
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+}
+
+.btn-secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg);
+    border: 1px solid var(--ink-faint);
+    color: var(--ink-secondary);
+    font-family: var(--sans);
+    font-size: var(--text-base-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border-radius: var(--radius-md);
+}
+
+.btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-bg);
+}
+
+.metadata-panel .btn-primary {
+    width: 100%;
+    justify-content: center;
+}
+
+/* ============================================================================
+   RESPONSIVE - TABLET
+   ============================================================================ */
+
+@media (max-width: 1024px) {
+    .recipe-editor-layout {
+        grid-template-columns: 1fr;
+        gap: var(--space-12);
+    }
+
+    .recipe-editor-sidebar {
+        position: static;
+    }
+
+    .ingredient-row {
+        grid-template-columns: 70px 80px 1fr 32px;
+    }
+}
+
+/* ============================================================================
+   RESPONSIVE - MOBILE
+   ============================================================================ */
+
+@media (max-width: 768px) {
+    .recipe-editor-layout {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+    }
+
+    .recipe-editor-sidebar {
+        position: static;
+    }
+
+    .ingredient-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-2);
+    }
+
+    .instruction-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+    }
+
+    .instruction-number {
+        width: 24px;
+        height: 24px;
+        font-size: var(--text-base);
+    }
+
+    .instruction-options {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .instruction-timer {
+        width: 100%;
+    }
+
+    .instruction-image-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .action-buttons {
+        gap: var(--space-2);
+    }
+}

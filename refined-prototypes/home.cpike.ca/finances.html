@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finances - Personal Dashboard</title>
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/finances.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-text">cpike.dev</div>
+            </div>
+
+            <nav class="nav">
+                <div class="nav-group">
+                    <div class="nav-label">Public</div>
+                    <div class="nav-items">
+                        <a class="nav-item">Blog</a>
+                        <a class="nav-item">Projects</a>
+                        <a class="nav-item">About</a>
+                    </div>
+                </div>
+
+                <div class="nav-group">
+                    <div class="nav-label">Tools</div>
+                    <div class="nav-items">
+                        <a class="nav-item">Dashboard</a>
+                        <a class="nav-item">Content</a>
+                        <a class="nav-item active">Finances</a>
+                        <a class="nav-item">Recipes</a>
+                    </div>
+                </div>
+
+                <div class="nav-group">
+                    <div class="nav-label">System</div>
+                    <div class="nav-items">
+                        <a class="nav-item">Settings</a>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                home.cpike.ca v0.0.1-beta
+            </div>
+        </div>
+
+        <!-- Main -->
+        <div class="main">
+            <!-- Header -->
+            <div class="header">
+                <div class="search-container">
+                    <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <input type="text" class="search-input" placeholder="Search...">
+                </div>
+                <div class="user-area">
+                    <span class="user-name">Chris Pike</span>
+                    <div class="user-avatar">CP</div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="content">
+                <div class="page-header-with-controls">
+                    <div class="page-header">
+                        <h1 class="page-title">Finances</h1>
+                        <p class="page-subtitle" id="pageSubtitle"></p>
+                    </div>
+                    <div class="date-range-selector">
+                        <button class="date-range-btn active" data-range="month">This Month</button>
+                        <button class="date-range-btn" data-range="last-month">Last Month</button>
+                        <button class="date-range-btn" data-range="year">This Year</button>
+                        <button class="date-range-btn" data-range="custom">Custom</button>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="stats-grid">
+                    <div class="stat-cell">
+                        <div class="stat-value" id="totalBalance">$8,547.32</div>
+                        <div class="stat-label">Total Balance</div>
+                    </div>
+                    <div class="stat-cell stat-income">
+                        <div class="stat-value" id="incomeMonth">$4,200</div>
+                        <div class="stat-label">Income This Month</div>
+                    </div>
+                    <div class="stat-cell stat-expense">
+                        <div class="stat-value" id="expensesMonth">$1,845</div>
+                        <div class="stat-label">Expenses This Month</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-value" id="savingsRate">56%</div>
+                        <div class="stat-label">Savings Rate</div>
+                    </div>
+                </div>
+
+                <!-- Main Grid -->
+                <div class="main-grid">
+                    <!-- Left Column -->
+                    <div>
+                        <!-- Spending Overview Chart -->
+                        <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title">Spending Overview</h2>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="spendingChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Recent Transactions -->
+                        <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title">Recent Transactions</h2>
+                                <a href="#" class="section-action">View all</a>
+                            </div>
+
+                            <div class="transaction-filters">
+                                <input type="text" class="transaction-search" placeholder="Search transactions...">
+                            </div>
+
+                            <div class="transaction-list">
+                                <div class="transaction-header">
+                                    <div class="trans-date">Date</div>
+                                    <div class="trans-description">Description</div>
+                                    <div class="trans-category">Category</div>
+                                    <div class="trans-amount">Amount</div>
+                                </div>
+
+                                <div class="transaction-row">
+                                    <div class="trans-date">Jan 18</div>
+                                    <div class="trans-description">Monthly Salary</div>
+                                    <div class="trans-category"><span class="category-badge category-income">Income</span></div>
+                                    <div class="trans-amount income">+$4,200</div>
+                                </div>
+
+                                <div class="transaction-row">
+                                    <div class="trans-date">Jan 17</div>
+                                    <div class="trans-description">Whole Foods Market</div>
+                                    <div class="trans-category"><span class="category-badge category-food">Food</span></div>
+                                    <div class="trans-amount">-$47.82</div>
+                                </div>
+
+                                <div class="transaction-row">
+                                    <div class="trans-date">Jan 16</div>
+                                    <div class="trans-description">Lyft Ride</div>
+                                    <div class="trans-category"><span class="category-badge category-transport">Transport</span></div>
+                                    <div class="trans-amount">-$18.50</div>
+                                </div>
+
+                                <div class="transaction-row">
+                                    <div class="trans-date">Jan 15</div>
+                                    <div class="trans-description">Apartment Rent</div>
+                                    <div class="trans-category"><span class="category-badge category-housing">Housing</span></div>
+                                    <div class="trans-amount">-$1,200</div>
+                                </div>
+
+                                <div class="transaction-row">
+                                    <div class="trans-date">Jan 14</div>
+                                    <div class="trans-description">Netflix Subscription</div>
+                                    <div class="trans-category"><span class="category-badge category-entertainment">Entertainment</span></div>
+                                    <div class="trans-amount">-$15.99</div>
+                                </div>
+
+                                <div class="transaction-row">
+                                    <div class="trans-date">Jan 13</div>
+                                    <div class="trans-description">Electric Bill</div>
+                                    <div class="trans-category"><span class="category-badge category-utilities">Utilities</span></div>
+                                    <div class="trans-amount">-$82.45</div>
+                                </div>
+
+                                <div class="transaction-row">
+                                    <div class="trans-date">Jan 12</div>
+                                    <div class="trans-description">Safeway Grocery</div>
+                                    <div class="trans-category"><span class="category-badge category-food">Food</span></div>
+                                    <div class="trans-amount">-$54.23</div>
+                                </div>
+
+                                <div class="transaction-row">
+                                    <div class="trans-date">Jan 11</div>
+                                    <div class="trans-description">Coffee Shop</div>
+                                    <div class="trans-category"><span class="category-badge category-food">Food</span></div>
+                                    <div class="trans-amount">-$6.75</div>
+                                </div>
+                            </div>
+
+                            <div class="load-more">
+                                <button class="load-more-btn">Load More Transactions</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div>
+                        <!-- Budget Categories Chart -->
+                        <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title">Budget Breakdown</h2>
+                            </div>
+                            <div class="chart-container chart-doughnut">
+                                <canvas id="budgetChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Budget Progress -->
+                        <div class="section">
+                            <div class="section-header">
+                                <h2 class="section-title">Category Progress</h2>
+                            </div>
+
+                            <div class="budget-list">
+                                <div class="budget-item">
+                                    <div class="budget-header">
+                                        <span class="budget-category">Housing</span>
+                                        <span class="budget-amount">$1,200 / $1,200</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 100%;"></div>
+                                    </div>
+                                    <div class="progress-percent">100%</div>
+                                </div>
+
+                                <div class="budget-item">
+                                    <div class="budget-header">
+                                        <span class="budget-category">Food</span>
+                                        <span class="budget-amount">$108.80 / $400</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 27.2%;"></div>
+                                    </div>
+                                    <div class="progress-percent">27%</div>
+                                </div>
+
+                                <div class="budget-item">
+                                    <div class="budget-header">
+                                        <span class="budget-category">Transport</span>
+                                        <span class="budget-amount">$18.50 / $200</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 9.25%;"></div>
+                                    </div>
+                                    <div class="progress-percent">9%</div>
+                                </div>
+
+                                <div class="budget-item">
+                                    <div class="budget-header">
+                                        <span class="budget-category">Entertainment</span>
+                                        <span class="budget-amount">$15.99 / $150</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 10.66%;"></div>
+                                    </div>
+                                    <div class="progress-percent">11%</div>
+                                </div>
+
+                                <div class="budget-item">
+                                    <div class="budget-header">
+                                        <span class="budget-category">Utilities</span>
+                                        <span class="budget-amount">$82.45 / $150</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 54.96%;"></div>
+                                    </div>
+                                    <div class="progress-percent">55%</div>
+                                </div>
+
+                                <div class="budget-item">
+                                    <div class="budget-header">
+                                        <span class="budget-category">Other</span>
+                                        <span class="budget-amount">$419.26 / $400</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill over-budget" style="width: 104.81%;"></div>
+                                    </div>
+                                    <div class="progress-percent over-budget-percent">105%</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="quick-actions">
+                            <div class="quick-actions-label">Quick Actions</div>
+                            <div class="quick-actions-grid">
+                                <button class="quick-action-btn">+ Add Income</button>
+                                <button class="quick-action-btn">+ Add Expense</button>
+                                <button class="quick-action-btn">Set Budget</button>
+                                <button class="quick-action-btn">Export Report</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/site.js" type="text/javascript"></script>
+    <script>
+        // Chart.js color palette
+        const chartColors = {
+            accent: '#7c3aed',
+            secondary: '#22d3ee',
+            warning: '#fbbf24',
+            success: '#22c55e',
+            // Extended palette for doughnut chart
+            purple: '#a78bfa',
+            teal: '#06b6d4',
+            amber: '#f59e0b',
+            cyan: '#06d6ff',
+            indigo: '#4f46e5',
+            rose: '#f43f5e'
+        };
+
+        const gridColor = '#2a2a35';
+        const textColor = '#a0a0aa';
+
+        // Spending Overview Chart (Line/Area Chart)
+        const spendingCtx = document.getElementById('spendingChart');
+        if (spendingCtx) {
+            new Chart(spendingCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan'],
+                    datasets: [{
+                        label: 'Monthly Spending',
+                        data: [1620, 1880, 1750, 1920, 2100, 1845],
+                        borderColor: chartColors.accent,
+                        backgroundColor: 'rgba(124, 58, 237, 0.08)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: chartColors.accent,
+                        pointBorderColor: 'rgba(124, 58, 237, 0.5)',
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: textColor,
+                                font: {
+                                    family: '"Google Sans Flex", -apple-system, sans-serif',
+                                    size: 12
+                                },
+                                boxWidth: 12,
+                                padding: 16
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                drawBorder: false,
+                                color: gridColor
+                            },
+                            ticks: {
+                                color: textColor,
+                                font: {
+                                    family: '"Google Sans Flex", -apple-system, sans-serif',
+                                    size: 11
+                                }
+                            }
+                        },
+                        y: {
+                            grid: {
+                                drawBorder: false,
+                                color: gridColor
+                            },
+                            ticks: {
+                                color: textColor,
+                                font: {
+                                    family: '"Google Sans Flex", -apple-system, sans-serif',
+                                    size: 11
+                                },
+                                callback: function(value) {
+                                    return '$' + value;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Budget Breakdown Chart (Doughnut)
+        const budgetCtx = document.getElementById('budgetChart');
+        if (budgetCtx) {
+            new Chart(budgetCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Housing', 'Food', 'Transport', 'Entertainment', 'Utilities', 'Other'],
+                    datasets: [{
+                        data: [1200, 108.80, 18.50, 15.99, 82.45, 419.26],
+                        backgroundColor: [
+                            chartColors.accent,
+                            chartColors.purple,
+                            chartColors.teal,
+                            chartColors.amber,
+                            chartColors.indigo,
+                            chartColors.rose
+                        ],
+                        borderColor: '#242430',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: textColor,
+                                font: {
+                                    family: '"Google Sans Flex", -apple-system, sans-serif',
+                                    size: 11
+                                },
+                                boxWidth: 12,
+                                padding: 12
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Date range selector
+        document.querySelectorAll('.date-range-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.date-range-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Update page subtitle with current month/year
+        function updatePageSubtitle() {
+            const now = new Date();
+            const monthYear = now.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+            document.getElementById('pageSubtitle').textContent = `Financial overview for ${monthYear}`;
+        }
+
+        updatePageSubtitle();
+
+        // Transaction search
+        const transactionSearch = document.querySelector('.transaction-search');
+        if (transactionSearch) {
+            transactionSearch.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                document.querySelectorAll('.transaction-row').forEach(row => {
+                    const description = row.querySelector('.trans-description').textContent.toLowerCase();
+                    const category = row.querySelector('.trans-category').textContent.toLowerCase();
+                    if (description.includes(searchTerm) || category.includes(searchTerm)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Load more button
+        const loadMoreBtn = document.querySelector('.load-more-btn');
+        if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', function() {
+                alert('Load more transactions functionality');
+            });
+        }
+
+        // Quick action buttons
+        document.querySelectorAll('.quick-action-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const action = this.textContent.trim();
+                alert('Action: ' + action);
+            });
+        });
+    </script>
+</body>
+</html>
