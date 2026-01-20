@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Components - Design System</title>
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-text">cpike.dev</div>
+            </div>
+
+            <nav class="nav">
+                <div class="nav-group">
+                    <div class="nav-label">Public</div>
+                    <div class="nav-items">
+                        <a class="nav-item">Blog</a>
+                        <a class="nav-item">Projects</a>
+                        <a class="nav-item">About</a>
+                    </div>
+                </div>
+
+                <div class="nav-group">
+                    <div class="nav-label">Tools</div>
+                    <div class="nav-items">
+                        <a class="nav-item">Dashboard</a>
+                        <a class="nav-item">Content</a>
+                        <a class="nav-item">Finances</a>
+                        <a class="nav-item">Recipes</a>
+                    </div>
+                </div>
+
+                <div class="nav-group">
+                    <div class="nav-label">System</div>
+                    <div class="nav-items">
+                        <a class="nav-item">Settings</a>
+                        <a class="nav-item active">Components</a>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                home.cpike.ca v0.0.1-beta
+            </div>
+        </div>
+
+        <!-- Main -->
+        <div class="main">
+            <!-- Header -->
+            <div class="header">
+                <div class="search-container">
+                    <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <input type="text" class="search-input" placeholder="Search...">
+                </div>
+                <div class="user-area">
+                    <span class="user-name">Chris Pike</span>
+                    <div class="user-avatar">CP</div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="content">
+                <div class="page-header">
+                    <h1 class="page-title">Design System Components</h1>
+                    <p class="page-subtitle">Reference guide for all UI elements and design tokens.</p>
+                </div>
+
+                <!-- Color Palette Section -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Color Palette</h2>
+                    </div>
+
+                    <div class="color-grid">
+                        <div class="color-swatch">
+                            <div class="color-box" style="background: var(--bg);"></div>
+                            <div class="color-info">
+                                <div class="color-name">--bg</div>
+                                <div class="color-value">#0f0f14</div>
+                            </div>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-box" style="background: var(--bg-subtle);"></div>
+                            <div class="color-info">
+                                <div class="color-name">--bg-subtle</div>
+                                <div class="color-value">#1a1a22</div>
+                            </div>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-box" style="background: var(--bg-elevated);"></div>
+                            <div class="color-info">
+                                <div class="color-name">--bg-elevated</div>
+                                <div class="color-value">#242430</div>
+                            </div>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-box" style="background: var(--ink);"></div>
+                            <div class="color-info">
+                                <div class="color-name">--ink</div>
+                                <div class="color-value">#e8e8ec</div>
+                            </div>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-box" style="background: var(--ink-secondary);"></div>
+                            <div class="color-info">
+                                <div class="color-name">--ink-secondary</div>
+                                <div class="color-value">#a0a0aa</div>
+                            </div>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-box" style="background: var(--ink-muted);"></div>
+                            <div class="color-info">
+                                <div class="color-name">--ink-muted</div>
+                                <div class="color-value">#6b6b78</div>
+                            </div>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-box" style="background: var(--ink-faint);"></div>
+                            <div class="color-info">
+                                <div class="color-name">--ink-faint</div>
+                                <div class="color-value">#2a2a35</div>
+                            </div>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-box" style="background: var(--accent);"></div>
+                            <div class="color-info">
+                                <div class="color-name">--accent</div>
+                                <div class="color-value">#7c3aed</div>
+                            </div>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-box" style="background: var(--accent-light);"></div>
+                            <div class="color-info">
+                                <div class="color-name">--accent-light</div>
+                                <div class="color-value">#a78bfa</div>
+                            </div>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-box" style="background: var(--accent-dim);"></div>
+                            <div class="color-info">
+                                <div class="color-name">--accent-dim</div>
+                                <div class="color-value">#6d28d9</div>
+                            </div>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-box" style="background: var(--accent-bg);"></div>
+                            <div class="color-info">
+                                <div class="color-name">--accent-bg</div>
+                                <div class="color-value">rgba(124, 58, 237, 0.15)</div>
+                            </div>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-box" style="background: var(--secondary);"></div>
+                            <div class="color-info">
+                                <div class="color-name">--secondary</div>
+                                <div class="color-value">#22d3ee</div>
+                            </div>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-box" style="background: var(--secondary-bg);"></div>
+                            <div class="color-info">
+                                <div class="color-name">--secondary-bg</div>
+                                <div class="color-value">rgba(34, 211, 238, 0.12)</div>
+                            </div>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-box" style="background: var(--warning);"></div>
+                            <div class="color-info">
+                                <div class="color-name">--warning</div>
+                                <div class="color-value">#fbbf24</div>
+                            </div>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="color-box" style="background: var(--warning-bg);"></div>
+                            <div class="color-info">
+                                <div class="color-name">--warning-bg</div>
+                                <div class="color-value">rgba(251, 191, 36, 0.12)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Typography Scale Section -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Typography Scale</h2>
+                    </div>
+
+                    <div class="typography-showcase">
+                        <div class="typography-item">
+                            <div class="typography-label">--text-xs (10px)</div>
+                            <div class="typography-example text-xs">The quick brown fox jumps over the lazy dog</div>
+                        </div>
+                        <div class="typography-item">
+                            <div class="typography-label">--text-sm (11px)</div>
+                            <div class="typography-example text-sm">The quick brown fox jumps over the lazy dog</div>
+                        </div>
+                        <div class="typography-item">
+                            <div class="typography-label">--text-base-sm (12px)</div>
+                            <div class="typography-example" style="font-size: var(--text-base-sm);">The quick brown fox jumps over the lazy dog</div>
+                        </div>
+                        <div class="typography-item">
+                            <div class="typography-label">--text-base (13px)</div>
+                            <div class="typography-example text-base">The quick brown fox jumps over the lazy dog</div>
+                        </div>
+                        <div class="typography-item">
+                            <div class="typography-label">--text-md (14px)</div>
+                            <div class="typography-example text-md">The quick brown fox jumps over the lazy dog</div>
+                        </div>
+                        <div class="typography-item">
+                            <div class="typography-label">--text-lg (16px)</div>
+                            <div class="typography-example text-lg">The quick brown fox jumps over the lazy dog</div>
+                        </div>
+                        <div class="typography-item">
+                            <div class="typography-label">--text-xl (24px)</div>
+                            <div class="typography-example text-xl">The quick brown fox jumps over the lazy dog</div>
+                        </div>
+                        <div class="typography-item">
+                            <div class="typography-label">--text-2xl (32px)</div>
+                            <div class="typography-example text-2xl">The quick brown fox jumps over the lazy dog</div>
+                        </div>
+                        <div class="typography-item">
+                            <div class="typography-label">--text-3xl (40px)</div>
+                            <div class="typography-example text-3xl">The quick brown fox jumps over the lazy dog</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons Section -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Buttons</h2>
+                    </div>
+
+                    <div class="button-showcase">
+                        <div class="button-group">
+                            <div class="button-group-label">Primary Button</div>
+                            <div class="button-row">
+                                <button class="btn-primary">Default</button>
+                                <button class="btn-primary" disabled>Disabled</button>
+                            </div>
+                        </div>
+                        <div class="button-group">
+                            <div class="button-group-label">Secondary Button</div>
+                            <div class="button-row">
+                                <button class="btn-secondary">Default</button>
+                                <button class="btn-secondary" disabled>Disabled</button>
+                            </div>
+                        </div>
+                        <div class="button-group">
+                            <div class="button-group-label">Ghost Button</div>
+                            <div class="button-row">
+                                <button class="btn-ghost">Default</button>
+                                <button class="btn-ghost" disabled>Disabled</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Badges/Status Section -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Badges & Status</h2>
+                    </div>
+
+                    <div class="badges-showcase">
+                        <div class="badges-group">
+                            <div class="badges-label">Status Badges</div>
+                            <div class="badges-row">
+                                <span class="status status-progress">Writing</span>
+                                <span class="status status-review">Editing</span>
+                                <span class="status status-todo">Outline</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Elements Section -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Form Elements</h2>
+                    </div>
+
+                    <div class="form-showcase">
+                        <div class="form-group">
+                            <label class="form-label">Text Input</label>
+                            <input type="text" class="form-input" placeholder="Enter text...">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Text Input (Disabled)</label>
+                            <input type="text" class="form-input" placeholder="Disabled input" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Textarea</label>
+                            <textarea class="form-textarea" placeholder="Enter multiple lines..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Select</label>
+                            <select class="form-select">
+                                <option>Choose an option</option>
+                                <option>Option 1</option>
+                                <option>Option 2</option>
+                                <option>Option 3</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-checkbox">
+                                <input type="checkbox">
+                                <span>Checkbox option</span>
+                            </label>
+                            <label class="form-checkbox">
+                                <input type="checkbox" checked>
+                                <span>Checkbox checked</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-radio">
+                                <input type="radio" name="radio-group">
+                                <span>Radio option 1</span>
+                            </label>
+                            <label class="form-radio">
+                                <input type="radio" name="radio-group" checked>
+                                <span>Radio option 2</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cards Section -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Cards</h2>
+                    </div>
+
+                    <div class="cards-showcase">
+                        <div class="card-basic">
+                            <div class="card-title">Basic Card</div>
+                            <div class="card-description">This is a basic card with minimal styling and a border.</div>
+                        </div>
+                        <div class="card-elevated">
+                            <div class="card-title">Elevated Card</div>
+                            <div class="card-description">This card has a subtle elevated appearance with a different background.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stat Cells Section -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Stat Cells</h2>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-cell">
+                            <div class="stat-value">156</div>
+                            <div class="stat-label">Total Items</div>
+                        </div>
+                        <div class="stat-cell">
+                            <div class="stat-value">$8,247</div>
+                            <div class="stat-label">Revenue</div>
+                        </div>
+                        <div class="stat-cell">
+                            <div class="stat-value">94%</div>
+                            <div class="stat-label">Completion</div>
+                        </div>
+                        <div class="stat-cell">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">This Week</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task Rows Section -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Task Rows</h2>
+                    </div>
+
+                    <div class="task-list">
+                        <div class="task-row">
+                            <div class="task-main">
+                                <div class="task-name">Complete project documentation</div>
+                                <div class="task-details">
+                                    <span class="task-project">Writing</span>
+                                    <div class="task-tags">
+                                        <span class="tag">Important</span>
+                                        <span class="tag">Urgent</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="task-meta">
+                                <span class="status status-progress">In Progress</span>
+                                <span class="due-date">Jan 22</span>
+                            </div>
+                        </div>
+
+                        <div class="task-row">
+                            <div class="task-main">
+                                <div class="task-name">Review code changes</div>
+                                <div class="task-details">
+                                    <span class="task-project">Development</span>
+                                    <div class="task-tags">
+                                        <span class="tag">Review</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="task-meta">
+                                <span class="status status-review">Under Review</span>
+                                <span class="due-date">Jan 20</span>
+                            </div>
+                        </div>
+
+                        <div class="task-row">
+                            <div class="task-main">
+                                <div class="task-name">Plan next sprint</div>
+                                <div class="task-details">
+                                    <span class="task-project">Planning</span>
+                                    <div class="task-tags">
+                                        <span class="tag">Planning</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="task-meta">
+                                <span class="status status-todo">To Do</span>
+                                <span class="due-date">Feb 1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avatars Section -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Avatars</h2>
+                    </div>
+
+                    <div class="avatars-showcase">
+                        <div class="avatars-group">
+                            <div class="avatars-label">Small Avatar</div>
+                            <div class="user-avatar-small">CP</div>
+                        </div>
+                        <div class="avatars-group">
+                            <div class="avatars-label">Default Avatar</div>
+                            <div class="user-avatar">CP</div>
+                        </div>
+                        <div class="avatars-group">
+                            <div class="avatars-label">Large Avatar</div>
+                            <div class="user-avatar-large">CP</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spacing Scale Section -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Spacing Scale</h2>
+                    </div>
+
+                    <div class="spacing-showcase">
+                        <div class="spacing-item">
+                            <div class="spacing-label">--space-1</div>
+                            <div class="spacing-box" style="width: var(--space-1); background: var(--accent);"></div>
+                            <div class="spacing-value">4px</div>
+                        </div>
+                        <div class="spacing-item">
+                            <div class="spacing-label">--space-2</div>
+                            <div class="spacing-box" style="width: var(--space-2); background: var(--accent);"></div>
+                            <div class="spacing-value">8px</div>
+                        </div>
+                        <div class="spacing-item">
+                            <div class="spacing-label">--space-3</div>
+                            <div class="spacing-box" style="width: var(--space-3); background: var(--accent);"></div>
+                            <div class="spacing-value">12px</div>
+                        </div>
+                        <div class="spacing-item">
+                            <div class="spacing-label">--space-4</div>
+                            <div class="spacing-box" style="width: var(--space-4); background: var(--accent);"></div>
+                            <div class="spacing-value">16px</div>
+                        </div>
+                        <div class="spacing-item">
+                            <div class="spacing-label">--space-5</div>
+                            <div class="spacing-box" style="width: var(--space-5); background: var(--accent);"></div>
+                            <div class="spacing-value">20px</div>
+                        </div>
+                        <div class="spacing-item">
+                            <div class="spacing-label">--space-6</div>
+                            <div class="spacing-box" style="width: var(--space-6); background: var(--accent);"></div>
+                            <div class="spacing-value">24px</div>
+                        </div>
+                        <div class="spacing-item">
+                            <div class="spacing-label">--space-8</div>
+                            <div class="spacing-box" style="width: var(--space-8); background: var(--accent);"></div>
+                            <div class="spacing-value">32px</div>
+                        </div>
+                        <div class="spacing-item">
+                            <div class="spacing-label">--space-12</div>
+                            <div class="spacing-box" style="width: var(--space-12); background: var(--accent);"></div>
+                            <div class="spacing-value">48px</div>
+                        </div>
+                        <div class="spacing-item">
+                            <div class="spacing-label">--space-16</div>
+                            <div class="spacing-box" style="width: var(--space-16); background: var(--accent);"></div>
+                            <div class="spacing-value">64px</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/site.js" type="text/javascript"></script>
+</body>
+</html>

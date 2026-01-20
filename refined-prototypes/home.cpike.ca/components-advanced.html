@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Components</title>
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/components-advanced.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-text">cpike.dev</div>
+            </div>
+
+            <nav class="nav">
+                <div class="nav-group">
+                    <div class="nav-label">Public</div>
+                    <div class="nav-items">
+                        <a class="nav-item">Blog</a>
+                        <a class="nav-item">Projects</a>
+                        <a class="nav-item">About</a>
+                    </div>
+                </div>
+
+                <div class="nav-group">
+                    <div class="nav-label">Tools</div>
+                    <div class="nav-items">
+                        <a class="nav-item">Dashboard</a>
+                        <a class="nav-item">Content</a>
+                        <a class="nav-item">Finances</a>
+                        <a class="nav-item">Recipes</a>
+                    </div>
+                </div>
+
+                <div class="nav-group">
+                    <div class="nav-label">Components</div>
+                    <div class="nav-items">
+                        <a class="nav-item active">Advanced</a>
+                    </div>
+                </div>
+
+                <div class="nav-group">
+                    <div class="nav-label">System</div>
+                    <div class="nav-items">
+                        <a class="nav-item">Settings</a>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                home.cpike.ca v0.0.1-beta
+            </div>
+        </div>
+
+        <!-- Main -->
+        <div class="main">
+            <!-- Header -->
+            <div class="header">
+                <div class="search-container">
+                    <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <input type="text" class="search-input" placeholder="Search...">
+                </div>
+                <div class="user-area">
+                    <span class="user-name">Chris Pike</span>
+                    <div class="user-avatar">CP</div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="content">
+                <div class="page-header">
+                    <h1 class="page-title">Advanced Components</h1>
+                    <p class="page-subtitle">Interactive UI patterns and animations showcase.</p>
+                </div>
+
+                <!-- Loading Spinners -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Loading Spinners</h2>
+                    </div>
+                    <div class="component-grid">
+                        <div class="component-card">
+                            <h3 class="component-name">Ring Spinner</h3>
+                            <div class="component-demo">
+                                <div class="spinner-ring"></div>
+                            </div>
+                        </div>
+                        <div class="component-card">
+                            <h3 class="component-name">Dot Spinner</h3>
+                            <div class="component-demo">
+                                <div class="spinner-dots">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="component-card">
+                            <h3 class="component-name">Pulse Spinner</h3>
+                            <div class="component-demo">
+                                <div class="spinner-pulse"></div>
+                            </div>
+                        </div>
+                        <div class="component-card">
+                            <h3 class="component-name">Bar Spinner</h3>
+                            <div class="component-demo">
+                                <div class="spinner-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skeleton Loaders -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Skeleton Loaders</h2>
+                    </div>
+                    <div class="component-grid">
+                        <div class="component-card">
+                            <h3 class="component-name">Card Skeleton</h3>
+                            <div class="component-demo">
+                                <div class="skeleton-card">
+                                    <div class="skeleton-line skeleton-line-sm"></div>
+                                    <div class="skeleton-line skeleton-line-md"></div>
+                                    <div class="skeleton-line skeleton-line-lg"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="component-card">
+                            <h3 class="component-name">Avatar Skeleton</h3>
+                            <div class="component-demo">
+                                <div class="skeleton-avatar"></div>
+                            </div>
+                        </div>
+                        <div class="component-card">
+                            <h3 class="component-name">Text Skeleton</h3>
+                            <div class="component-demo">
+                                <div class="skeleton-text">
+                                    <div class="skeleton-line skeleton-line-full"></div>
+                                    <div class="skeleton-line skeleton-line-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Bars -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Progress Bars</h2>
+                    </div>
+                    <div class="component-grid">
+                        <div class="component-card">
+                            <h3 class="component-name">Determinate (75%)</h3>
+                            <div class="component-demo">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 75%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="component-card">
+                            <h3 class="component-name">Indeterminate</h3>
+                            <div class="component-demo">
+                                <div class="progress-bar">
+                                    <div class="progress-fill progress-indeterminate"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="component-card">
+                            <h3 class="component-name">With Label</h3>
+                            <div class="component-demo">
+                                <div class="progress-labeled">
+                                    <div class="progress-label-row">
+                                        <span class="progress-label">Uploading</span>
+                                        <span class="progress-value">60%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 60%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Toast Notifications -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Toast Notifications</h2>
+                    </div>
+                    <div class="toast-buttons">
+                        <button class="btn-primary" onclick="showToast('success')">Success</button>
+                        <button class="btn-primary" onclick="showToast('warning')">Warning</button>
+                        <button class="btn-primary" onclick="showToast('error')">Error</button>
+                        <button class="btn-primary" onclick="showToast('info')">Info</button>
+                    </div>
+                </div>
+
+                <!-- Modal/Dialog -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Modal Dialog</h2>
+                    </div>
+                    <button class="btn-primary" onclick="toggleModal()">Open Modal</button>
+                </div>
+
+                <!-- Tooltips -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Tooltips</h2>
+                    </div>
+                    <div class="component-grid">
+                        <div class="component-card">
+                            <h3 class="component-name">Top</h3>
+                            <div class="component-demo flex-center">
+                                <div class="tooltip-container">
+                                    <button class="tooltip-trigger">Hover me</button>
+                                    <div class="tooltip tooltip-top">Top tooltip</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="component-card">
+                            <h3 class="component-name">Bottom</h3>
+                            <div class="component-demo flex-center">
+                                <div class="tooltip-container">
+                                    <button class="tooltip-trigger">Hover me</button>
+                                    <div class="tooltip tooltip-bottom">Bottom tooltip</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="component-card">
+                            <h3 class="component-name">Left</h3>
+                            <div class="component-demo flex-center">
+                                <div class="tooltip-container">
+                                    <button class="tooltip-trigger">Hover me</button>
+                                    <div class="tooltip tooltip-left">Left</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="component-card">
+                            <h3 class="component-name">Right</h3>
+                            <div class="component-demo flex-center">
+                                <div class="tooltip-container">
+                                    <button class="tooltip-trigger">Hover me</button>
+                                    <div class="tooltip tooltip-right">Right</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dropdowns -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Dropdown Menus</h2>
+                    </div>
+                    <div class="component-grid">
+                        <div class="component-card">
+                            <h3 class="component-name">Basic Dropdown</h3>
+                            <div class="component-demo">
+                                <div class="dropdown">
+                                    <button class="dropdown-toggle" onclick="toggleDropdown(this)">
+                                        Menu
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="6 9 12 15 18 9"></polyline>
+                                        </svg>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item">Profile</a>
+                                        <a class="dropdown-item">Settings</a>
+                                        <a class="dropdown-item">Help</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item dropdown-item-danger">Sign out</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accordion -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Accordion / Collapsible</h2>
+                    </div>
+                    <div class="accordion">
+                        <div class="accordion-item" onclick="toggleAccordion(this)">
+                            <div class="accordion-header">
+                                <span class="accordion-title">What is this component?</span>
+                                <svg class="accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </div>
+                            <div class="accordion-content">
+                                <p>This is an accordion component that allows you to expand and collapse sections. Click the header to toggle the content visibility.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item" onclick="toggleAccordion(this)">
+                            <div class="accordion-header">
+                                <span class="accordion-title">How does the animation work?</span>
+                                <svg class="accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </div>
+                            <div class="accordion-content">
+                                <p>The animation uses CSS transitions with max-height and opacity changes. The active class controls the expansion and rotation of the icon.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item" onclick="toggleAccordion(this)">
+                            <div class="accordion-header">
+                                <span class="accordion-title">Can multiple sections be open?</span>
+                                <svg class="accordion-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </div>
+                            <div class="accordion-content">
+                                <p>Yes, in this implementation multiple sections can be open at the same time. If you prefer only one open at a time, you can modify the JavaScript to close others.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Tab Navigation</h2>
+                    </div>
+                    <div class="tabs">
+                        <div class="tabs-header">
+                            <button class="tab-button active" onclick="switchTab(event, 'tab-1')">Overview</button>
+                            <button class="tab-button" onclick="switchTab(event, 'tab-2')">Analytics</button>
+                            <button class="tab-button" onclick="switchTab(event, 'tab-3')">Settings</button>
+                        </div>
+                        <div class="tabs-content">
+                            <div id="tab-1" class="tab-panel active">
+                                <h3>Overview</h3>
+                                <p>This is the overview tab content. It displays the main information about the component.</p>
+                            </div>
+                            <div id="tab-2" class="tab-panel">
+                                <h3>Analytics</h3>
+                                <p>This tab shows analytics and usage statistics for the component library.</p>
+                            </div>
+                            <div id="tab-3" class="tab-panel">
+                                <h3>Settings</h3>
+                                <p>Configure component behavior and appearance from this tab.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transitions Gallery -->
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Transitions & Effects</h2>
+                    </div>
+                    <div class="component-grid">
+                        <div class="component-card">
+                            <h3 class="component-name">Fade In</h3>
+                            <div class="component-demo">
+                                <div class="effect-fade">Fade in on hover</div>
+                            </div>
+                        </div>
+                        <div class="component-card">
+                            <h3 class="component-name">Scale</h3>
+                            <div class="component-demo">
+                                <div class="effect-scale">Scale on hover</div>
+                            </div>
+                        </div>
+                        <div class="component-card">
+                            <h3 class="component-name">Slide</h3>
+                            <div class="component-demo">
+                                <div class="effect-slide">Slide on hover</div>
+                            </div>
+                        </div>
+                        <div class="component-card">
+                            <h3 class="component-name">Rotate</h3>
+                            <div class="component-demo">
+                                <div class="effect-rotate">Rotate on hover</div>
+                            </div>
+                        </div>
+                        <div class="component-card">
+                            <h3 class="component-name">Glow</h3>
+                            <div class="component-demo">
+                                <div class="effect-glow">Glow on hover</div>
+                            </div>
+                        </div>
+                        <div class="component-card">
+                            <h3 class="component-name">Gradient</h3>
+                            <div class="component-demo">
+                                <div class="effect-gradient">Gradient animation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Modal Backdrop -->
+    <div id="modal-backdrop" class="modal-backdrop" onclick="closeModal()"></div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Modal Dialog</h2>
+                <button class="modal-close" onclick="closeModal()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>This is a modal dialog component. It overlays the main content with a semi-transparent backdrop and can be closed by clicking the close button, the backdrop, or the Escape key.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/components-advanced.js"></script>
+</body>
+</html>
