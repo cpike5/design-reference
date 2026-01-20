@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum</title>
+    <link rel="stylesheet" href="../css/site.css">
+    <link rel="stylesheet" href="../css/forum.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <a href="index.html" class="logo-text">cpike.dev</a>
+            </div>
+
+            <nav class="nav">
+                <div class="nav-group">
+                    <div class="nav-label">Public</div>
+                    <div class="nav-items">
+                        <a href="#" class="nav-item">Blog</a>
+                        <a href="#" class="nav-item">Projects</a>
+                        <a href="#" class="nav-item">About</a>
+                    </div>
+                </div>
+
+                <div class="nav-group">
+                    <div class="nav-label">Tools</div>
+                    <div class="nav-items">
+                        <a href="index.html" class="nav-item">Dashboard</a>
+                        <a href="#" class="nav-item">Content</a>
+                        <a href="#" class="nav-item">Finances</a>
+                        <a href="#" class="nav-item">Recipes</a>
+                        <a href="forum.html" class="nav-item active">Forum</a>
+                    </div>
+                </div>
+
+                <div class="nav-group">
+                    <div class="nav-label">System</div>
+                    <div class="nav-items">
+                        <a href="#" class="nav-item">Settings</a>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                home.cpike.ca v0.0.1-beta
+            </div>
+        </div>
+
+        <!-- Main -->
+        <div class="main">
+            <!-- Header -->
+            <div class="header">
+                <div class="search-container">
+                    <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <input type="text" class="search-input" placeholder="Search forum...">
+                </div>
+                <div class="user-area">
+                    <span class="user-name">Chris Pike</span>
+                    <div class="user-avatar">CP</div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="content">
+                <!-- Breadcrumb -->
+                <div class="forum-breadcrumb">
+                    <a href="index.html">Home</a>
+                    <span class="breadcrumb-sep">/</span>
+                    <span class="breadcrumb-current">Forum</span>
+                </div>
+
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h1 class="page-title">Community Forum</h1>
+                    <p class="page-subtitle">Discuss projects, share ideas, and collaborate with the community</p>
+                </div>
+
+                <!-- Forum Stats Bar -->
+                <div class="forum-stats">
+                    <div class="stat-cell">
+                        <div class="stat-value">1,247</div>
+                        <div class="stat-label">Total Posts</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-value">486</div>
+                        <div class="stat-label">Total Topics</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-value">342</div>
+                        <div class="stat-label">Members</div>
+                    </div>
+                    <div class="stat-cell">
+                        <div class="stat-value">Sarah Chen</div>
+                        <div class="stat-label">Newest Member</div>
+                    </div>
+                </div>
+
+                <!-- Forum Categories -->
+                <div class="forum-container">
+                    <!-- Category 1: Announcements -->
+                    <div class="forum-category">
+                        <div class="category-header">
+                            <h2 class="category-title">
+                                <svg class="category-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+                                </svg>
+                                Announcements & News
+                            </h2>
+                            <div class="category-meta">
+                                <span>Topics: 12</span>
+                                <span>Posts: 156</span>
+                            </div>
+                        </div>
+
+                        <div class="forum-table">
+                            <div class="forum-row forum-row-header">
+                                <div class="col-icon"></div>
+                                <div class="col-forum">Forum / Description</div>
+                                <div class="col-topics">Topics</div>
+                                <div class="col-posts">Posts</div>
+                                <div class="col-last">Last Post</div>
+                            </div>
+
+                            <div class="forum-row">
+                                <div class="col-icon">
+                                    <svg class="post-icon new" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <circle cx="12" cy="12" r="10" opacity="0.3"/>
+                                        <circle cx="12" cy="12" r="5"/>
+                                    </svg>
+                                </div>
+                                <div class="col-forum">
+                                    <div class="forum-name">
+                                        <svg class="sticky-badge" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M6 2c-1.1 0-2 .9-2 2v16l4-4h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H6z"/>
+                                        </svg>
+                                        Site Updates &amp; Changelog
+                                    </div>
+                                    <div class="forum-description">Official site updates, features, and known issues</div>
+                                </div>
+                                <div class="col-topics">8</div>
+                                <div class="col-posts">47</div>
+                                <div class="col-last">
+                                    <div class="last-post-title">New Forum Launch</div>
+                                    <div class="last-post-meta">by Admin • Jan 18, 2026</div>
+                                </div>
+                            </div>
+
+                            <div class="forum-row">
+                                <div class="col-icon">
+                                    <svg class="post-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <circle cx="12" cy="12" r="10" opacity="0.2"/>
+                                        <circle cx="12" cy="12" r="5" opacity="0.2"/>
+                                    </svg>
+                                </div>
+                                <div class="col-forum">
+                                    <div class="forum-name">Rules &amp; Guidelines</div>
+                                    <div class="forum-description">Community guidelines and forum rules</div>
+                                </div>
+                                <div class="col-topics">1</div>
+                                <div class="col-posts">2</div>
+                                <div class="col-last">
+                                    <div class="last-post-title">Community Guidelines</div>
+                                    <div class="last-post-meta">by Moderator • Jan 1, 2026</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category 2: General Discussion -->
+                    <div class="forum-category">
+                        <div class="category-header">
+                            <h2 class="category-title">
+                                <svg class="category-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                                </svg>
+                                General Discussion
+                            </h2>
+                            <div class="category-meta">
+                                <span>Topics: 156</span>
+                                <span>Posts: 892</span>
+                            </div>
+                        </div>
+
+                        <div class="forum-table">
+                            <div class="forum-row forum-row-header">
+                                <div class="col-icon"></div>
+                                <div class="col-forum">Forum / Description</div>
+                                <div class="col-topics">Topics</div>
+                                <div class="col-posts">Posts</div>
+                                <div class="col-last">Last Post</div>
+                            </div>
+
+                            <div class="forum-row">
+                                <div class="col-icon">
+                                    <svg class="post-icon new" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <circle cx="12" cy="12" r="10" opacity="0.3"/>
+                                        <circle cx="12" cy="12" r="5"/>
+                                    </svg>
+                                </div>
+                                <div class="col-forum">
+                                    <div class="forum-name">Development Talk</div>
+                                    <div class="forum-description">Discuss coding, frameworks, tools, and development workflows</div>
+                                </div>
+                                <div class="col-topics">89</div>
+                                <div class="col-posts">523</div>
+                                <div class="col-last">
+                                    <div class="last-post-title">Best practices for async/await in Go</div>
+                                    <div class="last-post-meta">by DevExpert • Jan 19, 2026 11:45 AM</div>
+                                </div>
+                            </div>
+
+                            <div class="forum-row">
+                                <div class="col-icon">
+                                    <svg class="post-icon new" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <circle cx="12" cy="12" r="10" opacity="0.3"/>
+                                        <circle cx="12" cy="12" r="5"/>
+                                    </svg>
+                                </div>
+                                <div class="col-forum">
+                                    <div class="forum-name">Project Showcase</div>
+                                    <div class="forum-description">Show off your latest projects and get feedback from the community</div>
+                                </div>
+                                <div class="col-topics">42</div>
+                                <div class="col-posts">215</div>
+                                <div class="col-last">
+                                    <div class="last-post-title">My new portfolio site built with Next.js</div>
+                                    <div class="last-post-meta">by Designer • Jan 18, 2026 3:22 PM</div>
+                                </div>
+                            </div>
+
+                            <div class="forum-row">
+                                <div class="col-icon">
+                                    <svg class="post-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <circle cx="12" cy="12" r="10" opacity="0.2"/>
+                                        <circle cx="12" cy="12" r="5" opacity="0.2"/>
+                                    </svg>
+                                </div>
+                                <div class="col-forum">
+                                    <div class="forum-name">Help &amp; Support</div>
+                                    <div class="forum-description">Ask questions and get help from the community</div>
+                                </div>
+                                <div class="col-topics">25</div>
+                                <div class="col-posts">154</div>
+                                <div class="col-last">
+                                    <div class="last-post-title">How to deploy a Blazor app to Azure?</div>
+                                    <div class="last-post-meta">by Beginner • Jan 17, 2026 5:10 PM</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category 3: Resources & Learning -->
+                    <div class="forum-category">
+                        <div class="category-header">
+                            <h2 class="category-title">
+                                <svg class="category-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M3 13h2v8H3zm4-8h2v16H7zm4-2h2v18h-2zm4 4h2v14h-2zm4-4h2v18h-2z"/>
+                                </svg>
+                                Resources &amp; Learning
+                            </h2>
+                            <div class="category-meta">
+                                <span>Topics: 118</span>
+                                <span>Posts: 199</span>
+                            </div>
+                        </div>
+
+                        <div class="forum-table">
+                            <div class="forum-row forum-row-header">
+                                <div class="col-icon"></div>
+                                <div class="col-forum">Forum / Description</div>
+                                <div class="col-topics">Topics</div>
+                                <div class="col-posts">Posts</div>
+                                <div class="col-last">Last Post</div>
+                            </div>
+
+                            <div class="forum-row">
+                                <div class="col-icon">
+                                    <svg class="post-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <circle cx="12" cy="12" r="10" opacity="0.2"/>
+                                        <circle cx="12" cy="12" r="5" opacity="0.2"/>
+                                    </svg>
+                                </div>
+                                <div class="col-forum">
+                                    <div class="forum-name">Tutorials &amp; Guides</div>
+                                    <div class="forum-description">In-depth tutorials and step-by-step guides</div>
+                                </div>
+                                <div class="col-topics">64</div>
+                                <div class="col-posts">89</div>
+                                <div class="col-last">
+                                    <div class="last-post-title">Building a REST API with .NET 8</div>
+                                    <div class="last-post-meta">by Educator • Jan 10, 2026 9:20 AM</div>
+                                </div>
+                            </div>
+
+                            <div class="forum-row">
+                                <div class="col-icon">
+                                    <svg class="post-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <circle cx="12" cy="12" r="10" opacity="0.2"/>
+                                        <circle cx="12" cy="12" r="5" opacity="0.2"/>
+                                    </svg>
+                                </div>
+                                <div class="col-forum">
+                                    <div class="forum-name">Book &amp; Article Recommendations</div>
+                                    <div class="forum-description">Share and discuss programming books, articles, and learning resources</div>
+                                </div>
+                                <div class="col-topics">54</div>
+                                <div class="col-posts">110</div>
+                                <div class="col-last">
+                                    <div class="last-post-title">Top 5 system design books to read</div>
+                                    <div class="last-post-meta">by Architect • Jan 5, 2026 2:45 PM</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Forum Legend -->
+                <div class="forum-legend">
+                    <h3 class="legend-title">Forum Legend</h3>
+                    <div class="legend-items">
+                        <div class="legend-item">
+                            <svg class="legend-icon new" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <circle cx="12" cy="12" r="10" opacity="0.3"/>
+                                <circle cx="12" cy="12" r="5"/>
+                            </svg>
+                            <span class="legend-label">No new posts</span>
+                        </div>
+                        <div class="legend-item">
+                            <svg class="legend-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <circle cx="12" cy="12" r="10" opacity="0.2"/>
+                                <circle cx="12" cy="12" r="5" opacity="0.2"/>
+                            </svg>
+                            <span class="legend-label">New posts since last visit</span>
+                        </div>
+                        <div class="legend-item">
+                            <svg class="sticky-badge" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M6 2c-1.1 0-2 .9-2 2v16l4-4h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H6z"/>
+                            </svg>
+                            <span class="legend-label">Sticky/Announcement</span>
+                        </div>
+                        <div class="legend-item">
+                            <svg class="locked-badge" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18 8h-1V6c0-2.76-2.24-5-5-5s-5 2.24-5 5v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
+                            </svg>
+                            <span class="legend-label">Locked/Archived</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Who is Online -->
+                <div class="forum-online">
+                    <h3 class="online-title">Who's Online</h3>
+                    <div class="online-list">
+                        <div class="online-item">
+                            <span class="online-dot"></span>
+                            <span class="online-name">Chris Pike</span>
+                            <span class="online-status">browsing the forum</span>
+                        </div>
+                        <div class="online-item">
+                            <span class="online-dot"></span>
+                            <span class="online-name">Sarah Chen</span>
+                            <span class="online-status">in Development Talk</span>
+                        </div>
+                        <div class="online-item">
+                            <span class="online-dot"></span>
+                            <span class="online-name">DevExpert</span>
+                            <span class="online-status">in Help & Support</span>
+                        </div>
+                        <div class="online-item">
+                            <span class="online-dot"></span>
+                            <span class="online-name">Designer</span>
+                            <span class="online-status">browsing the forum</span>
+                        </div>
+                    </div>
+                    <div class="online-count">
+                        <strong>4 users</strong> online in the last 5 minutes
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/site.js" type="text/javascript"></script>
+    <script src="../js/forum.js" type="text/javascript"></script>
+</body>
+</html>

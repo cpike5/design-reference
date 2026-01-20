@@ -25,6 +25,9 @@ finances.html                Finance dashboard (private)
 projects.html                Projects portfolio (public)
 components.html              Basic UI components showcase (private)
 components-advanced.html     Advanced UI components showcase (private)
+forum.html                   Forum board index (private)
+forum-topics.html            Forum topics listing page (private)
+forum-post.html              Forum thread/post view (private)
 css/
   site.css                   Core design system tokens and components
   public-pages.css           Shared styles for public pages
@@ -37,12 +40,18 @@ css/
   projects.css               Projects page specific styles
   components.css             Basic components showcase styles
   components-advanced.css    Advanced components showcase styles
+  forum.css                  Forum page specific styles
+  forum-topics.css           Forum topics listing specific styles
+  forum-post.css             Forum post/thread view specific styles
 js/
   site.js                    Shared scripts
   blog-editor.js             Blog editor interactions
   recipe-editor.js           Recipe editor interactions
   settings.js                Settings page interactions
   components-advanced.js     Advanced components interactions
+  forum.js                   Forum interactions
+  forum-topics.js            Forum topics interactions
+  forum-post.js              Forum post/thread interactions
 DESIGN-SYSTEM.md             Design system documentation
 ```
 
@@ -66,5 +75,8 @@ DESIGN-SYSTEM.md             Design system documentation
 | Projects | Public | Complete |
 | Basic Components | Private | Complete |
 | Advanced Components | Private | Complete |
+| Forum | Private | Complete |
+| Forum Topics | Private | Complete |
+| Forum Post | Private | Complete |
 | About | Public | Not started |
 | Recipe view | Private | Not started |
