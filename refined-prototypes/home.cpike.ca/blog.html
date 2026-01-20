@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - cpike.dev</title>
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/public-pages.css">
+    <link rel="stylesheet" href="css/blog.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <a href="index.html" class="logo-text">cpike.dev</a>
+            </div>
+
+            <nav class="nav">
+                <div class="nav-group">
+                    <div class="nav-label">Public</div>
+                    <div class="nav-items">
+                        <a href="blog.html" class="nav-item active">Blog</a>
+                        <a href="projects.html" class="nav-item">Projects</a>
+                        <a href="about.html" class="nav-item">About</a>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                cpike.dev
+            </div>
+        </div>
+
+        <!-- Main -->
+        <div class="main">
+            <!-- Header -->
+            <div class="header">
+                <div class="header-nav">
+                    <a href="blog.html" class="header-link active">All Posts</a>
+                    <a href="#" class="header-link">Tutorials</a>
+                    <a href="#" class="header-link">Personal</a>
+                    <a href="#" class="header-link">Tools</a>
+                </div>
+                <a href="#" class="rss-link">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 11a9 9 0 0 1 9 9"/>
+                        <path d="M4 4a16 16 0 0 1 16 16"/>
+                        <circle cx="5" cy="19" r="1"/>
+                    </svg>
+                    RSS
+                </a>
+            </div>
+
+            <!-- Content -->
+            <div class="content">
+                <div class="page-header">
+                    <h1 class="page-title">Blog</h1>
+                    <p class="page-subtitle">Writing about software development, tools, and things I find interesting.</p>
+                </div>
+
+                <!-- Featured Post -->
+                <article class="post-featured">
+                    <div class="post-featured-meta">
+                        <span class="post-date">January 18, 2024</span>
+                        <span class="post-reading-time">8 min read</span>
+                    </div>
+                    <h2 class="post-featured-title">
+                        <a href="blog-post.html">Building a CLI with Go and Cobra</a>
+                    </h2>
+                    <p class="post-featured-excerpt">
+                        A comprehensive guide to building command-line tools in Go using the Cobra library.
+                        We'll cover project setup, command structure, flags, configuration, and best practices
+                        for creating maintainable CLI applications.
+                    </p>
+                    <div class="post-tags">
+                        <span class="post-tag">Go</span>
+                        <span class="post-tag">Tutorial</span>
+                        <span class="post-tag">CLI</span>
+                    </div>
+                </article>
+
+                <!-- Post List -->
+                <div class="posts-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Recent Posts</h2>
+                    </div>
+
+                    <div class="posts-list">
+                        <article class="post-item">
+                            <div class="post-item-date">
+                                <span class="date-month">Jan</span>
+                                <span class="date-day">15</span>
+                            </div>
+                            <div class="post-item-content">
+                                <h3 class="post-item-title">
+                                    <a href="blog-post.html">My 2024 Dev Setup and Tools</a>
+                                </h3>
+                                <p class="post-item-excerpt">
+                                    A rundown of my current development environment, from hardware to software.
+                                    What's changed since last year and what's stayed the same.
+                                </p>
+                                <div class="post-tags">
+                                    <span class="post-tag">Personal</span>
+                                    <span class="post-tag">Productivity</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="post-item">
+                            <div class="post-item-date">
+                                <span class="date-month">Jan</span>
+                                <span class="date-day">10</span>
+                            </div>
+                            <div class="post-item-content">
+                                <h3 class="post-item-title">
+                                    <a href="blog-post.html">Deploying Blazor Apps to Azure</a>
+                                </h3>
+                                <p class="post-item-excerpt">
+                                    Step-by-step guide to deploying Blazor WebAssembly and Server applications
+                                    to Azure App Service, with CI/CD using GitHub Actions.
+                                </p>
+                                <div class="post-tags">
+                                    <span class="post-tag">.NET</span>
+                                    <span class="post-tag">Azure</span>
+                                    <span class="post-tag">Tutorial</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="post-item">
+                            <div class="post-item-date">
+                                <span class="date-month">Jan</span>
+                                <span class="date-day">05</span>
+                            </div>
+                            <div class="post-item-content">
+                                <h3 class="post-item-title">
+                                    <a href="blog-post.html">Why I Switched from VS Code to Cursor</a>
+                                </h3>
+                                <p class="post-item-excerpt">
+                                    After years of using VS Code, I made the switch to Cursor. Here's what
+                                    prompted the change and my honest thoughts after a month of use.
+                                </p>
+                                <div class="post-tags">
+                                    <span class="post-tag">Tools</span>
+                                    <span class="post-tag">AI</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="post-item">
+                            <div class="post-item-date">
+                                <span class="date-month">Dec</span>
+                                <span class="date-day">28</span>
+                            </div>
+                            <div class="post-item-content">
+                                <h3 class="post-item-title">
+                                    <a href="blog-post.html">Understanding Dependency Injection in .NET</a>
+                                </h3>
+                                <p class="post-item-excerpt">
+                                    A deep dive into dependency injection patterns in .NET. From basic concepts
+                                    to advanced techniques like keyed services and decorator patterns.
+                                </p>
+                                <div class="post-tags">
+                                    <span class="post-tag">.NET</span>
+                                    <span class="post-tag">Architecture</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="post-item">
+                            <div class="post-item-date">
+                                <span class="date-month">Dec</span>
+                                <span class="date-day">20</span>
+                            </div>
+                            <div class="post-item-content">
+                                <h3 class="post-item-title">
+                                    <a href="blog-post.html">Building a Discord Bot with .NET</a>
+                                </h3>
+                                <p class="post-item-excerpt">
+                                    Creating a Discord bot from scratch using Discord.Net. Covering slash
+                                    commands, events, and hosting the bot reliably.
+                                </p>
+                                <div class="post-tags">
+                                    <span class="post-tag">.NET</span>
+                                    <span class="post-tag">Discord</span>
+                                    <span class="post-tag">Tutorial</span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="post-item">
+                            <div class="post-item-date">
+                                <span class="date-month">Dec</span>
+                                <span class="date-day">12</span>
+                            </div>
+                            <div class="post-item-content">
+                                <h3 class="post-item-title">
+                                    <a href="blog-post.html">Structured Logging with Serilog</a>
+                                </h3>
+                                <p class="post-item-excerpt">
+                                    How to set up Serilog for structured logging in .NET applications.
+                                    Configuring sinks, enrichers, and integrating with Seq for local development.
+                                </p>
+                                <div class="post-tags">
+                                    <span class="post-tag">.NET</span>
+                                    <span class="post-tag">Logging</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <span class="pagination-info">Page 1 of 5</span>
+                    <div class="pagination-controls">
+                        <button class="pagination-btn" disabled>Previous</button>
+                        <button class="pagination-btn">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/site.js" type="text/javascript"></script>
+</body>
+</html>

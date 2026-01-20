@@ -1,0 +1,15 @@
+/**
+ * Public Pages - Shared styles for blog, projects, about
+ * Applies to pages visible to non-authenticated visitors
+ */
+
+/* Hide private nav groups on public pages */
+.sidebar .nav-group:not(:first-child) {
+    display: none;
+}
+
+/* Logo as clickable link */
+.logo-text {
+    text-decoration: none;
+    color: var(--ink);
+}

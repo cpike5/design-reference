@@ -29,14 +29,18 @@ If context is already provided (via conversation, context files, or command argu
 
 ### Phase 2: Review Available Prototypes
 
-Read and analyze each prototype in the `prototypes/` folder:
+Read the prototype documentation to understand what's available:
 
-- Review the design style, layout patterns, and visual language
-- Note the content type each prototype was designed for
-- Identify the mood/vibe of each design (editorial, technical, luxury, minimal, etc.)
-- Document key UI components and interactions available
+1. Check `CLAUDE.md` for any prototype descriptions or guidance
+2. Read `prototypes/README.md` for the catalog of available designs
 
-Create a brief internal summary of each prototype's characteristics.
+From the documentation, identify:
+- Design styles and visual language of each prototype
+- Content types each was designed for
+- Mood/vibe categories (editorial, technical, luxury, minimal, etc.)
+- Key UI components and patterns available
+
+Only read individual prototype files if they appear potentially relevant to the user's project.
 
 ### Phase 3: Assessment & Recommendation
 

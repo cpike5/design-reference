@@ -1,0 +1,234 @@
+/* Blog-specific styles */
+
+/* Header navigation for public pages */
+.header-nav {
+    display: flex;
+    gap: 32px;
+}
+
+.header-link {
+    font-size: 13px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    padding: 4px 0;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.header-link:hover {
+    color: var(--ink);
+}
+
+.header-link.active {
+    color: var(--ink);
+    border-color: var(--accent);
+}
+
+.rss-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.rss-link:hover {
+    color: var(--accent);
+}
+
+/* Featured Post */
+.post-featured {
+    padding: 48px;
+    background: var(--bg-subtle);
+    border: 1px solid var(--ink-faint);
+    margin-bottom: 64px;
+}
+
+.post-featured-meta {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.post-date {
+    font-size: 12px;
+    color: var(--ink-muted);
+}
+
+.post-reading-time {
+    font-size: 12px;
+    color: var(--ink-muted);
+}
+
+.post-reading-time::before {
+    content: '·';
+    margin-right: 16px;
+}
+
+.post-featured-title {
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 16px;
+}
+
+.post-featured-title a {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.post-featured-title a:hover {
+    color: var(--accent);
+}
+
+.post-featured-excerpt {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink-secondary);
+    margin-bottom: 24px;
+    max-width: 640px;
+}
+
+.post-tags {
+    display: flex;
+    gap: 8px;
+}
+
+.post-tag {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    padding: 6px 12px;
+    background: var(--bg-elevated);
+    color: var(--ink-muted);
+    transition: color 0.2s, background 0.2s;
+}
+
+.post-tag:hover {
+    background: var(--accent-bg);
+    color: var(--accent-light);
+}
+
+/* Posts Section */
+.posts-section {
+    margin-bottom: 48px;
+}
+
+/* Posts List */
+.posts-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-item {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 32px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--ink-faint);
+    transition: background 0.15s;
+}
+
+.post-item:hover {
+    background: var(--bg-subtle);
+    margin: 0 -24px;
+    padding: 32px 24px;
+}
+
+.post-item:last-child {
+    border-bottom: none;
+}
+
+.post-item-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 4px;
+}
+
+.date-month {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+}
+
+.date-day {
+    font-size: 24px;
+    font-weight: 300;
+    color: var(--ink);
+    line-height: 1.2;
+}
+
+.post-item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.post-item-title {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+.post-item-title a {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.post-item-title a:hover {
+    color: var(--accent);
+}
+
+.post-item-excerpt {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-secondary);
+    max-width: 600px;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 32px;
+    border-top: 1px solid var(--ink-faint);
+}
+
+.pagination-info {
+    font-size: 13px;
+    color: var(--ink-muted);
+}
+
+.pagination-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.pagination-btn {
+    padding: 10px 20px;
+    background: var(--bg-subtle);
+    border: 1px solid var(--ink-faint);
+    color: var(--ink-secondary);
+    font-family: var(--sans);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.pagination-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
