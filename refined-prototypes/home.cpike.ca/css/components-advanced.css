@@ -995,6 +995,250 @@
 }
 
 /* ============================================================================
+   PAGINATION
+   ============================================================================ */
+
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.pagination-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--ink-faint);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: var(--text-base-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border-radius: var(--radius-md);
+}
+
+.pagination-btn:hover:not(:disabled) {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.pagination-btn:disabled {
+    color: var(--ink-muted);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.pagination-page.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+    font-weight: 500;
+}
+
+.pagination-ellipsis {
+    color: var(--ink-secondary);
+    font-size: var(--text-base-sm);
+    padding: 0 var(--space-1);
+}
+
+.pagination-compact {
+    gap: var(--space-4);
+}
+
+.pagination-info {
+    font-size: var(--text-base-sm);
+    color: var(--ink-secondary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pagination-btn {
+        transition: none;
+    }
+}
+
+/* ============================================================================
+   BREADCRUMBS
+   ============================================================================ */
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+}
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: var(--text-base-sm);
+    transition: color var(--transition-fast);
+}
+
+.breadcrumb-item:hover {
+    color: var(--accent);
+}
+
+.breadcrumb-separator {
+    display: flex;
+    align-items: center;
+    color: var(--ink-muted);
+    font-size: var(--text-base-sm);
+}
+
+.breadcrumb-separator svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-muted);
+}
+
+.breadcrumb-current {
+    color: var(--ink-secondary);
+    font-size: var(--text-base-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .breadcrumb-item {
+        transition: none;
+    }
+}
+
+/* ============================================================================
+   AVATARS
+   ============================================================================ */
+
+.avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+}
+
+.avatar-sm {
+    width: 24px;
+    height: 24px;
+    font-size: var(--text-xs);
+}
+
+.avatar-md {
+    width: 40px;
+    height: 40px;
+    font-size: var(--text-base-sm);
+}
+
+.avatar-lg {
+    width: 56px;
+    height: 56px;
+    font-size: var(--text-base);
+}
+
+/* Avatar Sizes Demo */
+.avatar-sizes-group {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--space-8);
+}
+
+.avatar-size-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.avatar-label {
+    font-size: var(--text-base-sm);
+    color: var(--ink-secondary);
+}
+
+/* Avatar with Status */
+.avatar-status-group {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--space-8);
+}
+
+.avatar-status-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    position: relative;
+}
+
+.avatar-status {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--bg-elevated);
+    bottom: 0;
+    right: 0;
+}
+
+.avatar-online {
+    background: #10b981;
+}
+
+.avatar-away {
+    background: var(--warning);
+}
+
+.avatar-offline {
+    background: var(--ink-muted);
+}
+
+.avatar-status-label {
+    font-size: var(--text-base-sm);
+    color: var(--ink-secondary);
+}
+
+/* Avatar Group */
+.avatar-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-group-item {
+    margin-left: calc(var(--space-3) * -1);
+    border: 2px solid var(--bg-elevated);
+    transition: transform var(--transition-fast), margin-left var(--transition-fast);
+}
+
+.avatar-group-item:first-child {
+    margin-left: 0;
+}
+
+.avatar-group-item:hover {
+    transform: translateY(-4px);
+    z-index: 10;
+}
+
+.avatar-group-item:last-child {
+    background: var(--accent-dim);
+    font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .avatar-group-item {
+        transition: none;
+    }
+}
+
+/* ============================================================================
    RESPONSIVE
    ============================================================================ */
 
@@ -1020,5 +1264,15 @@
 
     .dropdown-menu {
         min-width: 150px;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+        gap: var(--space-1);
+    }
+
+    .avatar-sizes-group,
+    .avatar-status-group {
+        gap: var(--space-4);
     }
 }
